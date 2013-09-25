@@ -1,9 +1,11 @@
 package de.zaunkoenigweg.runningdb.ui;
 
+import com.vaadin.event.MouseEvents;
+import com.vaadin.event.MouseEvents.ClickEvent;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.Image;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
@@ -45,32 +47,32 @@ public class MainUi extends CustomComponent {
         layout.addComponent(panelMenu);
         
         // Menü-Buttons 
-        layoutMenu.addComponent(this.createMenueButton("Home", new Button.ClickListener() {
+        layoutMenu.addComponent(this.createMenueButton("Home", new MouseEvents.ClickListener() {
             
             private static final long serialVersionUID = 145150516505290696L;
 
             @Override
-            public void buttonClick(ClickEvent event) {
+            public void click(ClickEvent event) {
                 MainUi.this.showUi(MainUi.this.homeUi);
             }
         }));
 
-        layoutMenu.addComponent(this.createMenueButton("Tagebuch", new Button.ClickListener() {
+        layoutMenu.addComponent(this.createMenueButton("Tagebuch", new MouseEvents.ClickListener() {
             
             private static final long serialVersionUID = 4925786265682557541L;
 
             @Override
-            public void buttonClick(ClickEvent event) {
+            public void click(ClickEvent event) {
                 MainUi.this.showUi(MainUi.this.tagebuchUi);
             }
         }));
         
-        layoutMenu.addComponent(this.createMenueButton("Bestzeiten", new Button.ClickListener() {
+        layoutMenu.addComponent(this.createMenueButton("Bestzeiten", new MouseEvents.ClickListener() {
             
             private static final long serialVersionUID = -5968455239778239160L;
             
             @Override
-            public void buttonClick(ClickEvent event) {
+            public void click(ClickEvent event) {
                 MainUi.this.showUi(MainUi.this.bestzeitenUi);
             }
         }));
@@ -114,8 +116,8 @@ public class MainUi extends CustomComponent {
      * @param clickListener Aktion für das Drücken des Buttons 
      * @return Menü-Button
      */
-    private Button createMenueButton(String caption, Button.ClickListener clickListener) {
-        Button button = new Button(caption);
+    private Image createMenueButton(String caption, MouseEvents.ClickListener clickListener) {
+        Image button = new Image(caption);
         button.setWidth("200px");
         if(clickListener!=null) {
             button.addClickListener(clickListener);
