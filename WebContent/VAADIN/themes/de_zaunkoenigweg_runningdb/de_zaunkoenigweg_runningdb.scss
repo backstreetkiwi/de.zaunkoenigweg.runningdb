@@ -8,46 +8,63 @@
   /* Include all the styles from the reindeer theme */
   @include reindeer;
 
-  /* Insert your theme rules here */
-	.v-button-mainmenue:focus {
-		background: none repeat scroll 0 0 black;
-		padding:10px;
-	}
 
-	.v-button-mainmenue {
-		background: none repeat scroll 0 0 black;
-		padding:10px;
-	}
-
-	.v-button-mainmenue:focus .v-button-wrap {
-		background: none repeat scroll 0 0 black;
-		height: 65px;
-	}
-
-	.v-button-mainmenue .v-button-wrap {
-		background: none repeat scroll 0 0 black;
-		height: 65px;
-	}
-
-	.v-button-mainmenue .v-button-wrap:hover {
-		background: none repeat scroll 0 0 #DDD;
-		height: 65px;
-	}
-
-	.v-button-mainmenue .v-button-wrap .v-button-caption {
-		color:#999;
-		text-shadow: none;
-	}
-
-	.v-button-mainmenue .v-button-wrap:hover .v-button-caption {
-		color:black;
-		text-shadow: none;
-	}
 
 	.v-panel-mainmenue .v-panel-content {
 		background: none repeat scroll 0 0 black;
 		padding:0px;
 	}
+
+	.v-button-menuebutton:focus {
+		background: none repeat scroll 0 0 black;
+		padding:10px;
+		height: 100px;
+		width: 200px;
+	}
+
+	.v-button-menuebutton {
+		background: none repeat scroll 0 0 black;
+		padding:10px;
+		height: 100px;
+		width: 200px;
+	}
+
+	.v-button-menuebutton:focus .v-button-wrap {
+		background: none repeat scroll 0 0 black;
+		height: 90px;
+		padding: 0px;
+	}
+
+	.v-button-menuebutton .v-button-wrap {
+		background: none repeat scroll 0 0 black;
+		height: 90px;
+		padding: 0px;
+	}
+
+	.v-button-menuebutton .v-button-wrap:hover {
+		background: none repeat scroll 0 0 #444;
+		height: 90px;
+		padding: 0px;
+	}
+
+	.v-button-menuebutton .v-button-wrap .v-icon {
+		color:#999;
+		text-shadow: none;
+		position: relative;
+		top: 10px;
+		left: 64px;
+		display: block;
+	}
+
+	.v-button-menuebutton .v-button-wrap .v-button-caption {
+		color:#999;
+		text-shadow: none;
+		position: relative;
+		top: 15px;
+		display:block;
+		text-transform:uppercase;
+	}
+
 
 
 }

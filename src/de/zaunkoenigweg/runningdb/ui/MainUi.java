@@ -79,9 +79,9 @@ public class MainUi extends CustomComponent {
             }
         }, "tagebuch"));
         
-        layoutMenu.addComponent(this.createMenueButton("Reports", null, null));
-        layoutMenu.addComponent(this.createMenueButton("Schuhe", null, null));
-        layoutMenu.addComponent(this.createMenueButton("Statistik", null, null));
+        layoutMenu.addComponent(this.createMenueButton("Reports", null, "tagebuch"));
+        layoutMenu.addComponent(this.createMenueButton("Schuhe", null, "tagebuch"));
+        layoutMenu.addComponent(this.createMenueButton("Statistik", null, "tagebuch"));
         
         panelContent = new Panel();
         panelContent.setSizeFull();
@@ -122,12 +122,12 @@ public class MainUi extends CustomComponent {
     private Button createMenueButton(String caption, Button.ClickListener clickListener, String imageName) {
         ThemeResource imageResource = new ThemeResource(String.format("icons/%s.png", imageName));
         Button button = new Button(caption);
-        button.setStyleName("mainmenue");
+        button.setStyleName("menuebutton");
         if(StringUtils.isNotBlank(imageName)) {
             button.setIcon(imageResource);
         }
-        button.setWidth("200px");
-        button.setHeight("65px");
+//        button.setWidth("200px");
+//        button.setHeight("65px");
         if(clickListener!=null) {
             button.addClickListener(clickListener);
         }
