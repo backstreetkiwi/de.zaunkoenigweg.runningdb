@@ -7,12 +7,10 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.Layout;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
-import com.vaadin.ui.VerticalLayout;
-import com.vaadin.ui.Button.ClickEvent;
 
 import de.zaunkoenigweg.runningdb.domain.BestzeitInfo;
 import de.zaunkoenigweg.runningdb.domain.BestzeitInfo.BestzeitLauf;

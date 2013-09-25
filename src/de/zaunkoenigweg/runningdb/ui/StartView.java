@@ -24,10 +24,8 @@ import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.Image;
 import com.vaadin.ui.InlineDateField;
 import com.vaadin.ui.Layout;
-import com.vaadin.ui.Link;
 import com.vaadin.ui.Notification;
 import com.vaadin.ui.Table;
 
