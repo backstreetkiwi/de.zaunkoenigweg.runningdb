@@ -1,11 +1,12 @@
 package de.zaunkoenigweg.runningdb.ui;
 
-import com.vaadin.event.MouseEvents;
-import com.vaadin.event.MouseEvents.ClickEvent;
+import org.apache.commons.lang3.StringUtils;
+
+import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Image;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
@@ -44,41 +45,43 @@ public class MainUi extends CustomComponent {
         panelMenu.setContent(layoutMenu);
         panelMenu.setWidth("250px");
         panelMenu.setHeight("100%");
+        panelMenu.setStyleName("mainmenue");
         layout.addComponent(panelMenu);
         
         // Menü-Buttons 
-        layoutMenu.addComponent(this.createMenueButton("Home", new MouseEvents.ClickListener() {
+        layoutMenu.addComponent(this.createMenueButton("Home", new Button.ClickListener() {
             
             private static final long serialVersionUID = 145150516505290696L;
 
             @Override
-            public void click(ClickEvent event) {
+            public void buttonClick(ClickEvent event) {
                 MainUi.this.showUi(MainUi.this.homeUi);
             }
-        }));
+        }, "tagebuch"));
 
-        layoutMenu.addComponent(this.createMenueButton("Tagebuch", new MouseEvents.ClickListener() {
+        layoutMenu.addComponent(this.createMenueButton("Tagebuch", new Button.ClickListener() {
             
             private static final long serialVersionUID = 4925786265682557541L;
 
             @Override
-            public void click(ClickEvent event) {
+            public void buttonClick(ClickEvent event) {
                 MainUi.this.showUi(MainUi.this.tagebuchUi);
             }
-        }));
+        }, "tagebuch"));
         
-        layoutMenu.addComponent(this.createMenueButton("Bestzeiten", new MouseEvents.ClickListener() {
+        layoutMenu.addComponent(this.createMenueButton("Bestzeiten", new Button.ClickListener() {
             
             private static final long serialVersionUID = -5968455239778239160L;
             
             @Override
-            public void click(ClickEvent event) {
+            public void buttonClick(ClickEvent event) {
                 MainUi.this.showUi(MainUi.this.bestzeitenUi);
             }
-        }));
-        layoutMenu.addComponent(this.createMenueButton("Reports", null));
-        layoutMenu.addComponent(this.createMenueButton("Schuhe", null));
-        layoutMenu.addComponent(this.createMenueButton("Statistik", null));
+        }, "tagebuch"));
+        
+        layoutMenu.addComponent(this.createMenueButton("Reports", null, null));
+        layoutMenu.addComponent(this.createMenueButton("Schuhe", null, null));
+        layoutMenu.addComponent(this.createMenueButton("Statistik", null, null));
         
         panelContent = new Panel();
         panelContent.setSizeFull();
@@ -116,9 +119,15 @@ public class MainUi extends CustomComponent {
      * @param clickListener Aktion für das Drücken des Buttons 
      * @return Menü-Button
      */
-    private Image createMenueButton(String caption, MouseEvents.ClickListener clickListener) {
-        Image button = new Image(caption);
+    private Button createMenueButton(String caption, Button.ClickListener clickListener, String imageName) {
+        ThemeResource imageResource = new ThemeResource(String.format("icons/%s.png", imageName));
+        Button button = new Button(caption);
+        button.setStyleName("mainmenue");
+        if(StringUtils.isNotBlank(imageName)) {
+            button.setIcon(imageResource);
+        }
         button.setWidth("200px");
+        button.setHeight("65px");
         if(clickListener!=null) {
             button.addClickListener(clickListener);
         }
