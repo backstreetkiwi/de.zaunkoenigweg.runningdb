@@ -152,7 +152,7 @@ public class MainUi extends CustomComponent {
         Button button = new Button(caption);
         button.setStyleName("menuebutton");
         if(StringUtils.isNotBlank(imageName)) {
-            button.setIcon(imageResource);
+//            button.setIcon(imageResource);
         }
         if(clickListener!=null) {
             button.addClickListener(clickListener);

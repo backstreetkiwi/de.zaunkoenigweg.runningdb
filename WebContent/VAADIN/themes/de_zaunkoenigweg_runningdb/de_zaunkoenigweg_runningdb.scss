@@ -17,54 +17,53 @@
 
 	.v-button-menuebutton:focus {
 		background: none repeat scroll 0 0 black;
-		padding:10px;
-		height: 100px;
-		width: 200px;
 	}
 
 	.v-button-menuebutton {
 		background: none repeat scroll 0 0 black;
 		padding:10px;
-		height: 100px;
+		height: 110px;
 		width: 200px;
 	}
 
 	.v-button-menuebutton:focus .v-button-wrap {
-		background: none repeat scroll 0 0 black;
 		height: 90px;
 		padding: 0px;
+		background-image: url("../de_zaunkoenigweg_runningdb/icons/tagebuch_sw.png");
+    	background-position: 65px 5px;
+    	background-repeat: no-repeat;
 	}
 
 	.v-button-menuebutton .v-button-wrap {
-		background: none repeat scroll 0 0 black;
 		height: 90px;
 		padding: 0px;
+		background-image: url("../de_zaunkoenigweg_runningdb/icons/tagebuch_sw.png");
+    	background-position: 65px 5px;
+    	background-repeat: no-repeat;
 	}
 
 	.v-button-menuebutton .v-button-wrap:hover {
-		background: none repeat scroll 0 0 #444;
 		height: 90px;
 		padding: 0px;
-	}
-
-	.v-button-menuebutton .v-button-wrap .v-icon {
-		color:#999;
-		text-shadow: none;
-		position: relative;
-		top: 10px;
-		left: 64px;
-		display: block;
+		background-image: url("../de_zaunkoenigweg_runningdb/icons/tagebuch.png");
+    	background-position: 65px 5px;
+    	background-repeat: no-repeat;
 	}
 
 	.v-button-menuebutton .v-button-wrap .v-button-caption {
 		color:#999;
 		text-shadow: none;
 		position: relative;
-		top: 15px;
+		top: 62px;
 		display:block;
 		text-transform:uppercase;
 		font-weight: bold;
 		letter-spacing: 1px;
+		font-size: 12px;
+	}
+
+	.v-button-menuebutton .v-button-wrap:hover .v-button-caption {
+		color:#EEE;
 	}
 
 
