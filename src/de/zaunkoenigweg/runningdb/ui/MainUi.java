@@ -1,8 +1,5 @@
 package de.zaunkoenigweg.runningdb.ui;
 
-import org.apache.commons.lang3.StringUtils;
-
-import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CustomComponent;
@@ -112,6 +109,7 @@ public class MainUi extends CustomComponent {
         
         panelContent = new Panel();
         panelContent.setSizeFull();
+        panelContent.setStyleName("contentPanel");
         layout.addComponent(panelContent);
         layout.setExpandRatio(panelContent, 1.0f);
         

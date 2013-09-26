@@ -7,13 +7,22 @@
 /* This contains all of your theme.*/
 /* If somebody wants to extend the theme she will include this mixin. */
 @mixin de_zaunkoenigweg_runningdb {
+
+  $appBackgroundColor: #FFE699;
+  $menueBackgroundColor: black;
+
   /* Include all the styles from the reindeer theme */
   @include reindeer;
 
 
+	.v-panel-contentPanel .v-panel-content {
+		background: none repeat scroll 0 0 $appBackgroundColor;
+		padding:0px;
+	}
+
 
 	.v-panel-mainmenue .v-panel-content {
-		background: none repeat scroll 0 0 black;
+		background: none repeat scroll 0 0 $menueBackgroundColor;
 		padding:0px;
 	}
 
@@ -70,7 +79,7 @@
 
 
 @mixin menueButton($icon,$iconHover) {
-	background: none repeat scroll 0 0 black;
+	background: none repeat scroll 0 0 $menueBackgroundColor;
 	padding:10px;
 	height: 120px;
 	width: 200px;
@@ -83,7 +92,7 @@
     	background-repeat: no-repeat;
 
 		.v-button-caption {
-			color:black;
+			color:$menueBackgroundColor;
 			text-shadow: none;
 			position: relative;
 			top: 73px;
@@ -104,7 +113,7 @@
     	background-repeat: no-repeat;
 
 		.v-button-caption {
-			color:#EEE;
+			color:$appBackgroundColor;
 		}
 
 	}
