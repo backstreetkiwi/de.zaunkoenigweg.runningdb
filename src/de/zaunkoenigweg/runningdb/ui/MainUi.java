@@ -23,6 +23,7 @@ public class MainUi extends CustomComponent {
     private HomeUi homeUi;
     private TagebuchUi tagebuchUi;
     private BestzeitenUi bestzeitenUi;
+    private EmptyUi emptyUi;
 
     // Panel für den Content
     private Panel panelContent;
@@ -79,9 +80,35 @@ public class MainUi extends CustomComponent {
             }
         }, "tagebuch"));
         
-        layoutMenu.addComponent(this.createMenueButton("Reports", null, "tagebuch"));
-        layoutMenu.addComponent(this.createMenueButton("Schuhe", null, "tagebuch"));
-        layoutMenu.addComponent(this.createMenueButton("Statistik", null, "tagebuch"));
+        layoutMenu.addComponent(this.createMenueButton("Reports", new Button.ClickListener() {
+            
+            private static final long serialVersionUID = -5968455239778239160L;
+            
+            @Override
+            public void buttonClick(ClickEvent event) {
+                MainUi.this.showUi(MainUi.this.emptyUi);
+            }
+        }, "tagebuch"));
+        
+        layoutMenu.addComponent(this.createMenueButton("Schuhe", new Button.ClickListener() {
+            
+            private static final long serialVersionUID = -5968455239778239160L;
+            
+            @Override
+            public void buttonClick(ClickEvent event) {
+                MainUi.this.showUi(MainUi.this.emptyUi);
+            }
+        }, "tagebuch"));
+        
+        layoutMenu.addComponent(this.createMenueButton("Statistik", new Button.ClickListener() {
+            
+            private static final long serialVersionUID = -5968455239778239160L;
+            
+            @Override
+            public void buttonClick(ClickEvent event) {
+                MainUi.this.showUi(MainUi.this.emptyUi);
+            }
+        }, "tagebuch"));
         
         panelContent = new Panel();
         panelContent.setSizeFull();
@@ -103,6 +130,7 @@ public class MainUi extends CustomComponent {
         this.homeUi = new HomeUi(this.trainingstagebuch);
         this.tagebuchUi = new TagebuchUi(this.trainingstagebuch);
         this.bestzeitenUi = new BestzeitenUi(this.trainingstagebuch);
+        this.emptyUi = new EmptyUi(trainingstagebuch);
     }
     
     /**
@@ -126,8 +154,6 @@ public class MainUi extends CustomComponent {
         if(StringUtils.isNotBlank(imageName)) {
             button.setIcon(imageResource);
         }
-//        button.setWidth("200px");
-//        button.setHeight("65px");
         if(clickListener!=null) {
             button.addClickListener(clickListener);
         }
