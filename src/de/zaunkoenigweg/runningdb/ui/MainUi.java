@@ -58,7 +58,7 @@ public class MainUi extends CustomComponent {
             public void buttonClick(ClickEvent event) {
                 MainUi.this.showUi(MainUi.this.homeUi);
             }
-        }, "tagebuch"));
+        }, "menueButtonHome"));
 
         layoutMenu.addComponent(this.createMenueButton("Tagebuch", new Button.ClickListener() {
             
@@ -68,7 +68,7 @@ public class MainUi extends CustomComponent {
             public void buttonClick(ClickEvent event) {
                 MainUi.this.showUi(MainUi.this.tagebuchUi);
             }
-        }, "tagebuch"));
+        }, "menueButtonTagebuch"));
         
         layoutMenu.addComponent(this.createMenueButton("Bestzeiten", new Button.ClickListener() {
             
@@ -78,7 +78,7 @@ public class MainUi extends CustomComponent {
             public void buttonClick(ClickEvent event) {
                 MainUi.this.showUi(MainUi.this.bestzeitenUi);
             }
-        }, "tagebuch"));
+        }, "menueButtonBestzeiten"));
         
         layoutMenu.addComponent(this.createMenueButton("Reports", new Button.ClickListener() {
             
@@ -88,7 +88,7 @@ public class MainUi extends CustomComponent {
             public void buttonClick(ClickEvent event) {
                 MainUi.this.showUi(MainUi.this.emptyUi);
             }
-        }, "tagebuch"));
+        }, "menueButtonReports"));
         
         layoutMenu.addComponent(this.createMenueButton("Schuhe", new Button.ClickListener() {
             
@@ -98,7 +98,7 @@ public class MainUi extends CustomComponent {
             public void buttonClick(ClickEvent event) {
                 MainUi.this.showUi(MainUi.this.emptyUi);
             }
-        }, "tagebuch"));
+        }, "menueButtonSchuhe"));
         
         layoutMenu.addComponent(this.createMenueButton("Statistik", new Button.ClickListener() {
             
@@ -108,7 +108,7 @@ public class MainUi extends CustomComponent {
             public void buttonClick(ClickEvent event) {
                 MainUi.this.showUi(MainUi.this.emptyUi);
             }
-        }, "tagebuch"));
+        }, "menueButtonStatistik"));
         
         panelContent = new Panel();
         panelContent.setSizeFull();
@@ -147,13 +147,9 @@ public class MainUi extends CustomComponent {
      * @param clickListener Aktion für das Drücken des Buttons 
      * @return Menü-Button
      */
-    private Button createMenueButton(String caption, Button.ClickListener clickListener, String imageName) {
-        ThemeResource imageResource = new ThemeResource(String.format("icons/%s.png", imageName));
+    private Button createMenueButton(String caption, Button.ClickListener clickListener, String styleName) {
         Button button = new Button(caption);
-        button.setStyleName("menuebutton");
-        if(StringUtils.isNotBlank(imageName)) {
-//            button.setIcon(imageResource);
-        }
+        button.setStyleName(styleName);
         if(clickListener!=null) {
             button.addClickListener(clickListener);
         }
