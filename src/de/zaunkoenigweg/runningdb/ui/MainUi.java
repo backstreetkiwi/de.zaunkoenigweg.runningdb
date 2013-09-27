@@ -32,18 +32,14 @@ public class MainUi extends CustomComponent {
         
         // Layout des kpl. UI
         HorizontalLayout layout = new HorizontalLayout();
-        layout.setWidth("100%");
-        layout.setHeight("800px");
+        layout.setStyleName("mainLayout");
         setCompositionRoot(layout);
         
         // Panel mit dem Menü (links)
         Panel panelMenu = new Panel();
         VerticalLayout layoutMenu = new VerticalLayout();
-        layoutMenu.setMargin(true);
         panelMenu.setContent(layoutMenu);
-        panelMenu.setWidth("250px");
-        panelMenu.setHeight("100%");
-        panelMenu.setStyleName("mainmenue");
+        panelMenu.setStyleName("panelMainMenue");
         layout.addComponent(panelMenu);
         
         // Menü-Buttons 
@@ -109,9 +105,9 @@ public class MainUi extends CustomComponent {
         
         panelContent = new Panel();
         panelContent.setSizeFull();
-        panelContent.setStyleName("contentPanel");
+        panelContent.setStyleName("panelAppContent");
         layout.addComponent(panelContent);
-        layout.setExpandRatio(panelContent, 1.0f);
+//        layout.setExpandRatio(panelContent, 1.0f);
         
         // Alle UIs erzeugen
         initUis();

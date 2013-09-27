@@ -8,22 +8,47 @@
 /* If somebody wants to extend the theme she will include this mixin. */
 @mixin de_zaunkoenigweg_runningdb {
 
-  $appBackgroundColor: #FFE699;
-  $menueBackgroundColor: black;
+  $schoenesDunklesBlau: #00134D;
+  $appBackgroundColor: $schoenesDunklesBlau;
+  $menueBackgroundColor: $schoenesDunklesBlau;
+  $menueTextColor: white;
 
   /* Include all the styles from the reindeer theme */
   @include reindeer;
 
+    .v-ui {
+		background-color: $menueBackgroundColor;
+    }
 
-	.v-panel-contentPanel .v-panel-content {
-		background: none repeat scroll 0 0 $appBackgroundColor;
+	.v-horizontallayout-mainLayout {
+		background-color: $menueBackgroundColor;
+		width: 100%;
+		height: 100%; 
+	}
+
+	.v-panel-panelMainMenue {
+	
 		padding:0px;
+		width: 150px;
+		height: 100%; 
+	
+		.v-panel-content {
+			background-color: $menueBackgroundColor;
+    		padding: 50px 0 50px 0;	
+    		height: 100%;	
+			border-width: 0px;
+    	}
 	}
 
 
-	.v-panel-mainmenue .v-panel-content {
-		background: none repeat scroll 0 0 $menueBackgroundColor;
-		padding:0px;
+	.v-panel-panelAppContent {
+	
+		.v-panel-content {
+			background: none repeat scroll 0 0 $appBackgroundColor;
+			padding: 20px;
+			border-width: 0px;
+		}
+		
 	}
 
 
@@ -82,13 +107,13 @@
 	background: none repeat scroll 0 0 $menueBackgroundColor;
 	padding:10px;
 	height: 120px;
-	width: 200px;
+	width: 145px;
 
 	.v-button-wrap {
 		height: 100px;
 		padding: 0px;
 		background-image: $icon;
-    	background-position: 60px 5px;
+    	background-position: 32px 5px;
     	background-repeat: no-repeat;
 
 		.v-button-caption {
@@ -109,11 +134,11 @@
 		height: 100px;
 		padding: 0px;
 		background-image: $iconHover;
-    	background-position: 60px 5px;
+    	background-position: 32px 5px;
     	background-repeat: no-repeat;
 
 		.v-button-caption {
-			color:$appBackgroundColor;
+			color:$menueTextColor;
 		}
 
 	}
