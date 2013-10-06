@@ -128,7 +128,7 @@ public class MainUi extends CustomComponent {
     }
     
     /**
-     * Anzeige des UIs "Home".
+     * Anzeige eines UIs.
      */
     private void showUi(AbstractUi ui) {
         ui.show();
@@ -138,7 +138,8 @@ public class MainUi extends CustomComponent {
     /**
      * Menü-Button erzeugen
      * @param caption Beschriftung
-     * @param clickListener Aktion für das Drücken des Buttons 
+     * @param clickListener Aktion für das Drücken des Buttons
+     * @param styleName Style der Komponente (im RunningDB-Theme) 
      * @return Menü-Button
      */
     private Button createMenueButton(String caption, Button.ClickListener clickListener, String styleName) {
