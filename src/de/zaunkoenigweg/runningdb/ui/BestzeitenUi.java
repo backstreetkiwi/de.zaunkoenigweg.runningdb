@@ -26,6 +26,8 @@ import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
  */
 public class BestzeitenUi extends AbstractUi {
 
+    private static final int ANZAHL_ZEITEN_PRO_STRECKE = 3;
+
     private static final long serialVersionUID = 3021578951350704103L;
 
     private static final DateFormat DATE_FORMATTER = new SimpleDateFormat("dd.MM.yyyy");    
@@ -36,51 +38,55 @@ public class BestzeitenUi extends AbstractUi {
      * Erzeugt diese View
      */
     public BestzeitenUi(Trainingstagebuch trainingstagebuch) {
-
         super(trainingstagebuch);
-
     }
 
     @Override
     public void show() {
-        fillUi();
+        refreshUi();
     }
 
-    private void fillUi() {
+    /**
+     * Füllt diese UI mit den Daten aus dem Trainingstagebuch.
+     */
+    private void refreshUi() {
 
         // Formular-Layout
         FormLayout layout = new FormLayout();
         layout.setMargin(true);
         setCompositionRoot(layout);
 
+        // Je Bestzeitstrecke im Tagebuch wird eine Tabelle mit den besten
+        // drei Zeiten sowie ein Button zum Löschen des Eintrags hinzugefügt.
         List<BestzeitInfo> bestzeiten = trainingstagebuch.getBestzeiten();
         for (BestzeitInfo bestzeitInfo : bestzeiten) {
-
             layout.addComponent(createBestzeitTable(bestzeitInfo));
             layout.addComponent(createButtonRemoveBestzeit(bestzeitInfo));
-
         }
         
-        // Button 'Strecke hinzufügen'
+        // Button 'Neue Strecke hinzufügen'
         buttonStreckeHinzufuegen = new Button("Strecke hinzufügen");
         layout.addComponent(buttonStreckeHinzufuegen);
-        
+
         buttonStreckeHinzufuegen.addClickListener(new Button.ClickListener() {
             
             private static final long serialVersionUID = 8949212155808289711L;
 
             @Override
             public void buttonClick(Button.ClickEvent event) {
-
+                
+                // neues Fenster zur Eingabe einer neuen Bestzeitenstrecke erzeugen und anzeigen.
                 BestzeitStreckeEingabeWindow bestzeitStreckeEingabe = new BestzeitStreckeEingabeWindow(BestzeitenUi.this);
                 UI.getCurrent().addWindow(bestzeitStreckeEingabe);
             }
         });
-        
-        
-
     }
 
+    /**
+     * Erzeugt eine Tabelle mit den Informationen zur angegebenen Bestzeit
+     * @param bestzeitInfo Informationen über die Bestzeit, die angezeigt werden soll.
+     * @return Tabelle mit den Informationen zur angegebenen Bestzeit
+     */
     private Table createBestzeitTable(BestzeitInfo bestzeitInfo) {
 
         String caption = "";
@@ -101,7 +107,6 @@ public class BestzeitenUi extends AbstractUi {
         table.setColumnHeader("schnitt", "Schnitt");
         table.setConverter("zeit", new ZeitConverter());
         table.setConverter("schnitt", new ZeitConverter());
-        table.setHeight("250px");
         table.setSortEnabled(false);
         table.setColumnWidth("datum", 100);
         table.setColumnWidth("zeit", 100);
@@ -109,18 +114,22 @@ public class BestzeitenUi extends AbstractUi {
 
         List<BestzeitLauf> laeufe = bestzeitInfo.getLaeufe();
         int i = 0;
-        while (i < 3 && i < laeufe.size()) {
+        while (i < ANZAHL_ZEITEN_PRO_STRECKE && i < laeufe.size()) {
             BestzeitLauf lauf = laeufe.get(i);
             table.addItem(new Object[] {DATE_FORMATTER.format(lauf.getTraining().getDatum()), lauf.getZeit(), RunningDbUtil.berechneSchnitt(bestzeitInfo.getStrecke().getStrecke(), lauf.getZeit()) }, null);
             i++;
         }
-        table.setHeight("87px");
-        table.setPageLength(3);
+        table.setPageLength(ANZAHL_ZEITEN_PRO_STRECKE);
 
         return table;
-
     }
 
+    /**
+     * Erzeugt einen Button zum Löschen der Bestzeitenstrecke aus der Liste der
+     * anzuzeigenden Bestzeiten.
+     * @param bestzeitInfo Informationen über die Bestzeit, die gelöscht werden soll.
+     * @return
+     */
     private Button createButtonRemoveBestzeit(final BestzeitInfo bestzeitInfo) {
 
         Button buttonremoveBestzeit = new Button("Löschen");
@@ -130,16 +139,33 @@ public class BestzeitenUi extends AbstractUi {
 
             @Override
             public void buttonClick(ClickEvent event) {
-                BestzeitenUi.this.trainingstagebuch.removeBestzeitStrecke(bestzeitInfo.getStrecke());
-                fillUi();
+
+                ConfirmationDialog.show("Soll die angegebene Bestzeit wirklich gelöscht werden?", new ConfirmationDialog.ConfimationDialogListener() {
+                    
+                    @Override
+                    public void yes() {
+                        // delete record time from training log
+                        BestzeitenUi.this.trainingstagebuch.removeBestzeitStrecke(bestzeitInfo.getStrecke());
+                        refreshUi();
+                    }
+                    
+                    @Override
+                    public void no() {
+                        // do nothing
+                    }
+                });
+                               
             }
         });
         return buttonremoveBestzeit;
-        
     }
     
+    /**
+     * Callback-Methode für das {@link BestzeitStreckeEingabeWindow}
+     * @param bestzeitStrecke BestzeitStrecke, die hinzugefügt werden soll.
+     */
     public void addBestzeitenStrecke(BestzeitStrecke bestzeitStrecke) {
         this.trainingstagebuch.addBestzeitStrecke(bestzeitStrecke);
-        fillUi();
+        refreshUi();
     }
 }
