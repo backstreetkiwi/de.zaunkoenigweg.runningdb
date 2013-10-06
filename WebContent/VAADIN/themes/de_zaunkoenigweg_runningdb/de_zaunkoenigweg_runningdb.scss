@@ -1,146 +1,26 @@
-/* Import the reindeer theme.*/
-/* This only allows us to use the mixins defined in it and does not add any styles by itself. */
+/* Import the reindeer theme. */
 @import "../reindeer/reindeer.scss";
 
+/* Imports from RunningDB Theme. */
+@import "views/mainmenue.scss";
 
-
-/* This contains all of your theme.*/
-/* If somebody wants to extend the theme she will include this mixin. */
+/* RunningDB Theme */
 @mixin de_zaunkoenigweg_runningdb {
 
+  /* global constants */ 
   $schoenesDunklesBlau: #00134D;
   $appBackgroundColor: $schoenesDunklesBlau;
-  $menueBackgroundColor: $schoenesDunklesBlau;
-  $menueTextColor: white;
-
+  
   /* Include all the styles from the reindeer theme */
   @include reindeer;
+  
+  /* Includes from RunningDB Theme. */
+  @include runningdb-mainmenue;
 
-    .v-ui {
-		background-color: $menueBackgroundColor;
-    }
-
-	.v-horizontallayout-mainLayout {
-		background-color: $menueBackgroundColor;
-		width: 100%;
-		height: 100%; 
-	}
-
-	.v-panel-panelMainMenue {
-	
-		padding:0px;
-		width: 150px;
-		height: 100%; 
-	
-		.v-panel-content {
-			background-color: $menueBackgroundColor;
-    		padding: 50px 0 50px 0;	
-    		height: 100%;	
-			border-width: 0px;
-    	}
-	}
-
-
-	.v-panel-panelAppContent {
-	
-		.v-panel-content {
-			background: none repeat scroll 0 0 $appBackgroundColor;
-			padding: 20px;
-			border-width: 0px;
-		}
-		
-	}
-
-
-	.v-button-menueButtonHome:focus {
-		@include menueButton(url("../de_zaunkoenigweg_runningdb/icons/home.png"), url("../de_zaunkoenigweg_runningdb/icons/home_hover.png"));
-	}
-
-	.v-button-menueButtonHome {
-		@include menueButton(url("../de_zaunkoenigweg_runningdb/icons/home.png"), url("../de_zaunkoenigweg_runningdb/icons/home_hover.png"));
-	}
-
-	.v-button-menueButtonTagebuch:focus {
-		@include menueButton(url("../de_zaunkoenigweg_runningdb/icons/tagebuch.png"), url("../de_zaunkoenigweg_runningdb/icons/tagebuch_hover.png"));
-	}
-
-	.v-button-menueButtonTagebuch {
-		@include menueButton(url("../de_zaunkoenigweg_runningdb/icons/tagebuch.png"), url("../de_zaunkoenigweg_runningdb/icons/tagebuch_hover.png"));
-	}
-
-	.v-button-menueButtonBestzeiten:focus {
-		@include menueButton(url("../de_zaunkoenigweg_runningdb/icons/stoppwatch.png"), url("../de_zaunkoenigweg_runningdb/icons/stoppwatch_hover.png"));
-	}
-
-	.v-button-menueButtonBestzeiten {
-		@include menueButton(url("../de_zaunkoenigweg_runningdb/icons/stoppwatch.png"), url("../de_zaunkoenigweg_runningdb/icons/stoppwatch_hover.png"));
-	}
-
-	.v-button-menueButtonReports:focus {
-		@include menueButton(url("../de_zaunkoenigweg_runningdb/icons/report.png"), url("../de_zaunkoenigweg_runningdb/icons/report_hover.png"));
-	}
-
-	.v-button-menueButtonReports {
-		@include menueButton(url("../de_zaunkoenigweg_runningdb/icons/report.png"), url("../de_zaunkoenigweg_runningdb/icons/report_hover.png"));
-	}
-
-	.v-button-menueButtonSchuhe:focus {
-		@include menueButton(url("../de_zaunkoenigweg_runningdb/icons/shoe.png"), url("../de_zaunkoenigweg_runningdb/icons/shoe_hover.png"));
-	}
-
-	.v-button-menueButtonSchuhe {
-		@include menueButton(url("../de_zaunkoenigweg_runningdb/icons/shoe.png"), url("../de_zaunkoenigweg_runningdb/icons/shoe_hover.png"));
-	}
-
-	.v-button-menueButtonStatistik:focus {
-		@include menueButton(url("../de_zaunkoenigweg_runningdb/icons/statistik.png"), url("../de_zaunkoenigweg_runningdb/icons/statistik_hover.png"));
-	}
-
-	.v-button-menueButtonStatistik {
-		@include menueButton(url("../de_zaunkoenigweg_runningdb/icons/statistik.png"), url("../de_zaunkoenigweg_runningdb/icons/statistik_hover.png"));
-	}
-
-}
-
-
-@mixin menueButton($icon,$iconHover) {
-	background: none repeat scroll 0 0 $menueBackgroundColor;
-	padding:10px;
-	height: 120px;
-	width: 145px;
-
-	.v-button-wrap {
-		height: 100px;
-		padding: 0px;
-		background-image: $icon;
-    	background-position: 32px 5px;
-    	background-repeat: no-repeat;
-
-		.v-button-caption {
-			color:$menueBackgroundColor;
-			text-shadow: none;
-			position: relative;
-			top: 73px;
-			display:block;
-			text-transform:uppercase;
-			font-weight: bold;
-			letter-spacing: 1px;
-			font-size: 12px;
-		}
-
-	}
-
-	.v-button-wrap:hover {
-		height: 100px;
-		padding: 0px;
-		background-image: $iconHover;
-    	background-position: 32px 5px;
-    	background-repeat: no-repeat;
-
-		.v-button-caption {
-			color:$menueTextColor;
-		}
-
-	}
+  /* UI */
+  .v-ui {
+    background-color: $appBackgroundColor;
+   }
+   
 
 }
