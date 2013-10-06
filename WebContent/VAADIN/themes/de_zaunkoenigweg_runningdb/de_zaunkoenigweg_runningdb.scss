@@ -10,6 +10,7 @@
   /* global constants */ 
   $schoenesDunklesBlau: #00134D;
   $appBackgroundColor: $schoenesDunklesBlau;
+  $textColor: white;
   
   /* Include all the styles from the reindeer theme */
   @include reindeer;
@@ -21,6 +22,11 @@
   .v-ui {
     background-color: $appBackgroundColor;
    }
+   
+  /* Caption */
+  .v-caption {
+    color: $textColor;
+  } 
    
 
 }

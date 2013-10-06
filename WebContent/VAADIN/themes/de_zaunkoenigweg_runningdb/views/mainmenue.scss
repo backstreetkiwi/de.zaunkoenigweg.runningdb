@@ -1,7 +1,7 @@
 @mixin runningdb-mainmenue {
 
   $menueBackgroundColor: $schoenesDunklesBlau;
-  $menueTextColor: white;
+  $menueTextColor: $textColor;
 
   /* Layout of main menue */
   .v-horizontallayout-mainLayout {
