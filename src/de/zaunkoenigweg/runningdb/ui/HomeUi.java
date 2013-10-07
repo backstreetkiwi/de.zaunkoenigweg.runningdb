@@ -1,52 +1,60 @@
 package de.zaunkoenigweg.runningdb.ui;
 
+import com.vaadin.ui.Button;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Layout;
-import com.vaadin.ui.Table;
+import com.vaadin.ui.Button.ClickEvent;
 
-import de.zaunkoenigweg.runningdb.domain.RunningDbUtil;
+import de.zaunkoenigweg.runningdb.domain.Training;
 import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
 
+/**
+ * Home UI of RunningDB.
+ * 
+ * @author Nikolaus Winter
+ */
 public class HomeUi extends AbstractUi {
 
     private static final long serialVersionUID = 6470235043474537736L;
-
-    Table tableStatistik;
     
-    public HomeUi(Trainingstagebuch trainingstagebuch) {
+    Button buttonAddTraining;
+
+    /**
+     * Create HomeUI.
+     * 
+     * @param trainingLog training log to work with
+     */
+    public HomeUi(Trainingstagebuch trainingLog) {
         
-        super(trainingstagebuch);
+        super(trainingLog);
         
         Layout layout = new FormLayout();
-        
-        tableStatistik = new Table("Statistik");
-        tableStatistik.addContainerProperty("info", String.class, "");
-        tableStatistik.addContainerProperty("wert", String.class, "");
-        tableStatistik.setSortEnabled(false);
-        tableStatistik.setColumnHeader("info", "");
-        tableStatistik.setColumnHeader("wert", "");
-        tableStatistik.setWidth("600px");
-        layout.addComponent(tableStatistik);
-
         setCompositionRoot(layout);
+        
+        this.buttonAddTraining = new Button("Training erfassen");
+        layout.addComponent(buttonAddTraining);
+        
+        buttonAddTraining.addClickListener(new Button.ClickListener() {
+            
+            private static final long serialVersionUID = 4991055405692970134L;
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                EditTrainingWindow.show(HomeUi.this.trainingstagebuch, new EditTrainingWindow.TrainingCreatedListener() {
+                    
+                    private static final long serialVersionUID = 414496460728242231L;
+
+                    @Override
+                    public void trainingCreated(Training training) {
+                        HomeUi.this.trainingstagebuch.addTraining(training);
+                    }
+                });
+            }
+        });
     }
 
     @Override
     public void show() {
-        StreckeConverter streckeConverter = new StreckeConverter();
-        ZeitConverter zeitConverter = new ZeitConverter();
-
-        tableStatistik.removeAllItems();
-        
-        // Statistik anzeigen
-        if(this.trainingstagebuch!=null) {
-            
-            tableStatistik.addItem(new Object[] { "Anzahl Trainingseinheiten", ""+trainingstagebuch.getTrainingseinheiten().size() }, null);
-            tableStatistik.addItem(new Object[] { "gesamt gelaufene Strecke (Meter)", streckeConverter.convertToPresentation(trainingstagebuch.getStrecke(), String.class, null)}, null);
-            tableStatistik.addItem(new Object[] { "gesamt gelaufene Zeit (Stunden)", zeitConverter.convertToPresentation(trainingstagebuch.getZeit(), String.class, null)}, null);
-            tableStatistik.addItem(new Object[] { "Gesamtschnitt", zeitConverter.convertToPresentation(RunningDbUtil.berechneSchnitt(trainingstagebuch.getStrecke(), trainingstagebuch.getZeit()), String.class, null)}, null);
-            tableStatistik.addItem(new Object[] { "Anzahl Bestzeitenstrecken", ""+trainingstagebuch.getBestzeitStrecken().size()}, null);
-            tableStatistik.addItem(new Object[] { "Anzahl Schuhe", ""+trainingstagebuch.getSchuhe().size()}, null);
-        }
     }
+
 }
