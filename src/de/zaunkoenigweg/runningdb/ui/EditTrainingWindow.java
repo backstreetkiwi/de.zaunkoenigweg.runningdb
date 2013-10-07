@@ -22,7 +22,7 @@ import com.vaadin.ui.Window;
 
 import de.zaunkoenigweg.runningdb.domain.Lauf;
 import de.zaunkoenigweg.runningdb.domain.RunningDbUtil;
-import de.zaunkoenigweg.runningdb.domain.Schuh;
+import de.zaunkoenigweg.runningdb.domain.Shoe;
 import de.zaunkoenigweg.runningdb.domain.Training;
 import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
 
@@ -93,7 +93,7 @@ public class EditTrainingWindow extends Window {
         layout.addComponent(selectShoes);
         this.selectShoes.setWidth("300px");
         this.selectShoes.setItemCaptionMode(ItemCaptionMode.PROPERTY);
-        this.selectShoes.setItemCaptionPropertyId("kurzbezeichnung");
+        this.selectShoes.setItemCaptionPropertyId("shortname");
         this.selectShoes.setInputPrompt("Bitte Schuh auswählen...");
         this.selectShoes.setImmediate(true);
 
@@ -103,8 +103,8 @@ public class EditTrainingWindow extends Window {
 
             @Override
             public void valueChange(ValueChangeEvent event) {
-                if(selectShoes.getValue() instanceof Schuh) {
-                    training.getBean().setSchuh(((Schuh)selectShoes.getValue()).getId());
+                if(selectShoes.getValue() instanceof Shoe) {
+                    training.getBean().setSchuh(((Shoe)selectShoes.getValue()).getId());
                 } else {
                     training.getBean().setSchuh(0);
                 }
@@ -217,7 +217,7 @@ public class EditTrainingWindow extends Window {
         this.textAreaComments.setPropertyDataSource(this.training.getItemProperty("bemerkungen"));
         
         // init ui: fill shoe list
-        BeanItemContainer<Schuh> listOfActiveShoes = new BeanItemContainer<Schuh>(Schuh.class);
+        BeanItemContainer<Shoe> listOfActiveShoes = new BeanItemContainer<Shoe>(Shoe.class);
         listOfActiveShoes.addAll(this.trainingLog.getAktiveSchuhe());
         this.selectShoes.setContainerDataSource(listOfActiveShoes);
     

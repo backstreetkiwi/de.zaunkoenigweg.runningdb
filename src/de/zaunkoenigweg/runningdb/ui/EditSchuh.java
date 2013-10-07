@@ -15,7 +15,7 @@ import com.vaadin.ui.Layout;
 import com.vaadin.ui.TextField;
 
 import de.zaunkoenigweg.runningdb.RunningDbUi;
-import de.zaunkoenigweg.runningdb.domain.Schuh;
+import de.zaunkoenigweg.runningdb.domain.Shoe;
 import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
 
 /**
@@ -42,7 +42,7 @@ public class EditSchuh extends CustomComponent implements View {
     Button buttonSpeichern;
 
     // derzeit bearbeiteter Schuh
-    BeanItem<Schuh> schuh;
+    BeanItem<Shoe> schuh;
     
     // Referenz auf das bearbeitete Trainingstagebuch
     private Trainingstagebuch trainingstagebuch;
@@ -141,7 +141,7 @@ public class EditSchuh extends CustomComponent implements View {
         this.trainingstagebuch = (Trainingstagebuch) VaadinSession.getCurrent().getAttribute("trainingstagebuch");
 
         // neuen Schuh erzeugen und anzeigen
-        this.schuh = new BeanItem<Schuh>(new Schuh());
+        this.schuh = new BeanItem<Shoe>(new Shoe());
 
         // Verknüpfung des UIs mit dem BeanItem(Schuh)
         this.textFieldHersteller.setPropertyDataSource(this.schuh.getItemProperty("hersteller"));

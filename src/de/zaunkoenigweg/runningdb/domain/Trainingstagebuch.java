@@ -24,7 +24,7 @@ public class Trainingstagebuch {
     /**
      * Liste aller Schuhe.
      */
-    private List<Schuh> schuhe = new ArrayList<Schuh>();
+    private List<Shoe> schuhe = new ArrayList<Shoe>();
     
     /**
      * Sortierte Menge der Strecken, die in der Bestzeitenliste geführt werden.
@@ -45,21 +45,21 @@ public class Trainingstagebuch {
         return new ArrayList<Training>(this.trainingseinheiten);
     }
     
-    public List<Schuh> getSchuhe() {
-        return new ArrayList<Schuh>(this.schuhe);
+    public List<Shoe> getSchuhe() {
+        return new ArrayList<Shoe>(this.schuhe);
     }
     
-    public List<Schuh> getAktiveSchuhe() {
-        List<Schuh> result = new ArrayList<Schuh>();
-        for (Schuh schuh : this.schuhe) {
-            if(schuh.isAktiv()) {
+    public List<Shoe> getAktiveSchuhe() {
+        List<Shoe> result = new ArrayList<Shoe>();
+        for (Shoe schuh : this.schuhe) {
+            if(schuh.isActive()) {
                 result.add(schuh);
             }
         }
         return result;
     }
     
-    public void addSchuh(Schuh schuh) {
+    public void addSchuh(Shoe schuh) {
         
         // Falls der Schuh schon eine ID mitbringt, wird er nur eingefügt, 
         // falls die ID noch nicht besteht
@@ -73,7 +73,7 @@ public class Trainingstagebuch {
             
             // Ermitteln der max. ID der bisher existierenden Schuhe
             int maxId = 0;
-            for (Schuh bestehenderSchuh : this.schuhe) {
+            for (Shoe bestehenderSchuh : this.schuhe) {
                 maxId = Math.max(maxId, bestehenderSchuh.getId());
             }
             
@@ -85,17 +85,17 @@ public class Trainingstagebuch {
         
     }
     
-    public Schuh getSchuh(Integer id) {
+    public Shoe getSchuh(Integer id) {
         
         if(id==null) {
             return null;
         }
         
-        Schuh result = null;
+        Shoe result = null;
         
-        List<Schuh> schuhe = this.getSchuhe();
+        List<Shoe> schuhe = this.getSchuhe();
         int i=0;
-        Schuh schuh;
+        Shoe schuh;
         while(result==null && i<schuhe.size()) {
             schuh = schuhe.get(i++);
             if (id.compareTo(schuh.getId())==0) {

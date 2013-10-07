@@ -12,7 +12,7 @@ import org.json.JSONWriter;
 
 import de.zaunkoenigweg.runningdb.domain.BestzeitStrecke;
 import de.zaunkoenigweg.runningdb.domain.Lauf;
-import de.zaunkoenigweg.runningdb.domain.Schuh;
+import de.zaunkoenigweg.runningdb.domain.Shoe;
 import de.zaunkoenigweg.runningdb.domain.Training;
 import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
 
@@ -33,7 +33,7 @@ public class TrainingstagebuchJsonSerializer {
         JSONStringer json = new JSONStringer();
         json.object();
         json.key("schuhe").array();
-        for (Schuh schuh : trainingstagebuch.getSchuhe()) {
+        for (Shoe schuh : trainingstagebuch.getSchuhe()) {
             writeSchuh(schuh, json);
         }
         json.endArray();
@@ -83,27 +83,27 @@ public class TrainingstagebuchJsonSerializer {
         return strecke;
     }
     
-    private static void writeSchuh(Schuh schuh, JSONWriter json) throws JSONException {
+    private static void writeSchuh(Shoe schuh, JSONWriter json) throws JSONException {
         json.object();
         json.key("id").value(schuh.getId());
-        json.key("hersteller").value(schuh.getHersteller());
-        json.key("modell").value(schuh.getModell());
-        json.key("kaufdatum").value(schuh.getKaufdatum());
-        json.key("preis").value(schuh.getPreis());
-        json.key("bemerkungen").value(schuh.getBemerkungen());
-        json.key("aktiv").value(schuh.isAktiv());
+        json.key("hersteller").value(schuh.getBrand());
+        json.key("modell").value(schuh.getModel());
+        json.key("kaufdatum").value(schuh.getDateOfPurchase());
+        json.key("preis").value(schuh.getPrice());
+        json.key("bemerkungen").value(schuh.getComments());
+        json.key("aktiv").value(schuh.isActive());
         json.endObject();
     }
     
-    private static Schuh readSchuh(JSONObject json) throws JSONException {
-        Schuh schuh = new Schuh();
+    private static Shoe readSchuh(JSONObject json) throws JSONException {
+        Shoe schuh = new Shoe();
         schuh.setId(json.getInt("id"));
-        schuh.setHersteller(json.getString("hersteller"));
-        schuh.setModell(json.getString("modell"));
-        schuh.setKaufdatum(json.getString("kaufdatum"));
-        schuh.setPreis(json.getString("preis"));
-        schuh.setBemerkungen(json.getString("bemerkungen"));
-        schuh.setAktiv(json.getBoolean("aktiv"));
+        schuh.setBrand(json.getString("hersteller"));
+        schuh.setModel(json.getString("modell"));
+        schuh.setDateOfPurchase(json.getString("kaufdatum"));
+        schuh.setPrice(json.getString("preis"));
+        schuh.setComments(json.getString("bemerkungen"));
+        schuh.setActive(json.getBoolean("aktiv"));
         return schuh;
     }
 

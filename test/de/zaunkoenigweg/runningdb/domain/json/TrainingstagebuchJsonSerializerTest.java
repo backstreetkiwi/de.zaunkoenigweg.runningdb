@@ -6,7 +6,7 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import de.zaunkoenigweg.runningdb.domain.BestzeitStrecke;
-import de.zaunkoenigweg.runningdb.domain.Schuh;
+import de.zaunkoenigweg.runningdb.domain.Shoe;
 import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
 
 public class TrainingstagebuchJsonSerializerTest {
@@ -17,7 +17,7 @@ public class TrainingstagebuchJsonSerializerTest {
         // to JSON
         Trainingstagebuch trainingstagebuch = new Trainingstagebuch();
         BestzeitStrecke bestzeitStrecke;
-        Schuh schuh;
+        Shoe schuh;
 
         bestzeitStrecke = new BestzeitStrecke();
         bestzeitStrecke.setStrecke(10000);
@@ -32,28 +32,28 @@ public class TrainingstagebuchJsonSerializerTest {
         bestzeitStrecke.setBezeichnung("Marathon");
         trainingstagebuch.getBestzeitStrecken().add(bestzeitStrecke);
 
-        schuh = new Schuh();
+        schuh = new Shoe();
         schuh.setId(1);
-        schuh.setHersteller("Asics");
-        schuh.setModell("TN420");
-        schuh.setKaufdatum("1995");
-        schuh.setAktiv(false);
+        schuh.setBrand("Asics");
+        schuh.setModel("TN420");
+        schuh.setDateOfPurchase("1995");
+        schuh.setActive(false);
         trainingstagebuch.addSchuh(schuh);
 
-        schuh = new Schuh();
+        schuh = new Shoe();
         schuh.setId(2);
-        schuh.setHersteller("Adidas");
-        schuh.setModell("Response Control");
-        schuh.setKaufdatum("2003");
-        schuh.setAktiv(true);
+        schuh.setBrand("Adidas");
+        schuh.setModel("Response Control");
+        schuh.setDateOfPurchase("2003");
+        schuh.setActive(true);
         trainingstagebuch.addSchuh(schuh);
         
-        schuh = new Schuh();
+        schuh = new Shoe();
         schuh.setId(3);
-        schuh.setHersteller("Asics");
-        schuh.setModell("Gel Kayano");
-        schuh.setKaufdatum("2006");
-        schuh.setAktiv(true);
+        schuh.setBrand("Asics");
+        schuh.setModel("Gel Kayano");
+        schuh.setDateOfPurchase("2006");
+        schuh.setActive(true);
         trainingstagebuch.addSchuh(schuh);
         
         String json = TrainingstagebuchJsonSerializer.writeToJson(trainingstagebuch);
