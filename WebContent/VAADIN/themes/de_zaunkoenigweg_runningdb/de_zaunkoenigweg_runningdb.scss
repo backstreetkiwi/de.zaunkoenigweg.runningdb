@@ -8,8 +8,8 @@
 @mixin de_zaunkoenigweg_runningdb {
 
   /* global constants */ 
-  $schoenesDunklesBlau: #00134D;
-  $appBackgroundColor: $schoenesDunklesBlau;
+  $popupBackgroundColor: #FFE494;
+  $appBackgroundColor: #00394D;
   $textColor: white;
   
   /* Include all the styles from the reindeer theme */
@@ -26,7 +26,29 @@
   /* Caption */
   .v-caption {
     color: $textColor;
+  }
+  
+  .v-window-contents {
+    background: none repeat scroll 0% 0% $popupBackgroundColor;
+    border-radius: 14px;
   } 
    
+  .v-window-wrap {
+    border-radius: 14px;
+  }
+
+  .v-window-outerheader {
+    border-top-right-radius: 14px;
+    border-top-left-radius: 14px;
+  }
+
+  .v-window-footer {
+    border-bottom-right-radius: 14px;
+    border-bottom-left-radius: 14px;
+  }
+
+  .v-window-resizebox {
+    border-bottom-right-radius: 14px;
+  }
 
 }
