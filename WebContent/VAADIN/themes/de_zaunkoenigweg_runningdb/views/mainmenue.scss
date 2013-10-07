@@ -83,6 +83,15 @@
     @include menueButton(url("../de_zaunkoenigweg_runningdb/icons/statistik.png"), url("../de_zaunkoenigweg_runningdb/icons/statistik_hover.png"));
   }
 
+
+  .v-button-menueButtonData:focus {
+    @include menueButton(url("../de_zaunkoenigweg_runningdb/icons/data.png"), url("../de_zaunkoenigweg_runningdb/icons/data_hover.png"));
+  }
+  
+  .v-button-menueButtonData {
+    @include menueButton(url("../de_zaunkoenigweg_runningdb/icons/data.png"), url("../de_zaunkoenigweg_runningdb/icons/data_hover.png"));
+  }
+  
 }
 
 

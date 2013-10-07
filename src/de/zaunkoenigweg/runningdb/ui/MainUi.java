@@ -52,17 +52,6 @@ public class MainUi extends CustomComponent {
         panelMenu.setStyleName("panelMainMenue");
         layout.addComponent(panelMenu);
         
-        // button "home"
-        layoutMenu.addComponent(this.createMenueButton("Home", new Button.ClickListener() {
-            
-            private static final long serialVersionUID = 145150516505290696L;
-
-            @Override
-            public void buttonClick(ClickEvent event) {
-                MainUi.this.showUi(MainUi.this.homeUi);
-            }
-        }, "menueButtonHome"));
-
         // button "training log"
         layoutMenu.addComponent(this.createMenueButton("Tagebuch", new Button.ClickListener() {
             
@@ -118,6 +107,17 @@ public class MainUi extends CustomComponent {
             }
         }, "menueButtonStatistik"));
         
+        // button "data"
+        layoutMenu.addComponent(this.createMenueButton("Daten", new Button.ClickListener() {
+            
+            private static final long serialVersionUID = -948084043318183201L;
+
+            @Override
+            public void buttonClick(ClickEvent event) {
+                MainUi.this.showUi(MainUi.this.emptyUi);
+            }
+        }, "menueButtonData"));
+        
         // content panel
         panelContent = new Panel();
         panelContent.setSizeFull();
@@ -126,7 +126,7 @@ public class MainUi extends CustomComponent {
         
         createUis();
         
-        showUi(this.homeUi);
+        showUi(this.tagebuchUi);
     }
     
     /**
