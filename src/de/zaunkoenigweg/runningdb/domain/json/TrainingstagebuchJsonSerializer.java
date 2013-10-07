@@ -1,15 +1,18 @@
 package de.zaunkoenigweg.runningdb.domain.json;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONStringer;
 import org.json.JSONWriter;
 
+import sun.misc.BASE64Decoder;
 import de.zaunkoenigweg.runningdb.domain.BestzeitStrecke;
 import de.zaunkoenigweg.runningdb.domain.Lauf;
 import de.zaunkoenigweg.runningdb.domain.Shoe;
@@ -51,7 +54,7 @@ public class TrainingstagebuchJsonSerializer {
         return new JSONObject(json.toString()).toString(2);
     }
     
-    public static Trainingstagebuch readFromJson(String jsonString) throws JSONException {
+    public static Trainingstagebuch readFromJson(String jsonString) throws JSONException, IOException {
         Trainingstagebuch trainingstagebuch = new Trainingstagebuch();
         JSONObject json = new JSONObject(jsonString);
         JSONArray bestzeitenstrecken = json.getJSONArray("bestzeitenstrecken");
@@ -95,7 +98,7 @@ public class TrainingstagebuchJsonSerializer {
         json.endObject();
     }
     
-    private static Shoe readSchuh(JSONObject json) throws JSONException {
+    private static Shoe readSchuh(JSONObject json) throws JSONException, IOException {
         Shoe schuh = new Shoe();
         schuh.setId(json.getInt("id"));
         schuh.setBrand(json.getString("hersteller"));
@@ -104,6 +107,11 @@ public class TrainingstagebuchJsonSerializer {
         schuh.setPrice(json.getString("preis"));
         schuh.setComments(json.getString("bemerkungen"));
         schuh.setActive(json.getBoolean("aktiv"));
+        String imageBase64 = json.getString("image");
+        BASE64Decoder decoder = new BASE64Decoder();
+        if(StringUtils.isNotBlank(imageBase64)) {
+            schuh.setImage(decoder.decodeBuffer(imageBase64));
+        }
         return schuh;
     }
 

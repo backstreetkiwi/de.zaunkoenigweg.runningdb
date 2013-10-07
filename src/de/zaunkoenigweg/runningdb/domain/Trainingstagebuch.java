@@ -59,6 +59,14 @@ public class Trainingstagebuch {
         return result;
     }
     
+    public List<ShoeInfo> getShoeInfo() {
+        List<ShoeInfo> result = new ArrayList<ShoeInfo>();
+        for (Shoe shoe : this.schuhe) {
+            result.add(new ShoeInfo(shoe, getStrecke(shoe)));
+        }
+        return result;
+    }
+    
     public void addSchuh(Shoe schuh) {
         
         // Falls der Schuh schon eine ID mitbringt, wird er nur eingefügt, 
@@ -139,6 +147,21 @@ public class Trainingstagebuch {
         int strecke = 0;
         for (Training training: this.trainingseinheiten) {
             strecke += training.getStrecke();
+        }
+        return strecke;
+    }
+    
+    /**
+     * Gibt die Summe der Strecke aller Trainingseinheiten mit dem angegebenen Schuh zurück.
+     * 
+     * @return Summe der Strecke aller Trainingseinheiten mit dem angegebenen Schuh
+     */
+    public Integer getStrecke(Shoe shoe) {
+        int strecke = 0;
+        for (Training training: this.trainingseinheiten) {
+            if(training.getSchuh()!=null && training.getSchuh().compareTo(shoe.getId())==0) {
+                strecke += training.getStrecke();
+            }
         }
         return strecke;
     }

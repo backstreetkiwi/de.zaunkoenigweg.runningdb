@@ -47,6 +47,11 @@ public class Shoe {
      */
     private boolean active = true;
     
+    /**
+     * image of the running shoes in jpeg format.
+     */
+    private byte[] image;
+    
     public int getId() {
         return id;
     }
@@ -101,6 +106,14 @@ public class Shoe {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public String getShortname() {
