@@ -9,40 +9,49 @@ import com.vaadin.ui.VerticalLayout;
 
 import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
 
+/**
+ * UI with main menu and content panel
+ * 
+ * @author Nikolaus Winter
+ */
 public class MainUi extends CustomComponent {
 
     private static final long serialVersionUID = -72302935704911518L;
 
-    // Trainingstagebuch
-    Trainingstagebuch trainingstagebuch;
+    // training log
+    Trainingstagebuch trainingLog;
     
     // UIs
-    private HomeUi homeUi;
-    private TagebuchUi tagebuchUi;
+    private EmptyUi homeUi;
+    private TrainingLogUi tagebuchUi;
     private BestzeitenUi bestzeitenUi;
     private EmptyUi emptyUi;
 
-    // Panel für den Content
+    // content panel
     private Panel panelContent;
     
-    public MainUi(Trainingstagebuch trainingstagebuch) {
+    /**
+     * Create MainUI.
+     * 
+     * @param trainingLog training log to work with
+     */
+    public MainUi(Trainingstagebuch trainingLog) {
         
-        // Trainingstagebuch speichern
-        this.trainingstagebuch = trainingstagebuch;
+        this.trainingLog = trainingLog;
         
-        // Layout des kpl. UI
+        // overall layout
         HorizontalLayout layout = new HorizontalLayout();
         layout.setStyleName("mainLayout");
         setCompositionRoot(layout);
         
-        // Panel mit dem Menü (links)
+        // main menu panel
         Panel panelMenu = new Panel();
         VerticalLayout layoutMenu = new VerticalLayout();
         panelMenu.setContent(layoutMenu);
         panelMenu.setStyleName("panelMainMenue");
         layout.addComponent(panelMenu);
         
-        // Menü-Buttons 
+        // button "home"
         layoutMenu.addComponent(this.createMenueButton("Home", new Button.ClickListener() {
             
             private static final long serialVersionUID = 145150516505290696L;
@@ -53,6 +62,7 @@ public class MainUi extends CustomComponent {
             }
         }, "menueButtonHome"));
 
+        // button "training log"
         layoutMenu.addComponent(this.createMenueButton("Tagebuch", new Button.ClickListener() {
             
             private static final long serialVersionUID = 4925786265682557541L;
@@ -63,6 +73,7 @@ public class MainUi extends CustomComponent {
             }
         }, "menueButtonTagebuch"));
         
+        // button "records"
         layoutMenu.addComponent(this.createMenueButton("Bestzeiten", new Button.ClickListener() {
             
             private static final long serialVersionUID = -5968455239778239160L;
@@ -73,6 +84,7 @@ public class MainUi extends CustomComponent {
             }
         }, "menueButtonBestzeiten"));
         
+        // button "reports"
         layoutMenu.addComponent(this.createMenueButton("Reports", new Button.ClickListener() {
             
             private static final long serialVersionUID = -5968455239778239160L;
@@ -83,6 +95,7 @@ public class MainUi extends CustomComponent {
             }
         }, "menueButtonReports"));
         
+        // button "shoes"
         layoutMenu.addComponent(this.createMenueButton("Schuhe", new Button.ClickListener() {
             
             private static final long serialVersionUID = -5968455239778239160L;
@@ -93,6 +106,7 @@ public class MainUi extends CustomComponent {
             }
         }, "menueButtonSchuhe"));
         
+        // button "statistics"
         layoutMenu.addComponent(this.createMenueButton("Statistik", new Button.ClickListener() {
             
             private static final long serialVersionUID = -5968455239778239160L;
@@ -103,44 +117,47 @@ public class MainUi extends CustomComponent {
             }
         }, "menueButtonStatistik"));
         
+        // content panel
         panelContent = new Panel();
         panelContent.setSizeFull();
         panelContent.setStyleName("panelAppContent");
         layout.addComponent(panelContent);
-//        layout.setExpandRatio(panelContent, 1.0f);
         
-        // Alle UIs erzeugen
-        initUis();
+        createUis();
         
-        // Home-UI anzeigen
         showUi(this.homeUi);
-        
     }
     
     /**
-     * Alle UIs erzeugen
+     * Create all UIs
      */
-    private void initUis() {
-        this.homeUi = new HomeUi(this.trainingstagebuch);
-        this.tagebuchUi = new TagebuchUi(this.trainingstagebuch);
-        this.bestzeitenUi = new BestzeitenUi(this.trainingstagebuch);
-        this.emptyUi = new EmptyUi(trainingstagebuch);
+    private void createUis() {
+        this.homeUi = new EmptyUi(this.trainingLog);
+        this.tagebuchUi = new TrainingLogUi(this.trainingLog);
+        this.bestzeitenUi = new BestzeitenUi(this.trainingLog);
+        this.emptyUi = new EmptyUi(this.trainingLog);
     }
     
     /**
-     * Anzeige eines UIs.
+     * Show given UI.
+     * 
+     * @param ui UI to show
      */
     private void showUi(AbstractUi ui) {
+        
+        // notify UI
         ui.show();
+        
+        // set content panel to show UI
         this.panelContent.setContent(ui);
     }
     
     /**
-     * Menü-Button erzeugen
-     * @param caption Beschriftung
-     * @param clickListener Aktion für das Drücken des Buttons
-     * @param styleName Style der Komponente (im RunningDB-Theme) 
-     * @return Menü-Button
+     * Create menue button.
+     * @param caption button Caption
+     * @param clickListener action for button click
+     * @param styleName button style (im RunningDB-Theme) 
+     * @return button
      */
     private Button createMenueButton(String caption, Button.ClickListener clickListener, String styleName) {
         Button button = new Button(caption);
