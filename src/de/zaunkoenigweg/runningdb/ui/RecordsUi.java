@@ -19,26 +19,24 @@ import de.zaunkoenigweg.runningdb.domain.RunningDbUtil;
 import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
 /**
- * View zur Bearbeitung der Bestzeitenstrecken.
+ * UI showing record distances and fastest runs per distance.
+ * 
+ * Editing the record distances is also possible in this UI.
  * 
  * @author Nikolaus Winter
- * 
  */
 public class RecordsUi extends AbstractUi {
 
-    private static final int ANZAHL_ZEITEN_PRO_STRECKE = 3;
-
     private static final long serialVersionUID = 3021578951350704103L;
+    
+    private static final int NUMBER_OF_RUNS_PER_RECORD_DISTANCE = 3;
 
     private static final DateFormat DATE_FORMATTER = new SimpleDateFormat("dd.MM.yyyy");    
 
-    Button buttonStreckeHinzufuegen;
+    Button buttonAddRecordDistance;
     
-    /**
-     * Erzeugt diese View
-     */
-    public RecordsUi(TrainingLog trainingstagebuch) {
-        super(trainingstagebuch);
+    public RecordsUi(TrainingLog trainingLog) {
+        super(trainingLog);
     }
 
     @Override
@@ -47,35 +45,34 @@ public class RecordsUi extends AbstractUi {
     }
 
     /**
-     * Füllt diese UI mit den Daten aus dem Trainingstagebuch.
+     * Builds/Refreshes UI.
      */
     private void refreshUi() {
 
-        // Formular-Layout
         FormLayout layout = new FormLayout();
         layout.setMargin(true);
         setCompositionRoot(layout);
 
-        // Je Bestzeitstrecke im Tagebuch wird eine Tabelle mit den besten
-        // drei Zeiten sowie ein Button zum Löschen des Eintrags hinzugefügt.
-        List<RecordInfo> bestzeiten = trainingstagebuch.getRecords();
+        // one table per record distance is added to ui
+        List<RecordInfo> bestzeiten = trainingLog.getRecords();
         for (RecordInfo bestzeitInfo : bestzeiten) {
             layout.addComponent(createBestzeitTable(bestzeitInfo));
             layout.addComponent(createButtonRemoveBestzeit(bestzeitInfo));
         }
         
-        // Button 'Neue Strecke hinzufügen'
-        buttonStreckeHinzufuegen = new Button("Strecke hinzufügen");
-        layout.addComponent(buttonStreckeHinzufuegen);
+        // button "add new record distance"
+        buttonAddRecordDistance = new Button("Strecke hinzufügen");
+        layout.addComponent(buttonAddRecordDistance);
 
-        buttonStreckeHinzufuegen.addClickListener(new Button.ClickListener() {
+        buttonAddRecordDistance.addClickListener(new Button.ClickListener() {
             
             private static final long serialVersionUID = 8949212155808289711L;
 
             @Override
             public void buttonClick(Button.ClickEvent event) {
                 
-                // neues Fenster zur Eingabe einer neuen Bestzeitenstrecke erzeugen und anzeigen.
+                // create and show window to add new record distance
+                // TODO: add listener to window
                 RecordDistanceInputWindow bestzeitStreckeEingabe = new RecordDistanceInputWindow(RecordsUi.this);
                 UI.getCurrent().addWindow(bestzeitStreckeEingabe);
             }
@@ -83,18 +80,18 @@ public class RecordsUi extends AbstractUi {
     }
 
     /**
-     * Erzeugt eine Tabelle mit den Informationen zur angegebenen Bestzeit
-     * @param bestzeitInfo Informationen über die Bestzeit, die angezeigt werden soll.
-     * @return Tabelle mit den Informationen zur angegebenen Bestzeit
+     * Creates table for given record distance using info object.
+     * @param recordInfo information regarding record distance
+     * @return table for given record distance
      */
-    private Table createBestzeitTable(RecordInfo bestzeitInfo) {
+    private Table createBestzeitTable(RecordInfo recordInfo) {
 
         String caption = "";
-        String strecke = new DistanceConverter().convertToPresentation(bestzeitInfo.getRecordDistance().getDistance(), String.class, null);
-        if (StringUtils.isNotBlank(bestzeitInfo.getRecordDistance().getLabel())) {
-            caption = String.format("%s: %s Meter (%d mal gelaufen)", bestzeitInfo.getRecordDistance().getLabel(), strecke, bestzeitInfo.getRunCount());
+        String distance = new DistanceConverter().convertToPresentation(recordInfo.getRecordDistance().getDistance(), String.class, null);
+        if (StringUtils.isNotBlank(recordInfo.getRecordDistance().getLabel())) {
+            caption = String.format("%s: %s Meter (%d mal gelaufen)", recordInfo.getRecordDistance().getLabel(), distance, recordInfo.getRunCount());
         } else {
-            caption = String.format("%s Meter (%d mal gelaufen)", strecke, bestzeitInfo.getRunCount());
+            caption = String.format("%s Meter (%d mal gelaufen)", distance, recordInfo.getRunCount());
         }
 
         Table table = new Table(caption);
@@ -112,28 +109,27 @@ public class RecordsUi extends AbstractUi {
         table.setColumnWidth("time", 100);
         table.setColumnWidth("pace", 100);
 
-        List<RecordRun> laeufe = bestzeitInfo.getRecordRuns();
+        List<RecordRun> runs = recordInfo.getRecordRuns();
         int i = 0;
-        while (i < ANZAHL_ZEITEN_PRO_STRECKE && i < laeufe.size()) {
-            RecordRun lauf = laeufe.get(i);
-            table.addItem(new Object[] {DATE_FORMATTER.format(lauf.getTraining().getDate()), lauf.getTime(), RunningDbUtil.getPace(bestzeitInfo.getRecordDistance().getDistance(), lauf.getTime()) }, null);
+        while (i < NUMBER_OF_RUNS_PER_RECORD_DISTANCE && i < runs.size()) {
+            RecordRun lauf = runs.get(i);
+            table.addItem(new Object[] {DATE_FORMATTER.format(lauf.getTraining().getDate()), lauf.getTime(), RunningDbUtil.getPace(recordInfo.getRecordDistance().getDistance(), lauf.getTime()) }, null);
             i++;
         }
-        table.setPageLength(ANZAHL_ZEITEN_PRO_STRECKE);
+        table.setPageLength(NUMBER_OF_RUNS_PER_RECORD_DISTANCE);
 
         return table;
     }
 
     /**
-     * Erzeugt einen Button zum Löschen der Bestzeitenstrecke aus der Liste der
-     * anzuzeigenden Bestzeiten.
-     * @param bestzeitInfo Informationen über die Bestzeit, die gelöscht werden soll.
-     * @return
+     * Creates a button to delete record distance
+     * @param recordInfo information regarding record distance
+     * @return button to delete record distance
      */
-    private Button createButtonRemoveBestzeit(final RecordInfo bestzeitInfo) {
+    private Button createButtonRemoveBestzeit(final RecordInfo recordInfo) {
 
-        Button buttonremoveBestzeit = new Button("Löschen");
-        buttonremoveBestzeit.addClickListener(new Button.ClickListener() {
+        Button button = new Button("Löschen");
+        button.addClickListener(new Button.ClickListener() {
             
             private static final long serialVersionUID = 7956107661600031856L;
 
@@ -145,7 +141,7 @@ public class RecordsUi extends AbstractUi {
                     @Override
                     public void yes() {
                         // delete record time from training log
-                        RecordsUi.this.trainingstagebuch.removeRecordDistance(bestzeitInfo.getRecordDistance());
+                        RecordsUi.this.trainingLog.removeRecordDistance(recordInfo.getRecordDistance());
                         refreshUi();
                     }
                     
@@ -157,15 +153,15 @@ public class RecordsUi extends AbstractUi {
                                
             }
         });
-        return buttonremoveBestzeit;
+        return button;
     }
     
     /**
-     * Callback-Methode für das {@link RecordDistanceInputWindow}
-     * @param bestzeitStrecke BestzeitStrecke, die hinzugefügt werden soll.
+     * TODO: use listener (implement it first of all :-)
+     * callback for {@link RecordDistanceInputWindow}
      */
-    public void addBestzeitenStrecke(RecordDistance bestzeitStrecke) {
-        this.trainingstagebuch.addRecordDistance(bestzeitStrecke);
+    public void addRecordDistance(RecordDistance recordDistance) {
+        this.trainingLog.addRecordDistance(recordDistance);
         refreshUi();
     }
 }

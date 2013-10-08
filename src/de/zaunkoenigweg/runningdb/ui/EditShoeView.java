@@ -19,11 +19,11 @@ import de.zaunkoenigweg.runningdb.domain.Shoe;
 import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
 /**
- * View zur Bearbeitung eines Laufschuhs.
+ * View to edit running shoe.
  * 
  * @author Nikolaus Winter
- *
  */
+@Deprecated
 public class EditShoeView extends CustomComponent implements View {
 
     private static final long serialVersionUID = 3021578951350704103L;
@@ -45,7 +45,7 @@ public class EditShoeView extends CustomComponent implements View {
     BeanItem<Shoe> schuh;
     
     // Referenz auf das bearbeitete Trainingstagebuch
-    private TrainingLog trainingstagebuch;
+    private TrainingLog trainingLog;
 
     /**
      * Erzeugt diese View
@@ -121,7 +121,7 @@ public class EditShoeView extends CustomComponent implements View {
             
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                trainingstagebuch.addShoe(schuh.getBean());
+                trainingLog.addShoe(schuh.getBean());
                 navigator.navigateTo(RunningDbUi.VIEW_START);
             }
         });
@@ -138,7 +138,7 @@ public class EditShoeView extends CustomComponent implements View {
         this.navigator = event.getNavigator();
         
         // Trainingstagebuch aus der Session holen
-        this.trainingstagebuch = (TrainingLog) VaadinSession.getCurrent().getAttribute("trainingstagebuch");
+        this.trainingLog = (TrainingLog) VaadinSession.getCurrent().getAttribute("trainingLog");
 
         // neuen Schuh erzeugen und anzeigen
         this.schuh = new BeanItem<Shoe>(new Shoe());

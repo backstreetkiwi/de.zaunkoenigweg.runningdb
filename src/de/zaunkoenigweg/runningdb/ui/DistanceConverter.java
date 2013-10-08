@@ -8,6 +8,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.vaadin.data.util.converter.Converter;
 
+/**
+ * Converts running distance.
+ *
+ * @author Nikolaus Winter
+ */
 public class DistanceConverter implements Converter<String, Integer> {
 
     private static final long serialVersionUID = -5944663904981260796L;

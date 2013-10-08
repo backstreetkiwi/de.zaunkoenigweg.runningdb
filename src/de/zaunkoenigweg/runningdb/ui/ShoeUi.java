@@ -140,7 +140,7 @@ public class ShoeUi extends AbstractUi {
     public void show() {
         // retrieve list w/ shoe information from training log and show it
         this.shoeContainer.removeAllItems();
-        this.shoeContainer.addAll(this.trainingstagebuch.getShoeInfo());
+        this.shoeContainer.addAll(this.trainingLog.getShoeInfo());
     }
 
 }

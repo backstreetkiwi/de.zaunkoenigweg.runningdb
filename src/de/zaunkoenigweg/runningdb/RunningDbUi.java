@@ -51,11 +51,11 @@ public class RunningDbUi extends UI {
             return;
         }
         
-        TrainingLog trainingstagebuch = null;
+        TrainingLog trainingLog = null;
 
         try {
-            trainingstagebuch = TrainingLogJsonSerializer.readFromJson(json.toString()); 
-            VaadinSession.getCurrent().setAttribute("trainingstagebuch", trainingstagebuch);
+            trainingLog = TrainingLogJsonSerializer.readFromJson(json.toString()); 
+            VaadinSession.getCurrent().setAttribute("trainingLog", trainingLog);
         } catch (JSONException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -68,7 +68,7 @@ public class RunningDbUi extends UI {
 
         getPage().setTitle("RunningDB");
         
-        setContent(new MainUi(trainingstagebuch));
+        setContent(new MainUi(trainingLog));
     }
 
 }

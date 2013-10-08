@@ -11,7 +11,7 @@ public class TrainingLogGenerator {
 
     public static TrainingLog generate() {
         
-        TrainingLog trainingstagebuch = new TrainingLog();
+        TrainingLog trainingLog = new TrainingLog();
         
         long datum = 1180389600000L;
         
@@ -31,11 +31,11 @@ public class TrainingLogGenerator {
                 training.getRuns().add(lauf);
             }
             
-            trainingstagebuch.addTraining(training);
+            trainingLog.addTraining(training);
             
         }
         
-        return trainingstagebuch;
+        return trainingLog;
         
     }
     

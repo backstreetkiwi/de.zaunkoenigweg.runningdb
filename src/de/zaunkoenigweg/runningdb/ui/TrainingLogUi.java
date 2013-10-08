@@ -214,7 +214,7 @@ public class TrainingLogUi extends AbstractUi {
         Date chosenMonth = dateFieldMonth.getValue();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(chosenMonth);
-        fillTableTraining(this.trainingstagebuch.getTrainings(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)));
+        fillTableTraining(this.trainingLog.getTrainings(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)));
     }
     
     /**

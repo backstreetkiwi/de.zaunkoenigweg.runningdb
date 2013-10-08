@@ -8,6 +8,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.vaadin.data.util.converter.Converter;
 
+/**
+ * Converts elapsed running time.
+ *
+ * @author Nikolaus Winter
+ */
 public class TimeConverter implements Converter<String, Integer> {
 
     private static final String REGEX = "^((\\d):)?(\\d{1,2}):(\\d{1,2})$";

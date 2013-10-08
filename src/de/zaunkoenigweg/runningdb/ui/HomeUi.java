@@ -13,6 +13,7 @@ import de.zaunkoenigweg.runningdb.domain.TrainingLog;
  * 
  * @author Nikolaus Winter
  */
+@Deprecated
 public class HomeUi extends AbstractUi {
 
     private static final long serialVersionUID = 6470235043474537736L;
@@ -40,13 +41,13 @@ public class HomeUi extends AbstractUi {
 
             @Override
             public void buttonClick(ClickEvent event) {
-                EditTrainingWindow.show(HomeUi.this.trainingstagebuch, new EditTrainingWindow.TrainingCreatedListener() {
+                EditTrainingWindow.show(HomeUi.this.trainingLog, new EditTrainingWindow.TrainingCreatedListener() {
                     
                     private static final long serialVersionUID = 414496460728242231L;
 
                     @Override
                     public void trainingCreated(Training training) {
-                        HomeUi.this.trainingstagebuch.addTraining(training);
+                        HomeUi.this.trainingLog.addTraining(training);
                     }
                 });
             }

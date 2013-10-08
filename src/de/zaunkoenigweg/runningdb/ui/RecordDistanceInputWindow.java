@@ -13,7 +13,7 @@ import com.vaadin.ui.Window;
 import de.zaunkoenigweg.runningdb.domain.RecordDistance;
 
 /**
- * Fenster zur Eingabe einer Bestzeitenstrecke.
+ * Window to enter new record distance.
  * 
  * @author Nikolaus Winter
  */
@@ -21,22 +21,19 @@ public class RecordDistanceInputWindow extends Window {
 
     private static final long serialVersionUID = -6228525065980711482L;
     
-    // Converter für Strecke und Zeit
-    private DistanceConverter streckeConverter = new DistanceConverter();
+    private static final DistanceConverter DISTANCE_CONVERTER = new DistanceConverter();
 
-    private TextField textFieldStrecke;
-    private TextField textFieldBezeichnung;
-    private Button buttonSpeichern;
-    private Button buttonAbbrechen;
-    BeanItem<RecordDistance> bestzeitStrecke;
+    private TextField textFieldDistance;
+    private TextField textFieldLabel;
+    private Button buttonSave;
+    private Button buttonCancel;
+    BeanItem<RecordDistance> recordDistance;
 
 
-    public RecordDistanceInputWindow(final RecordsUi bestzeitenUi) {
+    public RecordDistanceInputWindow(final RecordsUi recordsUi) {
         
-        // Lauf-Objekt erstellen
-        this.bestzeitStrecke = new BeanItem<RecordDistance>(new RecordDistance());
+        this.recordDistance = new BeanItem<RecordDistance>(new RecordDistance());
         
-        // allg. Eigenschaften des Fensters 
         setCaption("Eingabe einer Strecke für die Bestzeiten");
         setClosable(false);
         setHeight("400px");
@@ -45,54 +42,53 @@ public class RecordDistanceInputWindow extends Window {
         setModal(true);
         center();
 
-        // Formular-Layout
         Layout layout = new FormLayout();
         setContent(layout);
         
-        // Eingabe der Strecke
-        this.textFieldStrecke = new TextField("Strecke");
-        this.textFieldStrecke.setWidth("200px");
-        this.textFieldStrecke.setPropertyDataSource(this.bestzeitStrecke.getItemProperty("distance"));
-        this.textFieldStrecke.setImmediate(true);
-        this.textFieldStrecke.setConverter(this.streckeConverter);
-        this.textFieldStrecke.setConversionError("Die Laufstrecke muss zwischen 100 m und 42.195 m liegen.");
-        this.textFieldStrecke.addValidator(new IntegerRangeValidator("Die Laufstrecke muss zwischen 100 m und 42.195 m liegen.", 100, 42195));
-        this.textFieldStrecke.setValidationVisible(true);
-        this.textFieldStrecke.setBuffered(true);
-        this.textFieldStrecke.focus();
-        layout.addComponent(this.textFieldStrecke);
+        // input "distance"
+        this.textFieldDistance = new TextField("Strecke");
+        this.textFieldDistance.setWidth("200px");
+        this.textFieldDistance.setPropertyDataSource(this.recordDistance.getItemProperty("distance"));
+        this.textFieldDistance.setImmediate(true);
+        this.textFieldDistance.setConverter(DISTANCE_CONVERTER);
+        this.textFieldDistance.setConversionError("Die Laufstrecke muss zwischen 100 m und 42.195 m liegen.");
+        this.textFieldDistance.addValidator(new IntegerRangeValidator("Die Laufstrecke muss zwischen 100 m und 42.195 m liegen.", 100, 42195));
+        this.textFieldDistance.setValidationVisible(true);
+        this.textFieldDistance.setBuffered(true);
+        this.textFieldDistance.focus();
+        layout.addComponent(this.textFieldDistance);
 
-        // Eingabe der Zeit
-        this.textFieldBezeichnung = new TextField("Bezeichnung");
-        this.textFieldBezeichnung.setWidth("400px");
-        this.textFieldBezeichnung.setPropertyDataSource(this.bestzeitStrecke.getItemProperty("label"));
-        this.textFieldBezeichnung.setImmediate(true);
-        this.textFieldBezeichnung.setBuffered(true);
-        layout.addComponent(this.textFieldBezeichnung);
+        // input "label"
+        this.textFieldLabel = new TextField("Bezeichnung");
+        this.textFieldLabel.setWidth("400px");
+        this.textFieldLabel.setPropertyDataSource(this.recordDistance.getItemProperty("label"));
+        this.textFieldLabel.setImmediate(true);
+        this.textFieldLabel.setBuffered(true);
+        layout.addComponent(this.textFieldLabel);
 
-        // Button speichern
-        buttonSpeichern = new Button("Speichern");
-        layout.addComponent(buttonSpeichern);
-        buttonSpeichern.addClickListener(new ClickListener() {
+        // button "save"
+        buttonSave = new Button("Speichern");
+        layout.addComponent(buttonSave);
+        buttonSave.addClickListener(new ClickListener() {
 
             private static final long serialVersionUID = -7145011427729445317L;
 
             public void buttonClick(ClickEvent event) {
-                if(textFieldStrecke.isValid()) {
-                    textFieldStrecke.commit();
-                    textFieldBezeichnung.commit();
-                    if(bestzeitStrecke.getBean().getDistance()!=null) {
-                        bestzeitenUi.addBestzeitenStrecke(bestzeitStrecke.getBean());
+                if(textFieldDistance.isValid()) {
+                    textFieldDistance.commit();
+                    textFieldLabel.commit();
+                    if(recordDistance.getBean().getDistance()!=null) {
+                        recordsUi.addRecordDistance(recordDistance.getBean());
                         close();
                     }
                 }
             }
         });
 
-        // Button Abbrechen
-        buttonAbbrechen = new Button("Abbrechen");
-        layout.addComponent(buttonAbbrechen);
-        buttonAbbrechen.addClickListener(new ClickListener() {
+        // button "cancel"
+        buttonCancel = new Button("Abbrechen");
+        layout.addComponent(buttonCancel);
+        buttonCancel.addClickListener(new ClickListener() {
 
             private static final long serialVersionUID = -7145011427729445317L;
 
