@@ -24,7 +24,7 @@ import de.zaunkoenigweg.runningdb.domain.TrainingLog;
  * @author Nikolaus Winter
  * 
  */
-public class BestzeitenUi extends AbstractUi {
+public class RecordsUi extends AbstractUi {
 
     private static final int ANZAHL_ZEITEN_PRO_STRECKE = 3;
 
@@ -37,7 +37,7 @@ public class BestzeitenUi extends AbstractUi {
     /**
      * Erzeugt diese View
      */
-    public BestzeitenUi(TrainingLog trainingstagebuch) {
+    public RecordsUi(TrainingLog trainingstagebuch) {
         super(trainingstagebuch);
     }
 
@@ -76,7 +76,7 @@ public class BestzeitenUi extends AbstractUi {
             public void buttonClick(Button.ClickEvent event) {
                 
                 // neues Fenster zur Eingabe einer neuen Bestzeitenstrecke erzeugen und anzeigen.
-                BestzeitStreckeEingabeWindow bestzeitStreckeEingabe = new BestzeitStreckeEingabeWindow(BestzeitenUi.this);
+                RecordDistanceInputWindow bestzeitStreckeEingabe = new RecordDistanceInputWindow(RecordsUi.this);
                 UI.getCurrent().addWindow(bestzeitStreckeEingabe);
             }
         });
@@ -90,7 +90,7 @@ public class BestzeitenUi extends AbstractUi {
     private Table createBestzeitTable(RecordInfo bestzeitInfo) {
 
         String caption = "";
-        String strecke = new StreckeConverter().convertToPresentation(bestzeitInfo.getRecordDistance().getDistance(), String.class, null);
+        String strecke = new DistanceConverter().convertToPresentation(bestzeitInfo.getRecordDistance().getDistance(), String.class, null);
         if (StringUtils.isNotBlank(bestzeitInfo.getRecordDistance().getLabel())) {
             caption = String.format("%s: %s Meter (%d mal gelaufen)", bestzeitInfo.getRecordDistance().getLabel(), strecke, bestzeitInfo.getRunCount());
         } else {
@@ -105,8 +105,8 @@ public class BestzeitenUi extends AbstractUi {
         table.setColumnHeader("date", "Datum");
         table.setColumnHeader("time", "Zeit");
         table.setColumnHeader("pace", "Schnitt");
-        table.setConverter("time", new ZeitConverter());
-        table.setConverter("pace", new ZeitConverter());
+        table.setConverter("time", new TimeConverter());
+        table.setConverter("pace", new TimeConverter());
         table.setSortEnabled(false);
         table.setColumnWidth("date", 100);
         table.setColumnWidth("time", 100);
@@ -145,7 +145,7 @@ public class BestzeitenUi extends AbstractUi {
                     @Override
                     public void yes() {
                         // delete record time from training log
-                        BestzeitenUi.this.trainingstagebuch.removeRecordDistance(bestzeitInfo.getRecordDistance());
+                        RecordsUi.this.trainingstagebuch.removeRecordDistance(bestzeitInfo.getRecordDistance());
                         refreshUi();
                     }
                     
@@ -161,7 +161,7 @@ public class BestzeitenUi extends AbstractUi {
     }
     
     /**
-     * Callback-Methode für das {@link BestzeitStreckeEingabeWindow}
+     * Callback-Methode für das {@link RecordDistanceInputWindow}
      * @param bestzeitStrecke BestzeitStrecke, die hinzugefügt werden soll.
      */
     public void addBestzeitenStrecke(RecordDistance bestzeitStrecke) {

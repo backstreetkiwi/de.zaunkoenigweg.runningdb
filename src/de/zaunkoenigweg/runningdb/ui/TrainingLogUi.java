@@ -41,8 +41,8 @@ public class TrainingLogUi extends AbstractUi {
     private BeanItemContainer<Run> runContainer;
     private Panel panelTrainingDetails;
 
-    private static final StreckeConverter STRECKE_CONVERTER = new StreckeConverter();
-    private static final ZeitConverter ZEIT_CONVERTER = new ZeitConverter();
+    private static final DistanceConverter STRECKE_CONVERTER = new DistanceConverter();
+    private static final TimeConverter ZEIT_CONVERTER = new TimeConverter();
 
     /**
      * Create TrainingLogUI.

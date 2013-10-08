@@ -7,13 +7,13 @@ import java.util.Locale;
 import org.junit.Before;
 import org.junit.Test;
 
-public class ZeitConverterTest {
+public class TimeConverterTest {
     
-    private ZeitConverter sut;
+    private TimeConverter sut;
     
     @Before
     public void setup() {
-        this.sut = new ZeitConverter();
+        this.sut = new TimeConverter();
     }
 
     @Test

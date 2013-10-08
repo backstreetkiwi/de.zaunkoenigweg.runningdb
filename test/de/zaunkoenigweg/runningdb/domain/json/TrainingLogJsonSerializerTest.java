@@ -9,7 +9,7 @@ import de.zaunkoenigweg.runningdb.domain.RecordDistance;
 import de.zaunkoenigweg.runningdb.domain.Shoe;
 import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
-public class TrainingstagebuchJsonSerializerTest {
+public class TrainingLogJsonSerializerTest {
     
     @Test
     public void testWriteToJson() throws Exception {

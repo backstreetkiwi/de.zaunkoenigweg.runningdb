@@ -26,7 +26,7 @@ public class ShoeUi extends AbstractUi {
     private Table tableShoes;
     private BeanItemContainer<ShoeInfo> shoeContainer;
 
-    private static final StreckeConverter DISTANCE_CONVERTER = new StreckeConverter();
+    private static final DistanceConverter DISTANCE_CONVERTER = new DistanceConverter();
 
     /**
      * Create ShoeUI.

@@ -17,12 +17,12 @@ import de.zaunkoenigweg.runningdb.domain.RecordDistance;
  * 
  * @author Nikolaus Winter
  */
-public class BestzeitStreckeEingabeWindow extends Window {
+public class RecordDistanceInputWindow extends Window {
 
     private static final long serialVersionUID = -6228525065980711482L;
     
     // Converter für Strecke und Zeit
-    private StreckeConverter streckeConverter = new StreckeConverter();
+    private DistanceConverter streckeConverter = new DistanceConverter();
 
     private TextField textFieldStrecke;
     private TextField textFieldBezeichnung;
@@ -31,7 +31,7 @@ public class BestzeitStreckeEingabeWindow extends Window {
     BeanItem<RecordDistance> bestzeitStrecke;
 
 
-    public BestzeitStreckeEingabeWindow(final BestzeitenUi bestzeitenUi) {
+    public RecordDistanceInputWindow(final RecordsUi bestzeitenUi) {
         
         // Lauf-Objekt erstellen
         this.bestzeitStrecke = new BeanItem<RecordDistance>(new RecordDistance());

@@ -7,13 +7,13 @@ import java.util.Locale;
 import org.junit.Before;
 import org.junit.Test;
 
-public class StreckeConverterTest {
+public class DistanceConverterTest {
     
-    private StreckeConverter sut;
+    private DistanceConverter sut;
     
     @Before
     public void setup() {
-        this.sut = new StreckeConverter();
+        this.sut = new DistanceConverter();
     }
 
     @Test

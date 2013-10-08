@@ -2,7 +2,7 @@ package de.zaunkoenigweg.runningdb.domain;
 
 import java.util.Date;
 
-public class TrainingstagebuchGenerator {
+public class TrainingLogGenerator {
     
     private static final String[] ORTE = new String[] {"Rantzauer Forst", "Alsterwanderweg", "Sportplatz am See", "Stadtpark HH", "Stadtpark Norderstedt", "Straßenrunde Norderstedt", "München"};
     private static final String[] BEMERKUNGEN = new String[] {"super", "Schmerzen im Bein", "schlapp", "Nasenbluten", "etwas besser"};

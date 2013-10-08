@@ -24,7 +24,7 @@ import de.zaunkoenigweg.runningdb.domain.TrainingLog;
  * @author Nikolaus Winter
  *
  */
-public class EditSchuh extends CustomComponent implements View {
+public class EditShoeView extends CustomComponent implements View {
 
     private static final long serialVersionUID = 3021578951350704103L;
 
@@ -50,7 +50,7 @@ public class EditSchuh extends CustomComponent implements View {
     /**
      * Erzeugt diese View
      */
-    public EditSchuh() {
+    public EditShoeView() {
         
         // Formular-Layout
         Layout layout = new FormLayout();

@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.vaadin.data.util.converter.Converter;
 
-public class StreckeConverter implements Converter<String, Integer> {
+public class DistanceConverter implements Converter<String, Integer> {
 
     private static final long serialVersionUID = -5944663904981260796L;
     private static final String REGEX = "^(\\d{1,2})?\\.?(\\d{3})$";

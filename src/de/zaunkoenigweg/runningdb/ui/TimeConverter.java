@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.vaadin.data.util.converter.Converter;
 
-public class ZeitConverter implements Converter<String, Integer> {
+public class TimeConverter implements Converter<String, Integer> {
 
     private static final String REGEX = "^((\\d):)?(\\d{1,2}):(\\d{1,2})$";
     private static final long serialVersionUID = 4370150854933461623L;

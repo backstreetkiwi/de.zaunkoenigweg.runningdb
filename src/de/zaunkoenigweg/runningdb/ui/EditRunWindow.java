@@ -24,8 +24,8 @@ public class EditRunWindow extends Window {
 
     private static final long serialVersionUID = 6366542591098712326L;
 
-    private StreckeConverter distanceConverter = new StreckeConverter();
-    private ZeitConverter timeConverter = new ZeitConverter();
+    private DistanceConverter distanceConverter = new DistanceConverter();
+    private TimeConverter timeConverter = new TimeConverter();
 
     private TextField textFieldDistance;
     private TextField textFieldTime;

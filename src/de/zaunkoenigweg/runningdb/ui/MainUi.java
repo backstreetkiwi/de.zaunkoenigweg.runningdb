@@ -24,7 +24,7 @@ public class MainUi extends CustomComponent {
     // UIs
     private HomeUi homeUi;
     private TrainingLogUi tagebuchUi;
-    private BestzeitenUi bestzeitenUi;
+    private RecordsUi bestzeitenUi;
     private ShoeUi shoeUi;
     private EmptyUi emptyUi;
 
@@ -135,7 +135,7 @@ public class MainUi extends CustomComponent {
     private void createUis() {
         this.homeUi = new HomeUi(this.trainingLog);
         this.tagebuchUi = new TrainingLogUi(this.trainingLog);
-        this.bestzeitenUi = new BestzeitenUi(this.trainingLog);
+        this.bestzeitenUi = new RecordsUi(this.trainingLog);
         this.shoeUi = new ShoeUi(this.trainingLog);
         this.emptyUi = new EmptyUi(this.trainingLog);
     }
