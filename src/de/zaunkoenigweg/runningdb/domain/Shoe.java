@@ -117,7 +117,7 @@ public class Shoe {
     }
 
     public String getShortname() {
-        return String.format("%s (%s)", this.model, this.brand);
+        return String.format("%s %s (%s)", this.brand, this.model, this.dateOfPurchase);
     }
 
     /**

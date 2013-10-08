@@ -7,12 +7,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.converter.Converter;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.datefield.Resolution;
 import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.Image;
 import com.vaadin.ui.InlineDateField;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Layout;
@@ -21,6 +25,7 @@ import com.vaadin.ui.Table;
 
 import de.zaunkoenigweg.runningdb.domain.Run;
 import de.zaunkoenigweg.runningdb.domain.RunningDbUtil;
+import de.zaunkoenigweg.runningdb.domain.Shoe;
 import de.zaunkoenigweg.runningdb.domain.Training;
 import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
@@ -88,15 +93,19 @@ public class TrainingLogUi extends AbstractUi {
         tableTrainingLog.setColumnHeader("location", "Ort");
         tableTrainingLog.setColumnHeader("distance", "Strecke");
         tableTrainingLog.setColumnHeader("time", "Zeit");
-        tableTrainingLog.setColumnHeader("pace", "Schnitt [min/km]");
+        tableTrainingLog.setColumnHeader("pace", "Schnitt");
+        tableTrainingLog.setColumnHeader("shoe", "Schuhe");
+        tableTrainingLog.setColumnHeader("comments", "");
         tableTrainingLog.setFooterVisible(true);
-        tableTrainingLog.setPageLength(15);
-        tableTrainingLog.setWidth("800px");
-        tableTrainingLog.setColumnWidth("date", 100);
-        tableTrainingLog.setColumnWidth("location", 300);
-        tableTrainingLog.setColumnWidth("distance", 100);
-        tableTrainingLog.setColumnWidth("time", 100);
-        tableTrainingLog.setColumnWidth("pace", 100);
+        tableTrainingLog.setPageLength(20);
+        tableTrainingLog.setWidth("900px");
+        tableTrainingLog.setColumnWidth("date", 75);
+        tableTrainingLog.setColumnWidth("location", 250);
+        tableTrainingLog.setColumnWidth("distance", 75);
+        tableTrainingLog.setColumnWidth("time", 75);
+        tableTrainingLog.setColumnWidth("pace", 75);
+        tableTrainingLog.setColumnWidth("shoe", 200);
+        tableTrainingLog.setColumnWidth("comments", 20);
         tableTrainingLog.setConverter("distance", STRECKE_CONVERTER);
         tableTrainingLog.setConverter("time", ZEIT_CONVERTER);
         tableTrainingLog.setConverter("date", new Converter<String, Date>() {
@@ -106,12 +115,12 @@ public class TrainingLogUi extends AbstractUi {
             private final DateFormat DATE_FORMATTER = new SimpleDateFormat("dd.MM.yyyy");    
 
             @Override
-            public Date convertToModel(String value, Class<? extends Date> targetType, Locale locale) throws com.vaadin.data.util.converter.Converter.ConversionException {
+            public Date convertToModel(String value, Class<? extends Date> targetType, Locale locale) throws Converter.ConversionException {
                 return null;
             }
 
             @Override
-            public String convertToPresentation(Date value, Class<? extends String> targetType, Locale locale) throws com.vaadin.data.util.converter.Converter.ConversionException {
+            public String convertToPresentation(Date value, Class<? extends String> targetType, Locale locale) throws Converter.ConversionException {
                 return DATE_FORMATTER.format(value);
             }
 
@@ -126,8 +135,40 @@ public class TrainingLogUi extends AbstractUi {
             }
             
         });
-        tableTrainingLog.setImmediate(true);
+        
+        tableTrainingLog.setConverter("shoe", new Converter<String, Integer>() {
 
+            private static final long serialVersionUID = -4400228635403939493L;
+            
+            @Override
+            public Integer convertToModel(String value, Class<? extends Integer> targetType, Locale locale) throws Converter.ConversionException {
+                return null;
+            }
+
+            @Override
+            public String convertToPresentation(Integer value, Class<? extends String> targetType, Locale locale) throws Converter.ConversionException {
+                String result = "";
+                if(value!=null && value>0) {
+                    Shoe shoe = TrainingLogUi.this.trainingLog.getShoe(value);
+                    if(shoe!=null) {
+                        result = shoe.getShortname();
+                    }
+                }
+                return result;
+            }
+
+            @Override
+            public Class<Integer> getModelType() {
+                return Integer.class;
+            }
+
+            @Override
+            public Class<String> getPresentationType() {
+                return String.class;
+            }
+            
+        });
+        
         // pace is calculated into generated column
         tableTrainingLog.addGeneratedColumn("pace", new Table.ColumnGenerator() {
             
@@ -140,7 +181,26 @@ public class TrainingLogUi extends AbstractUi {
                 return new Label(ZEIT_CONVERTER.convertToPresentation(schnitt, String.class, null));
             }
         });
-        tableTrainingLog.setVisibleColumns(new Object[] {"date", "location", "distance", "time", "pace"});
+        
+        tableTrainingLog.addGeneratedColumn("comments", new Table.ColumnGenerator() {
+            
+            private static final long serialVersionUID = -6512627057346466980L;
+            
+            @Override
+            public Object generateCell(Table source, Object itemId, Object columnId) {
+                Training training = (Training)itemId;
+                if(StringUtils.isNotBlank(training.getComments())) {
+                    Image image = new Image("", new ThemeResource("icons/bubble.png"));
+                    image.setDescription(StringUtils.replace(training.getComments(), "\n", "<br/>"));
+                    return image;
+                }
+                return null;
+            }
+        });
+        
+        tableTrainingLog.setImmediate(true);
+        
+        tableTrainingLog.setVisibleColumns(new Object[] {"date", "location", "distance", "time", "pace", "shoe", "comments"});
         
         
         // show training details for selected training
