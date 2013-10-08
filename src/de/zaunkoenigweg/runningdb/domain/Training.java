@@ -7,101 +7,100 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Eine Trainingseinheit.
+ * Training session.
  * 
  * @author Nikolaus Winter
- *
  */
 public class Training {
     
-    private Date datum;
-    private String ort = "";
-    private String bemerkungen = "";
-    private Integer schuh = 0;
-    private List<Run> laeufe = new ArrayList<Run>();
+    private Date date;
+    private String location = "";
+    private String comments = "";
+    private Integer shoe = 0;
+    private List<Run> runs = new ArrayList<Run>();
     
-    public Date getDatum() {
-        return datum;
+    public Date getDate() {
+        return date;
     }
 
-    public void setDatum(Date datum) {
-        this.datum = datum;
+    public void setDate(Date date) {
+        this.date = date;
     }
     
-    public String getOrt() {
-        return ort;
+    public String getLocation() {
+        return location;
     }
     
-    public void setOrt(String ort) {
-        this.ort = ort;
+    public void setLocation(String location) {
+        this.location = location;
     }
     
-    public String getBemerkungen() {
-        return bemerkungen;
+    public String getComments() {
+        return comments;
     }
     
-    public void setBemerkungen(String bemerkungen) {
-        this.bemerkungen = bemerkungen;
+    public void setComments(String comments) {
+        this.comments = comments;
     }
     
-    public Integer getSchuh() {
-        return schuh;
+    public Integer getShoe() {
+        return shoe;
     }
 
-    public void setSchuh(Integer schuh) {
-        this.schuh = schuh;
+    public void setShoe(Integer shoe) {
+        this.shoe = shoe;
     }
 
-    public List<Run> getLaeufe() {
-        return laeufe;
+    public List<Run> getRuns() {
+        return runs;
     }
     
     /**
-     * Gibt die Summe der Strecke zurück.
+     * Returns sum of distance of all runs.
      * 
-     * @return Summe der Strecke
+     * @return sum of distance
      */
-    public Integer getStrecke() {
-        int strecke = 0;
-        for (Run lauf: this.laeufe) {
-            strecke += lauf.getStrecke();
+    public Integer getDistance() {
+        int distance = 0;
+        for (Run run: this.runs) {
+            distance += run.getDistance();
         }
-        return strecke;
+        return distance;
     }
     
     /**
-     * Gibt die Summe der Zeit zurück.
+     * Returns sum of elapsed time of all runs.
      * 
-     * @return Summe der Zeit
+     * @return sum of elapsed time
      */
-    public Integer getZeit() {
-        int zeit = 0;
-        for (Run lauf: this.laeufe) {
-            zeit += lauf.getZeit();
+    public Integer getTime() {
+        int time = 0;
+        for (Run run: this.runs) {
+            time += run.getTime();
         }
-        return zeit;
+        return time;
     }
     
     /**
-     * Prüft, ob das Training valide ist und gespeichert werden kann.
+     * Checks training session for validity
      * 
-     * @return Ist das Training valide ist und kann gespeichert werden?
+     * @return Is the training session data valid, i.e. ready to be saved.
      */
     public boolean isValid() {
         
-        if (StringUtils.isBlank(this.ort)) {
+        if (StringUtils.isBlank(this.location)) {
             return false;
         }
         
-        if(this.datum==null) {
+        if(this.date==null) {
             return false;
         }
         
-        if(this.schuh==null || this.schuh.intValue()<=0) {
+        if(this.shoe==null || this.shoe.intValue()<=0) {
             return false;
         }
         
-        if(this.laeufe.isEmpty()) {
+        if(this.runs.isEmpty()) {
             return false;
         }
         

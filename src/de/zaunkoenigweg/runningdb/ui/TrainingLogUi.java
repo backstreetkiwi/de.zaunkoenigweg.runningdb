@@ -84,22 +84,22 @@ public class TrainingLogUi extends AbstractUi {
         // table showing all trainings of chosen month
         tableTrainingLog = new Table("", trainingContainer);
         layout.addComponent(tableTrainingLog);
-        tableTrainingLog.setColumnHeader("datum", "Datum");
-        tableTrainingLog.setColumnHeader("ort", "Ort");
-        tableTrainingLog.setColumnHeader("strecke", "Strecke");
-        tableTrainingLog.setColumnHeader("zeit", "Zeit");
-        tableTrainingLog.setColumnHeader("schnitt", "Schnitt [min/km]");
+        tableTrainingLog.setColumnHeader("date", "Datum");
+        tableTrainingLog.setColumnHeader("location", "Ort");
+        tableTrainingLog.setColumnHeader("distance", "Strecke");
+        tableTrainingLog.setColumnHeader("time", "Zeit");
+        tableTrainingLog.setColumnHeader("pace", "Schnitt [min/km]");
         tableTrainingLog.setFooterVisible(true);
         tableTrainingLog.setPageLength(15);
         tableTrainingLog.setWidth("800px");
-        tableTrainingLog.setColumnWidth("datum", 100);
-        tableTrainingLog.setColumnWidth("ort", 300);
-        tableTrainingLog.setColumnWidth("strecke", 100);
-        tableTrainingLog.setColumnWidth("zeit", 100);
-        tableTrainingLog.setColumnWidth("schnitt", 100);
-        tableTrainingLog.setConverter("strecke", STRECKE_CONVERTER);
-        tableTrainingLog.setConverter("zeit", ZEIT_CONVERTER);
-        tableTrainingLog.setConverter("datum", new Converter<String, Date>() {
+        tableTrainingLog.setColumnWidth("date", 100);
+        tableTrainingLog.setColumnWidth("location", 300);
+        tableTrainingLog.setColumnWidth("distance", 100);
+        tableTrainingLog.setColumnWidth("time", 100);
+        tableTrainingLog.setColumnWidth("pace", 100);
+        tableTrainingLog.setConverter("distance", STRECKE_CONVERTER);
+        tableTrainingLog.setConverter("time", ZEIT_CONVERTER);
+        tableTrainingLog.setConverter("date", new Converter<String, Date>() {
 
             private static final long serialVersionUID = 7733805593148338971L;
 
@@ -129,18 +129,18 @@ public class TrainingLogUi extends AbstractUi {
         tableTrainingLog.setImmediate(true);
 
         // pace is calculated into generated column
-        tableTrainingLog.addGeneratedColumn("schnitt", new Table.ColumnGenerator() {
+        tableTrainingLog.addGeneratedColumn("pace", new Table.ColumnGenerator() {
             
             private static final long serialVersionUID = -2108447767546846249L;
 
             @Override
             public Object generateCell(Table source, Object itemId, Object columnId) {
                 Training training = (Training)itemId;
-                Integer schnitt = RunningDbUtil.berechneSchnitt(training.getStrecke(), training.getZeit());
+                Integer schnitt = RunningDbUtil.getPace(training.getDistance(), training.getTime());
                 return new Label(ZEIT_CONVERTER.convertToPresentation(schnitt, String.class, null));
             }
         });
-        tableTrainingLog.setVisibleColumns(new Object[] {"datum", "ort", "strecke", "zeit", "schnitt"});
+        tableTrainingLog.setVisibleColumns(new Object[] {"date", "location", "distance", "time", "pace"});
         
         
         // show training details for selected training
@@ -174,32 +174,32 @@ public class TrainingLogUi extends AbstractUi {
         // table showing all runs of selected training        
         tableRuns = new Table("", runContainer);
         panelTrainingLayout.addComponent(tableRuns);
-        tableRuns.setColumnHeader("strecke", "Strecke");
-        tableRuns.setColumnHeader("zeit", "Zeit");
-        tableRuns.setColumnHeader("schnitt", "Schnitt [min/km]");
+        tableRuns.setColumnHeader("distance", "Strecke");
+        tableRuns.setColumnHeader("time", "Zeit");
+        tableRuns.setColumnHeader("pace", "Schnitt [min/km]");
         tableRuns.setFooterVisible(false);
         tableRuns.setWidth("400px");
-        tableRuns.setColumnWidth("strecke", 100);
-        tableRuns.setColumnWidth("zeit", 100);
-        tableRuns.setColumnWidth("schnitt", 100);
-        tableRuns.setConverter("strecke", STRECKE_CONVERTER);
-        tableRuns.setConverter("zeit", ZEIT_CONVERTER);
+        tableRuns.setColumnWidth("distance", 100);
+        tableRuns.setColumnWidth("time", 100);
+        tableRuns.setColumnWidth("pace", 100);
+        tableRuns.setConverter("distance", STRECKE_CONVERTER);
+        tableRuns.setConverter("time", ZEIT_CONVERTER);
         tableRuns.setSortEnabled(false);
         tableRuns.setWidth("400px");
 
         // pace is calculated into generated column
-        tableRuns.addGeneratedColumn("schnitt", new Table.ColumnGenerator() {
+        tableRuns.addGeneratedColumn("pace", new Table.ColumnGenerator() {
             
             private static final long serialVersionUID = -2108447767546846249L;
 
             @Override
             public Object generateCell(Table source, Object itemId, Object columnId) {
                 Run lauf = (Run)itemId;
-                Integer schnitt = RunningDbUtil.berechneSchnitt(lauf.getStrecke(), lauf.getZeit());
+                Integer schnitt = RunningDbUtil.getPace(lauf.getDistance(), lauf.getTime());
                 return new Label(ZEIT_CONVERTER.convertToPresentation(schnitt, String.class, null));
             }
         });
-        tableRuns.setVisibleColumns(new Object[] {"strecke", "zeit", "schnitt"});
+        tableRuns.setVisibleColumns(new Object[] {"distance", "time", "pace"});
     }
 
     @Override
@@ -214,7 +214,7 @@ public class TrainingLogUi extends AbstractUi {
         Date chosenMonth = dateFieldMonth.getValue();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(chosenMonth);
-        fillTableTraining(this.trainingstagebuch.getTrainingseinheiten(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)));
+        fillTableTraining(this.trainingstagebuch.getTrainings(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)));
     }
     
     /**
@@ -228,18 +228,18 @@ public class TrainingLogUi extends AbstractUi {
         
         // calculate and set footer values
         
-        tableTrainingLog.setColumnFooter("datum", ""+trainings.size());
+        tableTrainingLog.setColumnFooter("date", ""+trainings.size());
         
         if(trainings.size()>0) {
-            Integer summeStrecke = RunningDbUtil.summeStrecke(trainings);
-            Integer summeZeit = RunningDbUtil.summeZeit(trainings);
-            tableTrainingLog.setColumnFooter("strecke", STRECKE_CONVERTER.convertToPresentation(summeStrecke, String.class, null));
-            tableTrainingLog.setColumnFooter("zeit", ZEIT_CONVERTER.convertToPresentation(summeZeit, String.class, null));
-            tableTrainingLog.setColumnFooter("schnitt", ZEIT_CONVERTER.convertToPresentation(RunningDbUtil.berechneSchnitt(summeStrecke, summeZeit), String.class, null));
+            Integer summeStrecke = RunningDbUtil.sumDistance(trainings);
+            Integer summeZeit = RunningDbUtil.sumTime(trainings);
+            tableTrainingLog.setColumnFooter("distance", STRECKE_CONVERTER.convertToPresentation(summeStrecke, String.class, null));
+            tableTrainingLog.setColumnFooter("time", ZEIT_CONVERTER.convertToPresentation(summeZeit, String.class, null));
+            tableTrainingLog.setColumnFooter("pace", ZEIT_CONVERTER.convertToPresentation(RunningDbUtil.getPace(summeStrecke, summeZeit), String.class, null));
         } else {
-            tableTrainingLog.setColumnFooter("strecke", "");
-            tableTrainingLog.setColumnFooter("zeit", "");
-            tableTrainingLog.setColumnFooter("schnitt", "");
+            tableTrainingLog.setColumnFooter("distance", "");
+            tableTrainingLog.setColumnFooter("time", "");
+            tableTrainingLog.setColumnFooter("pace", "");
         }
         
     
@@ -254,10 +254,10 @@ public class TrainingLogUi extends AbstractUi {
         this.tableRuns.removeAllItems();
         
         boolean showPanel = false;
-        if(training!=null && training.getLaeufe().size() > 1) {
-            this.runContainer.addAll(training.getLaeufe());
+        if(training!=null && training.getRuns().size() > 1) {
+            this.runContainer.addAll(training.getRuns());
             showPanel = true;
-            this.tableRuns.setPageLength(training.getLaeufe().size());
+            this.tableRuns.setPageLength(training.getRuns().size());
         }
         
         this.panelTrainingDetails.setVisible(showPanel);

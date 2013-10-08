@@ -1,28 +1,29 @@
 package de.zaunkoenigweg.runningdb.domain;
 
-
 /**
- * Strecke, die in der Bestzeitenliste gewertet wird.
+ * Running distance for which records are tracked.
  * 
  * @author Nikolaus Winter
- *
  */
 public class RecordDistance {
     
-    private Integer strecke;
-    private String bezeichnung = "";
+    private Integer distance;
+    private String label = "";
     
-    public Integer getStrecke() {
-        return strecke;
+    public Integer getDistance() {
+        return distance;
     }
-    public void setStrecke(Integer strecke) {
-        this.strecke = strecke;
+
+    public void setDistance(Integer distance) {
+        this.distance = distance;
     }
-    public String getBezeichnung() {
-        return bezeichnung;
+    
+    public String getLabel() {
+        return label;
     }
-    public void setBezeichnung(String bezeichnung) {
-        this.bezeichnung = bezeichnung;
+    
+    public void setLabel(String label) {
+        this.label = label;
     }
 
 }

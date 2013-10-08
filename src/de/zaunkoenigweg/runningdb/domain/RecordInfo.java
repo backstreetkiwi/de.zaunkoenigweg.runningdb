@@ -4,47 +4,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Informationen zu einer Bestzeit
+ * This object contains a {@link RecordDistance} and a list of {@link RecordRun}s with matching distance.
  * 
  * @author Nikolaus Winter
- *
  */
 public class RecordInfo {
 
-    private RecordDistance strecke;
+    private RecordDistance recordDistance;
 
-    private List<BestzeitLauf> laeufe = new ArrayList<BestzeitLauf>();
+    private List<RecordRun> recordRuns = new ArrayList<RecordRun>();
 
-    public RecordInfo(RecordDistance strecke) {
+    public RecordInfo(RecordDistance recordDistance) {
         super();
-        this.strecke = strecke;
+        this.recordDistance = recordDistance;
     }
 
-    public RecordDistance getStrecke() {
-        return strecke;
+    public RecordDistance getRecordDistance() {
+        return recordDistance;
     }
 
-    public List<BestzeitLauf> getLaeufe() {
-        return laeufe;
+    public List<RecordRun> getRecordRuns() {
+        return recordRuns;
     }
     
-    public int getAnzahl() {
-        return this.laeufe.size();
+    public int getRunCount() {
+        return this.recordRuns.size();
     }
 
-    public static class BestzeitLauf {
+    /**
+     * This object contains the time and a reference to the training session of a run that ist
+     * kept in a record list.
+     */
+    public static class RecordRun {
         
-        private Integer zeit;
+        private Integer time;
         private Training training;
         
-        public BestzeitLauf(Integer zeit, Training training) {
+        public RecordRun(Integer time, Training training) {
             super();
-            this.zeit = zeit;
+            this.time = time;
             this.training = training;
         }
         
-        public Integer getZeit() {
-            return zeit;
+        public Integer getTime() {
+            return time;
         }
         
         public Training getTraining() {

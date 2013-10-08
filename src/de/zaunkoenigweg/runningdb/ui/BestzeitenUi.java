@@ -13,7 +13,7 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
 
 import de.zaunkoenigweg.runningdb.domain.RecordInfo;
-import de.zaunkoenigweg.runningdb.domain.RecordInfo.BestzeitLauf;
+import de.zaunkoenigweg.runningdb.domain.RecordInfo.RecordRun;
 import de.zaunkoenigweg.runningdb.domain.RecordDistance;
 import de.zaunkoenigweg.runningdb.domain.RunningDbUtil;
 import de.zaunkoenigweg.runningdb.domain.TrainingLog;
@@ -58,7 +58,7 @@ public class BestzeitenUi extends AbstractUi {
 
         // Je Bestzeitstrecke im Tagebuch wird eine Tabelle mit den besten
         // drei Zeiten sowie ein Button zum Löschen des Eintrags hinzugefügt.
-        List<RecordInfo> bestzeiten = trainingstagebuch.getBestzeiten();
+        List<RecordInfo> bestzeiten = trainingstagebuch.getRecords();
         for (RecordInfo bestzeitInfo : bestzeiten) {
             layout.addComponent(createBestzeitTable(bestzeitInfo));
             layout.addComponent(createButtonRemoveBestzeit(bestzeitInfo));
@@ -90,33 +90,33 @@ public class BestzeitenUi extends AbstractUi {
     private Table createBestzeitTable(RecordInfo bestzeitInfo) {
 
         String caption = "";
-        String strecke = new StreckeConverter().convertToPresentation(bestzeitInfo.getStrecke().getStrecke(), String.class, null);
-        if (StringUtils.isNotBlank(bestzeitInfo.getStrecke().getBezeichnung())) {
-            caption = String.format("%s: %s Meter (%d mal gelaufen)", bestzeitInfo.getStrecke().getBezeichnung(), strecke, bestzeitInfo.getAnzahl());
+        String strecke = new StreckeConverter().convertToPresentation(bestzeitInfo.getRecordDistance().getDistance(), String.class, null);
+        if (StringUtils.isNotBlank(bestzeitInfo.getRecordDistance().getLabel())) {
+            caption = String.format("%s: %s Meter (%d mal gelaufen)", bestzeitInfo.getRecordDistance().getLabel(), strecke, bestzeitInfo.getRunCount());
         } else {
-            caption = String.format("%s Meter (%d mal gelaufen)", strecke, bestzeitInfo.getAnzahl());
+            caption = String.format("%s Meter (%d mal gelaufen)", strecke, bestzeitInfo.getRunCount());
         }
 
         Table table = new Table(caption);
 
-        table.addContainerProperty("datum", String.class, null);
-        table.addContainerProperty("zeit", Integer.class, null);
-        table.addContainerProperty("schnitt", Integer.class, null);
-        table.setColumnHeader("datum", "Datum");
-        table.setColumnHeader("zeit", "Zeit");
-        table.setColumnHeader("schnitt", "Schnitt");
-        table.setConverter("zeit", new ZeitConverter());
-        table.setConverter("schnitt", new ZeitConverter());
+        table.addContainerProperty("date", String.class, null);
+        table.addContainerProperty("time", Integer.class, null);
+        table.addContainerProperty("pace", Integer.class, null);
+        table.setColumnHeader("date", "Datum");
+        table.setColumnHeader("time", "Zeit");
+        table.setColumnHeader("pace", "Schnitt");
+        table.setConverter("time", new ZeitConverter());
+        table.setConverter("pace", new ZeitConverter());
         table.setSortEnabled(false);
-        table.setColumnWidth("datum", 100);
-        table.setColumnWidth("zeit", 100);
-        table.setColumnWidth("schnitt", 100);
+        table.setColumnWidth("date", 100);
+        table.setColumnWidth("time", 100);
+        table.setColumnWidth("pace", 100);
 
-        List<BestzeitLauf> laeufe = bestzeitInfo.getLaeufe();
+        List<RecordRun> laeufe = bestzeitInfo.getRecordRuns();
         int i = 0;
         while (i < ANZAHL_ZEITEN_PRO_STRECKE && i < laeufe.size()) {
-            BestzeitLauf lauf = laeufe.get(i);
-            table.addItem(new Object[] {DATE_FORMATTER.format(lauf.getTraining().getDatum()), lauf.getZeit(), RunningDbUtil.berechneSchnitt(bestzeitInfo.getStrecke().getStrecke(), lauf.getZeit()) }, null);
+            RecordRun lauf = laeufe.get(i);
+            table.addItem(new Object[] {DATE_FORMATTER.format(lauf.getTraining().getDate()), lauf.getTime(), RunningDbUtil.getPace(bestzeitInfo.getRecordDistance().getDistance(), lauf.getTime()) }, null);
             i++;
         }
         table.setPageLength(ANZAHL_ZEITEN_PRO_STRECKE);
@@ -145,7 +145,7 @@ public class BestzeitenUi extends AbstractUi {
                     @Override
                     public void yes() {
                         // delete record time from training log
-                        BestzeitenUi.this.trainingstagebuch.removeBestzeitStrecke(bestzeitInfo.getStrecke());
+                        BestzeitenUi.this.trainingstagebuch.removeRecordDistance(bestzeitInfo.getRecordDistance());
                         refreshUi();
                     }
                     
@@ -165,7 +165,7 @@ public class BestzeitenUi extends AbstractUi {
      * @param bestzeitStrecke BestzeitStrecke, die hinzugefügt werden soll.
      */
     public void addBestzeitenStrecke(RecordDistance bestzeitStrecke) {
-        this.trainingstagebuch.addBestzeitStrecke(bestzeitStrecke);
+        this.trainingstagebuch.addRecordDistance(bestzeitStrecke);
         refreshUi();
     }
 }

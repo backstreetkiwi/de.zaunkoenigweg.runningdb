@@ -121,7 +121,7 @@ public class EditSchuh extends CustomComponent implements View {
             
             @Override
             public void buttonClick(Button.ClickEvent event) {
-                trainingstagebuch.addSchuh(schuh.getBean());
+                trainingstagebuch.addShoe(schuh.getBean());
                 navigator.navigateTo(RunningDbUi.VIEW_START);
             }
         });
@@ -144,12 +144,12 @@ public class EditSchuh extends CustomComponent implements View {
         this.schuh = new BeanItem<Shoe>(new Shoe());
 
         // Verknüpfung des UIs mit dem BeanItem(Schuh)
-        this.textFieldHersteller.setPropertyDataSource(this.schuh.getItemProperty("hersteller"));
-        this.textFieldModell.setPropertyDataSource(this.schuh.getItemProperty("modell"));
-        this.textFieldKaufdatum.setPropertyDataSource(this.schuh.getItemProperty("kaufdatum"));
-        this.textFieldPreis.setPropertyDataSource(this.schuh.getItemProperty("preis"));
-        this.textFieldBemerkungen.setPropertyDataSource(this.schuh.getItemProperty("bemerkungen"));
-        this.checkBoxAktiv.setPropertyDataSource(this.schuh.getItemProperty("aktiv"));
+        this.textFieldHersteller.setPropertyDataSource(this.schuh.getItemProperty("brand"));
+        this.textFieldModell.setPropertyDataSource(this.schuh.getItemProperty("model"));
+        this.textFieldKaufdatum.setPropertyDataSource(this.schuh.getItemProperty("dateOfPurchase"));
+        this.textFieldPreis.setPropertyDataSource(this.schuh.getItemProperty("price"));
+        this.textFieldBemerkungen.setPropertyDataSource(this.schuh.getItemProperty("comments"));
+        this.checkBoxAktiv.setPropertyDataSource(this.schuh.getItemProperty("active"));
         
         // Button Speichern muss en/disabled werden.
         buttonSpeichern.setEnabled(this.schuh.getBean().isValid());

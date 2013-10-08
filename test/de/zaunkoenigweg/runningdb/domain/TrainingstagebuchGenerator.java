@@ -18,17 +18,17 @@ public class TrainingstagebuchGenerator {
         for (int i=0; i<350; i++) {
             
             Training training = new Training();
-            training.setDatum(new Date(datum + 5 * i * 86400000L));;
-            training.setOrt(ORTE[i % ORTE.length]);;
-            training.setBemerkungen(BEMERKUNGEN[i % BEMERKUNGEN.length]);;
+            training.setDate(new Date(datum + 5 * i * 86400000L));;
+            training.setLocation(ORTE[i % ORTE.length]);;
+            training.setComments(BEMERKUNGEN[i % BEMERKUNGEN.length]);;
             
             for (int j=0; j<((i%3)+1); j++) {
                 int strecke = STRECKEN[(i+j) % STRECKEN.length] + 100 * ((i+3*j)%10);
                 int zeit = ZEITEN[(i+j) % ZEITEN.length] + 20 * ((i+3*j)%10);
                 Run lauf = new Run();
-                lauf.setStrecke(strecke);
-                lauf.setZeit(zeit);
-                training.getLaeufe().add(lauf);
+                lauf.setDistance(strecke);
+                lauf.setTime(zeit);
+                training.getRuns().add(lauf);
             }
             
             trainingstagebuch.addTraining(training);

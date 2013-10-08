@@ -52,7 +52,7 @@ public class BestzeitStreckeEingabeWindow extends Window {
         // Eingabe der Strecke
         this.textFieldStrecke = new TextField("Strecke");
         this.textFieldStrecke.setWidth("200px");
-        this.textFieldStrecke.setPropertyDataSource(this.bestzeitStrecke.getItemProperty("strecke"));
+        this.textFieldStrecke.setPropertyDataSource(this.bestzeitStrecke.getItemProperty("distance"));
         this.textFieldStrecke.setImmediate(true);
         this.textFieldStrecke.setConverter(this.streckeConverter);
         this.textFieldStrecke.setConversionError("Die Laufstrecke muss zwischen 100 m und 42.195 m liegen.");
@@ -65,7 +65,7 @@ public class BestzeitStreckeEingabeWindow extends Window {
         // Eingabe der Zeit
         this.textFieldBezeichnung = new TextField("Bezeichnung");
         this.textFieldBezeichnung.setWidth("400px");
-        this.textFieldBezeichnung.setPropertyDataSource(this.bestzeitStrecke.getItemProperty("bezeichnung"));
+        this.textFieldBezeichnung.setPropertyDataSource(this.bestzeitStrecke.getItemProperty("label"));
         this.textFieldBezeichnung.setImmediate(true);
         this.textFieldBezeichnung.setBuffered(true);
         layout.addComponent(this.textFieldBezeichnung);
@@ -81,7 +81,7 @@ public class BestzeitStreckeEingabeWindow extends Window {
                 if(textFieldStrecke.isValid()) {
                     textFieldStrecke.commit();
                     textFieldBezeichnung.commit();
-                    if(bestzeitStrecke.getBean().getStrecke()!=null) {
+                    if(bestzeitStrecke.getBean().getDistance()!=null) {
                         bestzeitenUi.addBestzeitenStrecke(bestzeitStrecke.getBean());
                         close();
                     }

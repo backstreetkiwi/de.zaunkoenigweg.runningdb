@@ -1,7 +1,5 @@
 package de.zaunkoenigweg.runningdb.domain;
 
-
-
 /**
  * Bean containing shoe bean plus statistics.
  * 

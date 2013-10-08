@@ -20,17 +20,17 @@ public class TrainingstagebuchJsonSerializerTest {
         Shoe schuh;
 
         bestzeitStrecke = new RecordDistance();
-        bestzeitStrecke.setStrecke(10000);
-        bestzeitStrecke.setBezeichnung("");
-        trainingstagebuch.getBestzeitStrecken().add(bestzeitStrecke);
+        bestzeitStrecke.setDistance(10000);
+        bestzeitStrecke.setLabel("");
+        trainingstagebuch.getRecordDistances().add(bestzeitStrecke);
         bestzeitStrecke = new RecordDistance();
-        bestzeitStrecke.setStrecke(21100);
-        bestzeitStrecke.setBezeichnung("Halbmarathon");
-        trainingstagebuch.getBestzeitStrecken().add(bestzeitStrecke);
+        bestzeitStrecke.setDistance(21100);
+        bestzeitStrecke.setLabel("Halbmarathon");
+        trainingstagebuch.getRecordDistances().add(bestzeitStrecke);
         bestzeitStrecke = new RecordDistance();
-        bestzeitStrecke.setStrecke(42195);
-        bestzeitStrecke.setBezeichnung("Marathon");
-        trainingstagebuch.getBestzeitStrecken().add(bestzeitStrecke);
+        bestzeitStrecke.setDistance(42195);
+        bestzeitStrecke.setLabel("Marathon");
+        trainingstagebuch.getRecordDistances().add(bestzeitStrecke);
 
         schuh = new Shoe();
         schuh.setId(1);
@@ -38,7 +38,7 @@ public class TrainingstagebuchJsonSerializerTest {
         schuh.setModel("TN420");
         schuh.setDateOfPurchase("1995");
         schuh.setActive(false);
-        trainingstagebuch.addSchuh(schuh);
+        trainingstagebuch.addShoe(schuh);
 
         schuh = new Shoe();
         schuh.setId(2);
@@ -46,7 +46,7 @@ public class TrainingstagebuchJsonSerializerTest {
         schuh.setModel("Response Control");
         schuh.setDateOfPurchase("2003");
         schuh.setActive(true);
-        trainingstagebuch.addSchuh(schuh);
+        trainingstagebuch.addShoe(schuh);
         
         schuh = new Shoe();
         schuh.setId(3);
@@ -54,7 +54,7 @@ public class TrainingstagebuchJsonSerializerTest {
         schuh.setModel("Gel Kayano");
         schuh.setDateOfPurchase("2006");
         schuh.setActive(true);
-        trainingstagebuch.addSchuh(schuh);
+        trainingstagebuch.addShoe(schuh);
         
         String json = TrainingLogJsonSerializer.writeToJson(trainingstagebuch);
         System.out.println(json);
@@ -63,8 +63,8 @@ public class TrainingstagebuchJsonSerializerTest {
         // from JSON
         trainingstagebuch = TrainingLogJsonSerializer.readFromJson(json);
         assertNotNull(trainingstagebuch);
-        assertEquals(3, trainingstagebuch.getBestzeitStrecken().size());
-        assertEquals(3, trainingstagebuch.getSchuhe().size());
+        assertEquals(3, trainingstagebuch.getRecordDistances().size());
+        assertEquals(3, trainingstagebuch.getShoes().size());
     }
 
 }

@@ -9,51 +9,45 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 /**
- * Ein Trainingstagebuch.
+ * Training log.
  * 
  * @author Nikolaus Winter
- *
  */
 public class TrainingLog {
     
     /**
-     * Liste aller Trainingseinheiten.
+     * list of all trainings in log.
      */
-    private List<Training> trainingseinheiten = new ArrayList<Training>();
+    private List<Training> trainings = new ArrayList<Training>();
     
     /**
-     * Liste aller Schuhe.
+     * list of all shoes in log.
      */
-    private List<Shoe> schuhe = new ArrayList<Shoe>();
+    private List<Shoe> shoes = new ArrayList<Shoe>();
     
     /**
-     * Sortierte Menge der Strecken, die in der Bestzeitenliste geführt werden.
+     * sorted set of all distances to be kept track of in the record list.
      */
-    private SortedSet<RecordDistance> bestzeitStrecken = new TreeSet<RecordDistance>(new Comparator<RecordDistance>() {
+    private SortedSet<RecordDistance> recordDistances = new TreeSet<RecordDistance>(new Comparator<RecordDistance>() {
         @Override
-        public int compare(RecordDistance strecke1, RecordDistance strecke2) {
-            return strecke1.getStrecke().compareTo(strecke2.getStrecke());
+        public int compare(RecordDistance recordDistance1, RecordDistance recordDistance2) {
+            return recordDistance1.getDistance().compareTo(recordDistance2.getDistance());
         }
     });
     
-    
-    // ------------------------------------------------------------------------------
-    // Getter/Setter
-    // ------------------------------------------------------------------------------
-
-    public List<Training> getTrainingseinheiten() {
-        return new ArrayList<Training>(this.trainingseinheiten);
+    public List<Training> getTrainings() {
+        return new ArrayList<Training>(this.trainings);
     }
     
-    public List<Shoe> getSchuhe() {
-        return new ArrayList<Shoe>(this.schuhe);
+    public List<Shoe> getShoes() {
+        return new ArrayList<Shoe>(this.shoes);
     }
     
-    public List<Shoe> getAktiveSchuhe() {
+    public List<Shoe> getActiveShoes() {
         List<Shoe> result = new ArrayList<Shoe>();
-        for (Shoe schuh : this.schuhe) {
-            if(schuh.isActive()) {
-                result.add(schuh);
+        for (Shoe shoe : this.shoes) {
+            if(shoe.isActive()) {
+                result.add(shoe);
             }
         }
         return result;
@@ -61,39 +55,35 @@ public class TrainingLog {
     
     public List<ShoeInfo> getShoeInfo() {
         List<ShoeInfo> result = new ArrayList<ShoeInfo>();
-        for (Shoe shoe : this.schuhe) {
-            result.add(new ShoeInfo(shoe, getStrecke(shoe)));
+        for (Shoe shoe : this.shoes) {
+            result.add(new ShoeInfo(shoe, getDistance(shoe)));
         }
         return result;
     }
     
-    public void addSchuh(Shoe schuh) {
+    public void addShoe(Shoe shoe) {
         
-        // Falls der Schuh schon eine ID mitbringt, wird er nur eingefügt, 
-        // falls die ID noch nicht besteht
-        if(schuh.getId()!=0) {
+        // TODO: ID existance check
+        if(shoe.getId()!=0) {
             
-            // TODO: Test auf doppelte ID
-            this.schuhe.add(schuh);
+            this.shoes.add(shoe);
             
-        // Falls der Schuh noch keine ID hat, bekommt er die nächste freie ID
+        // new shoe gets next free ID
         } else {
             
-            // Ermitteln der max. ID der bisher existierenden Schuhe
             int maxId = 0;
-            for (Shoe bestehenderSchuh : this.schuhe) {
-                maxId = Math.max(maxId, bestehenderSchuh.getId());
+            for (Shoe existingShoe : this.shoes) {
+                maxId = Math.max(maxId, existingShoe.getId());
             }
             
-            // Schuh mit neuer ID versehen und speichern
-            schuh.setId(maxId+1);
-            this.schuhe.add(schuh);
+            shoe.setId(maxId+1);
+            this.shoes.add(shoe);
 
         }
         
     }
     
-    public Shoe getSchuh(Integer id) {
+    public Shoe getShoe(Integer id) {
         
         if(id==null) {
             return null;
@@ -101,13 +91,13 @@ public class TrainingLog {
         
         Shoe result = null;
         
-        List<Shoe> schuhe = this.getSchuhe();
+        List<Shoe> shoes = this.getShoes();
         int i=0;
-        Shoe schuh;
-        while(result==null && i<schuhe.size()) {
-            schuh = schuhe.get(i++);
-            if (id.compareTo(schuh.getId())==0) {
-                result=schuh;
+        Shoe shoe;
+        while(result==null && i<shoes.size()) {
+            shoe = shoes.get(i++);
+            if (id.compareTo(shoe.getId())==0) {
+                result=shoe;
             }
         }
         
@@ -117,78 +107,85 @@ public class TrainingLog {
     
     public void addTraining(Training training) {
 
-        this.trainingseinheiten.add(training);
+        this.trainings.add(training);
         
     }
     
-    public List<RecordDistance> getBestzeitStrecken() {
-        return new ArrayList<RecordDistance>(this.bestzeitStrecken);
+    public List<RecordDistance> getRecordDistances() {
+        return new ArrayList<RecordDistance>(this.recordDistances);
     }
     
-    public void addBestzeitStrecke(RecordDistance bestzeitStrecke) {
-        this.bestzeitStrecken.add(bestzeitStrecke);
+    public void addRecordDistance(RecordDistance recordDistance) {
+        this.recordDistances.add(recordDistance);
     }
     
-    public void removeBestzeitStrecke(RecordDistance bestzeitStrecke) {
-        this.bestzeitStrecken.remove(bestzeitStrecke);
+    public void removeRecordDistance(RecordDistance recordDistance) {
+        this.recordDistances.remove(recordDistance);
     }
     
     
     // ------------------------------------------------------------------------------
-    // Reporting-Funktionen
+    // Reporting
     // ------------------------------------------------------------------------------
     
     /**
-     * Gibt die Summe der Strecke aller Trainingseinheiten zurück.
+     * Returns sum of distance of all runs of all trainings.
      * 
-     * @return Summe der Strecke aller Trainingseinheiten
+     * @return sum of distance
      */
-    public Integer getStrecke() {
-        int strecke = 0;
-        for (Training training: this.trainingseinheiten) {
-            strecke += training.getStrecke();
+    public Integer getDistance() {
+        int distance = 0;
+        for (Training training: this.trainings) {
+            distance += training.getDistance();
         }
-        return strecke;
+        return distance;
     }
     
     /**
-     * Gibt die Summe der Strecke aller Trainingseinheiten mit dem angegebenen Schuh zurück.
+     * Returns sum of distance of all runs of all trainings for given shoe.
      * 
-     * @return Summe der Strecke aller Trainingseinheiten mit dem angegebenen Schuh
+     * @param shoe running shoe
+     * @return sum of distance
      */
-    public Integer getStrecke(Shoe shoe) {
-        int strecke = 0;
-        for (Training training: this.trainingseinheiten) {
-            if(training.getSchuh()!=null && training.getSchuh().compareTo(shoe.getId())==0) {
-                strecke += training.getStrecke();
+    public Integer getDistance(Shoe shoe) {
+        int distance = 0;
+        for (Training training: this.trainings) {
+            if(training.getShoe()!=null && training.getShoe().compareTo(shoe.getId())==0) {
+                distance += training.getDistance();
             }
         }
-        return strecke;
+        return distance;
     }
     
     /**
-     * Gibt die Summe der Zeit aller Trainingseinheiten zurück.
+     * Returns sum of elapsed time of all runs of all trainings.
      * 
-     * @return Summe der Zeit aller Trainingseinheiten
+     * @return sum of elapsed time
      */
-    public Integer getZeit() {
+    public Integer getTime() {
         
-        int zeit = 0;
-        for (Training training: this.trainingseinheiten) {
-            zeit += training.getZeit();
+        int time = 0;
+        for (Training training: this.trainings) {
+            time += training.getTime();
         }
-        return zeit;
+        return time;
     }
     
-    public List<Training> getTrainingseinheiten(int jahr, int monat) {
+    /**
+     * Returns list of all training sessions in given period.
+     * @param year Year as specified by {@link Calendar}
+     * @param month Month as specified by {@link Calendar}
+     * @return list of all training sessions in given period
+     */
+    public List<Training> getTrainings(int year, int month) {
         List<Training> result = new ArrayList<Training>();
         
-        for (Training training : this.trainingseinheiten) {
+        for (Training training : this.trainings) {
             
-            Calendar calli = Calendar.getInstance();
-            calli.setTime(training.getDatum());
+            Calendar period = Calendar.getInstance();
+            period.setTime(training.getDate());
             
-            if(calli.get(Calendar.YEAR)==jahr && calli.get(Calendar.MONTH)==monat) {
+            if(period.get(Calendar.YEAR)==year && period.get(Calendar.MONTH)==month) {
                 result.add(training);
             }
             
@@ -197,38 +194,46 @@ public class TrainingLog {
         return result;
     }
     
-    public List<RecordInfo> getBestzeiten() {
+    /**
+     * Returns list of informations regarding records.
+     * @return list of informations regarding records
+     */
+    public List<RecordInfo> getRecords() {
         
         List<RecordInfo> result = new ArrayList<RecordInfo>();
         
-        for (RecordDistance bestzeitStrecke : this.bestzeitStrecken) {
-            RecordInfo bestzeitInfo = getBestzeitInfo(bestzeitStrecke);
-            Collections.sort(bestzeitInfo.getLaeufe(), new Comparator<RecordInfo.BestzeitLauf>() {
+        for (RecordDistance recordDistance : this.recordDistances) {
+            RecordInfo recordInfo = getRecordInfo(recordDistance);
+            Collections.sort(recordInfo.getRecordRuns(), new Comparator<RecordInfo.RecordRun>() {
 
                 @Override
-                public int compare(RecordInfo.BestzeitLauf lauf1, RecordInfo.BestzeitLauf lauf2) {
-                    return lauf1.getZeit().compareTo(lauf2.getZeit());
+                public int compare(RecordInfo.RecordRun run1, RecordInfo.RecordRun run2) {
+                    return run1.getTime().compareTo(run2.getTime());
                 }
             });
-            result.add(bestzeitInfo);
+            result.add(recordInfo);
         }
         
         return result;
         
     }
-    
-    private RecordInfo getBestzeitInfo(RecordDistance strecke) {
+
+    /**
+     * Returns record info for given record distance
+     * @param recordDistance record distance
+     * @return record info
+     */
+    private RecordInfo getRecordInfo(RecordDistance recordDistance) {
         
-        final RecordInfo info = new RecordInfo(strecke);
+        final RecordInfo info = new RecordInfo(recordDistance);
         
-        for (Training training : this.getTrainingseinheiten()) {
-            for (Run lauf : training.getLaeufe()) {
-                if(lauf.getStrecke().compareTo(strecke.getStrecke())==0) {
-                    info.getLaeufe().add(new RecordInfo.BestzeitLauf(lauf.getZeit(), training));
+        for (Training training : this.getTrainings()) {
+            for (Run run : training.getRuns()) {
+                if(run.getDistance().compareTo(recordDistance.getDistance())==0) {
+                    info.getRecordRuns().add(new RecordInfo.RecordRun(run.getTime(), training));
                 }
             }
         }
-        
         
         return info;
     }

@@ -121,9 +121,9 @@ public class Shoe {
     }
 
     /**
-     * validity check.
+     * Checks shoe for validity
      * 
-     * @return Is the shoe valid and therefore ready to be saved?
+     * @return Is the shoe data valid, i.e. ready to be saved.
      */
     public boolean isValid() {
         

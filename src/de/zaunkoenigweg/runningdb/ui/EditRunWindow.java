@@ -64,7 +64,7 @@ public class EditRunWindow extends Window {
         this.textFieldDistance = new TextField("Strecke");
         layout.addComponent(this.textFieldDistance);
         this.textFieldDistance.setWidth("200px");
-        this.textFieldDistance.setPropertyDataSource(this.run.getItemProperty("strecke"));
+        this.textFieldDistance.setPropertyDataSource(this.run.getItemProperty("distance"));
         this.textFieldDistance.setImmediate(true);
         this.textFieldDistance.setConverter(this.distanceConverter);
         this.textFieldDistance.setConversionError("Die Laufstrecke muss zwischen 100 m und 42.195 m liegen.");
@@ -78,7 +78,7 @@ public class EditRunWindow extends Window {
         this.textFieldTime = new TextField("Zeit");
         layout.addComponent(this.textFieldTime);
         this.textFieldTime.setWidth("200px");
-        this.textFieldTime.setPropertyDataSource(this.run.getItemProperty("zeit"));
+        this.textFieldTime.setPropertyDataSource(this.run.getItemProperty("time"));
         this.textFieldTime.setImmediate(true);
         this.textFieldTime.setConverter(this.timeConverter);
         this.textFieldTime.setConversionError("Bitte geben Sie einen gültigen Zeitwert ein.");
@@ -97,7 +97,7 @@ public class EditRunWindow extends Window {
                 if(textFieldDistance.isValid() && textFieldTime.isValid()) {
                     textFieldDistance.commit();
                     textFieldTime.commit();
-                    if(run.getBean().getStrecke()!=null && run.getBean().getZeit()!=null) {
+                    if(run.getBean().getDistance()!=null && run.getBean().getTime()!=null) {
                         EditRunWindow.this.runCreatedListener.runCreated(run.getBean());
                         close();
                     }

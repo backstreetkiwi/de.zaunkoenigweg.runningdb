@@ -104,9 +104,9 @@ public class EditTrainingWindow extends Window {
             @Override
             public void valueChange(ValueChangeEvent event) {
                 if(selectShoes.getValue() instanceof Shoe) {
-                    training.getBean().setSchuh(((Shoe)selectShoes.getValue()).getId());
+                    training.getBean().setShoe(((Shoe)selectShoes.getValue()).getId());
                 } else {
-                    training.getBean().setSchuh(0);
+                    training.getBean().setShoe(0);
                 }
             }
         });
@@ -138,13 +138,13 @@ public class EditTrainingWindow extends Window {
         // table containing runs of currently edited training session
         tableRuns = new Table("Läufe");
         layout.addComponent(tableRuns);
-        tableRuns.addContainerProperty("strecke", String.class, "");
-        tableRuns.addContainerProperty("zeit", String.class, "");
-        tableRuns.addContainerProperty("schnitt", String.class, "");
+        tableRuns.addContainerProperty("distance", String.class, "");
+        tableRuns.addContainerProperty("time", String.class, "");
+        tableRuns.addContainerProperty("pace", String.class, "");
         tableRuns.setSortEnabled(false);
-        tableRuns.setColumnHeader("strecke", "Strecke");
-        tableRuns.setColumnHeader("zeit", "Zeit");
-        tableRuns.setColumnHeader("schnitt", "Schnitt");
+        tableRuns.setColumnHeader("distance", "Strecke");
+        tableRuns.setColumnHeader("time", "Zeit");
+        tableRuns.setColumnHeader("pace", "Schnitt");
         tableRuns.setWidth("400px");
         tableRuns.setPageLength(TABLE_RUNS_MIN_PAGE_LENGTH);
         tableRuns.setFooterVisible(true);
@@ -168,7 +168,7 @@ public class EditTrainingWindow extends Window {
                     public void runCreated(Run run) {
                         
                         // add run to currently edited training session
-                        EditTrainingWindow.this.training.getBean().getLaeufe().add(run);
+                        EditTrainingWindow.this.training.getBean().getRuns().add(run);
 
                         refreshTableRuns();
                         
@@ -212,13 +212,13 @@ public class EditTrainingWindow extends Window {
         buttonSave.setEnabled(this.training.getBean().isValid());
 
         // init ui: bind ui to training bean
-        this.textFieldLocation.setPropertyDataSource(this.training.getItemProperty("ort"));
-        this.dateFieldDate.setPropertyDataSource(this.training.getItemProperty("datum"));
-        this.textAreaComments.setPropertyDataSource(this.training.getItemProperty("bemerkungen"));
+        this.textFieldLocation.setPropertyDataSource(this.training.getItemProperty("location"));
+        this.dateFieldDate.setPropertyDataSource(this.training.getItemProperty("date"));
+        this.textAreaComments.setPropertyDataSource(this.training.getItemProperty("comments"));
         
         // init ui: fill shoe list
         BeanItemContainer<Shoe> listOfActiveShoes = new BeanItemContainer<Shoe>(Shoe.class);
-        listOfActiveShoes.addAll(this.trainingLog.getAktiveSchuhe());
+        listOfActiveShoes.addAll(this.trainingLog.getActiveShoes());
         this.selectShoes.setContainerDataSource(listOfActiveShoes);
     
         
@@ -236,31 +236,31 @@ public class EditTrainingWindow extends Window {
         String time;
         String pace;
 
-        for (Run run : this.training.getBean().getLaeufe()) {
-            distance = distanceConverter.convertToPresentation(run.getStrecke(), String.class, null);
-            time = timeConverter.convertToPresentation(run.getZeit(), String.class, null);
-            pace = timeConverter.convertToPresentation(RunningDbUtil.berechneSchnitt(run.getStrecke(), run.getZeit()), String.class, null);
+        for (Run run : this.training.getBean().getRuns()) {
+            distance = distanceConverter.convertToPresentation(run.getDistance(), String.class, null);
+            time = timeConverter.convertToPresentation(run.getTime(), String.class, null);
+            pace = timeConverter.convertToPresentation(RunningDbUtil.getPace(run.getDistance(), run.getTime()), String.class, null);
             this.tableRuns.addItem(new Object[]{distance, time, pace}, null);
         }
         
         // increment page size if necessary
-        tableRuns.setPageLength(Math.max(TABLE_RUNS_MIN_PAGE_LENGTH, this.training.getBean().getLaeufe().size()));
+        tableRuns.setPageLength(Math.max(TABLE_RUNS_MIN_PAGE_LENGTH, this.training.getBean().getRuns().size()));
 
         // footer: distance sum of training
-        Integer trainingDistance = training.getBean().getStrecke();
+        Integer trainingDistance = training.getBean().getDistance();
         if(trainingDistance!=null) {
-            this.tableRuns.setColumnFooter("strecke", distanceConverter.convertToPresentation(trainingDistance, String.class, null));
+            this.tableRuns.setColumnFooter("distance", distanceConverter.convertToPresentation(trainingDistance, String.class, null));
         }
         
         // footer: time sum of training
-        Integer trainingTime = training.getBean().getZeit();
+        Integer trainingTime = training.getBean().getTime();
         if(trainingTime!=null) {
-            this.tableRuns.setColumnFooter("zeit", timeConverter.convertToPresentation(trainingTime, String.class, null));
+            this.tableRuns.setColumnFooter("time", timeConverter.convertToPresentation(trainingTime, String.class, null));
         }
         
         // footer: avg. pace of training
         if(trainingDistance!=null && trainingTime!=null) {
-            this.tableRuns.setColumnFooter("schnitt", timeConverter.convertToPresentation(RunningDbUtil.berechneSchnitt(trainingDistance, trainingTime), String.class, null));
+            this.tableRuns.setColumnFooter("pace", timeConverter.convertToPresentation(RunningDbUtil.getPace(trainingDistance, trainingTime), String.class, null));
         }
 
     }

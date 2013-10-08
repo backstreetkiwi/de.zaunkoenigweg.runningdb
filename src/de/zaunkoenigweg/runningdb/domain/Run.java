@@ -1,37 +1,36 @@
 package de.zaunkoenigweg.runningdb.domain;
 
 /**
- * Ein Lauf ist ein Teil eines Trainings.
+ * Single run as part of a training session.
  * 
  * @author Nikolaus Winter
- *
  */
 public class Run {
 
     /**
-     * Strecke in Metern
+     * distance [meters]
      */
-    private Integer strecke;
+    private Integer distance;
     
     /**
-     * Zeit in Sekunden
+     * time [seconds]
      */
-    private Integer zeit;
+    private Integer time;
 
-    public Integer getStrecke() {
-        return strecke;
+    public Integer getDistance() {
+        return distance;
     }
 
-    public void setStrecke(Integer strecke) {
-        this.strecke = strecke;
+    public void setDistance(Integer distance) {
+        this.distance = distance;
     }
 
-    public Integer getZeit() {
-        return zeit;
+    public Integer getTime() {
+        return time;
     }
 
-    public void setZeit(Integer zeit) {
-        this.zeit = zeit;
+    public void setTime(Integer time) {
+        this.time = time;
     }
 
 }
