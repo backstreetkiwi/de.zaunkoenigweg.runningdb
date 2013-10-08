@@ -12,11 +12,10 @@ import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
 
+import de.zaunkoenigweg.runningdb.domain.RecordDistance;
 import de.zaunkoenigweg.runningdb.domain.RecordInfo;
 import de.zaunkoenigweg.runningdb.domain.RecordInfo.RecordRun;
-import de.zaunkoenigweg.runningdb.domain.RecordDistance;
 import de.zaunkoenigweg.runningdb.domain.RunningDbUtil;
-import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
 /**
  * UI showing record distances and fastest runs per distance.
@@ -35,8 +34,7 @@ public class RecordsUi extends AbstractUi {
 
     Button buttonAddRecordDistance;
     
-    public RecordsUi(TrainingLog trainingLog) {
-        super(trainingLog);
+    public RecordsUi() {
     }
 
     @Override
@@ -54,7 +52,7 @@ public class RecordsUi extends AbstractUi {
         setCompositionRoot(layout);
 
         // one table per record distance is added to ui
-        List<RecordInfo> bestzeiten = trainingLog.getRecords();
+        List<RecordInfo> bestzeiten = getTrainingLog().getRecords();
         for (RecordInfo bestzeitInfo : bestzeiten) {
             layout.addComponent(createBestzeitTable(bestzeitInfo));
             layout.addComponent(createButtonRemoveBestzeit(bestzeitInfo));
@@ -141,7 +139,7 @@ public class RecordsUi extends AbstractUi {
                     @Override
                     public void yes() {
                         // delete record time from training log
-                        RecordsUi.this.trainingLog.removeRecordDistance(recordInfo.getRecordDistance());
+                        getTrainingLog().removeRecordDistance(recordInfo.getRecordDistance());
                         refreshUi();
                     }
                     
@@ -161,7 +159,7 @@ public class RecordsUi extends AbstractUi {
      * callback for {@link RecordDistanceInputWindow}
      */
     public void addRecordDistance(RecordDistance recordDistance) {
-        this.trainingLog.addRecordDistance(recordDistance);
+        getTrainingLog().addRecordDistance(recordDistance);
         refreshUi();
     }
 }

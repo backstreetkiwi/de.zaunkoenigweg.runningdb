@@ -28,7 +28,6 @@ import com.vaadin.ui.Table;
 import de.zaunkoenigweg.runningdb.domain.RunningDbUtil;
 import de.zaunkoenigweg.runningdb.domain.Shoe;
 import de.zaunkoenigweg.runningdb.domain.Training;
-import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
 /**
  * UI to browse training log
@@ -49,12 +48,8 @@ public class TrainingLogUi extends AbstractUi {
 
     /**
      * Create TrainingLogUI.
-     * 
-     * @param trainingLog training log to work with
      */
-    public TrainingLogUi(TrainingLog trainingLog) {
-        
-        super(trainingLog);
+    public TrainingLogUi() {
         
         Layout layout = new FormLayout();
         setCompositionRoot(layout);
@@ -148,7 +143,7 @@ public class TrainingLogUi extends AbstractUi {
             public String convertToPresentation(Integer value, Class<? extends String> targetType, Locale locale) throws Converter.ConversionException {
                 String result = "";
                 if(value!=null && value>0) {
-                    Shoe shoe = TrainingLogUi.this.trainingLog.getShoe(value);
+                    Shoe shoe = getTrainingLog().getShoe(value);
                     if(shoe!=null) {
                         result = shoe.getShortname();
                     }
@@ -235,13 +230,13 @@ public class TrainingLogUi extends AbstractUi {
 
             @Override
             public void buttonClick(ClickEvent event) {
-                EditTrainingWindow.show(TrainingLogUi.this.trainingLog, new EditTrainingWindow.TrainingCreatedListener() {
+                EditTrainingWindow.show(getTrainingLog(), new EditTrainingWindow.TrainingCreatedListener() {
                     
                     private static final long serialVersionUID = 4209477942370493147L;
 
                     @Override
                     public void trainingCreated(Training training) {
-                        TrainingLogUi.this.trainingLog.addTraining(training);
+                        getTrainingLog().addTraining(training);
                         TrainingLogUi.this.refreshTrainingTable();
                     }
                 });
@@ -262,7 +257,7 @@ public class TrainingLogUi extends AbstractUi {
         Date chosenMonth = dateFieldMonth.getValue();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(chosenMonth);
-        fillTableTraining(this.trainingLog.getTrainings(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)));
+        fillTableTraining(getTrainingLog().getTrainings(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH)));
     }
     
     /**

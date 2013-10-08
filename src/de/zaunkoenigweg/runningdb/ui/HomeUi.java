@@ -1,12 +1,11 @@
 package de.zaunkoenigweg.runningdb.ui;
 
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Layout;
-import com.vaadin.ui.Button.ClickEvent;
 
 import de.zaunkoenigweg.runningdb.domain.Training;
-import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
 /**
  * Home UI of RunningDB.
@@ -22,12 +21,8 @@ public class HomeUi extends AbstractUi {
 
     /**
      * Create HomeUI.
-     * 
-     * @param trainingLog training log to work with
      */
-    public HomeUi(TrainingLog trainingLog) {
-        
-        super(trainingLog);
+    public HomeUi() {
         
         Layout layout = new FormLayout();
         setCompositionRoot(layout);
@@ -41,13 +36,13 @@ public class HomeUi extends AbstractUi {
 
             @Override
             public void buttonClick(ClickEvent event) {
-                EditTrainingWindow.show(HomeUi.this.trainingLog, new EditTrainingWindow.TrainingCreatedListener() {
+                EditTrainingWindow.show(getTrainingLog(), new EditTrainingWindow.TrainingCreatedListener() {
                     
                     private static final long serialVersionUID = 414496460728242231L;
 
                     @Override
                     public void trainingCreated(Training training) {
-                        HomeUi.this.trainingLog.addTraining(training);
+                        getTrainingLog().addTraining(training);
                     }
                 });
             }

@@ -12,7 +12,6 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.Align;
 
 import de.zaunkoenigweg.runningdb.domain.ShoeInfo;
-import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
 /**
  * UI to manage runnint shoes.
@@ -30,12 +29,8 @@ public class ShoeUi extends AbstractUi {
 
     /**
      * Create ShoeUI.
-     * 
-     * @param trainingLog training log to work with
      */
-    public ShoeUi(TrainingLog trainingLog) {
-        
-        super(trainingLog);
+    public ShoeUi() {
         
         Layout layout = new FormLayout();
         setCompositionRoot(layout);
@@ -140,7 +135,7 @@ public class ShoeUi extends AbstractUi {
     public void show() {
         // retrieve list w/ shoe information from training log and show it
         this.shoeContainer.removeAllItems();
-        this.shoeContainer.addAll(this.trainingLog.getShoeInfo());
+        this.shoeContainer.addAll(getTrainingLog().getShoeInfo());
     }
 
 }

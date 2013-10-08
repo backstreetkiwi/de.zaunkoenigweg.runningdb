@@ -26,18 +26,15 @@ public class MainUi extends CustomComponent {
     private RecordsUi bestzeitenUi;
     private ShoeUi shoeUi;
     private EmptyUi emptyUi;
+    private DataUi dataUi;
 
     // content panel
     private Panel panelContent;
     
     /**
      * Create MainUI.
-     * 
-     * @param trainingLog training log to work with
      */
-    public MainUi(TrainingLog trainingLog) {
-        
-        this.trainingLog = trainingLog;
+    public MainUi() {
         
         // overall layout
         HorizontalLayout layout = new HorizontalLayout();
@@ -113,7 +110,7 @@ public class MainUi extends CustomComponent {
 
             @Override
             public void buttonClick(ClickEvent event) {
-                MainUi.this.showUi(MainUi.this.emptyUi);
+                MainUi.this.showUi(MainUi.this.dataUi);
             }
         }, "menueButtonData"));
         
@@ -132,10 +129,11 @@ public class MainUi extends CustomComponent {
      * Create all UIs
      */
     private void createUis() {
-        this.tagebuchUi = new TrainingLogUi(this.trainingLog);
-        this.bestzeitenUi = new RecordsUi(this.trainingLog);
-        this.shoeUi = new ShoeUi(this.trainingLog);
-        this.emptyUi = new EmptyUi(this.trainingLog);
+        this.tagebuchUi = new TrainingLogUi();
+        this.bestzeitenUi = new RecordsUi();
+        this.shoeUi = new ShoeUi();
+        this.emptyUi = new EmptyUi();
+        this.dataUi = new DataUi();
     }
     
     /**
