@@ -6,7 +6,7 @@ import com.vaadin.ui.Layout;
 import com.vaadin.ui.Button.ClickEvent;
 
 import de.zaunkoenigweg.runningdb.domain.Training;
-import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
+import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
 /**
  * Home UI of RunningDB.
@@ -24,7 +24,7 @@ public class HomeUi extends AbstractUi {
      * 
      * @param trainingLog training log to work with
      */
-    public HomeUi(Trainingstagebuch trainingLog) {
+    public HomeUi(TrainingLog trainingLog) {
         
         super(trainingLog);
         

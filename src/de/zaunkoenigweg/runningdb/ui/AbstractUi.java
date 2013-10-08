@@ -2,16 +2,16 @@ package de.zaunkoenigweg.runningdb.ui;
 
 import com.vaadin.ui.CustomComponent;
 
-import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
+import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
 public abstract class AbstractUi extends CustomComponent {
 
     private static final long serialVersionUID = 6810094874228420706L;
     
     // Trainingstagebuch
-    protected Trainingstagebuch trainingstagebuch;
+    protected TrainingLog trainingstagebuch;
 
-    public AbstractUi(Trainingstagebuch trainingstagebuch) {
+    public AbstractUi(TrainingLog trainingstagebuch) {
         this.trainingstagebuch = trainingstagebuch;
     }
 

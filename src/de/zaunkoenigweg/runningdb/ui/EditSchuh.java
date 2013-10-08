@@ -16,7 +16,7 @@ import com.vaadin.ui.TextField;
 
 import de.zaunkoenigweg.runningdb.RunningDbUi;
 import de.zaunkoenigweg.runningdb.domain.Shoe;
-import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
+import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
 /**
  * View zur Bearbeitung eines Laufschuhs.
@@ -45,7 +45,7 @@ public class EditSchuh extends CustomComponent implements View {
     BeanItem<Shoe> schuh;
     
     // Referenz auf das bearbeitete Trainingstagebuch
-    private Trainingstagebuch trainingstagebuch;
+    private TrainingLog trainingstagebuch;
 
     /**
      * Erzeugt diese View
@@ -138,7 +138,7 @@ public class EditSchuh extends CustomComponent implements View {
         this.navigator = event.getNavigator();
         
         // Trainingstagebuch aus der Session holen
-        this.trainingstagebuch = (Trainingstagebuch) VaadinSession.getCurrent().getAttribute("trainingstagebuch");
+        this.trainingstagebuch = (TrainingLog) VaadinSession.getCurrent().getAttribute("trainingstagebuch");
 
         // neuen Schuh erzeugen und anzeigen
         this.schuh = new BeanItem<Shoe>(new Shoe());

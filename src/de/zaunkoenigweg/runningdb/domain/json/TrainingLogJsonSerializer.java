@@ -13,11 +13,11 @@ import org.json.JSONStringer;
 import org.json.JSONWriter;
 
 import sun.misc.BASE64Decoder;
-import de.zaunkoenigweg.runningdb.domain.BestzeitStrecke;
-import de.zaunkoenigweg.runningdb.domain.Lauf;
+import de.zaunkoenigweg.runningdb.domain.RecordDistance;
+import de.zaunkoenigweg.runningdb.domain.Run;
 import de.zaunkoenigweg.runningdb.domain.Shoe;
 import de.zaunkoenigweg.runningdb.domain.Training;
-import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
+import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
 /**
  * Speichert/Liest das Trainingstagebuch nach/aus JSON. 
@@ -25,14 +25,14 @@ import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
  * @author Nikolaus Winter
  *
  */
-public class TrainingstagebuchJsonSerializer {
+public class TrainingLogJsonSerializer {
     
     /**
      * Formatierung/Parsen von Datumswerten.
      */
     private static final DateFormat DATE_YYYY_MM_DD = new SimpleDateFormat("yyyy-MM-dd");
 
-    public static String writeToJson(Trainingstagebuch trainingstagebuch) throws JSONException {
+    public static String writeToJson(TrainingLog trainingstagebuch) throws JSONException {
         JSONStringer json = new JSONStringer();
         json.object();
         json.key("schuhe").array();
@@ -41,7 +41,7 @@ public class TrainingstagebuchJsonSerializer {
         }
         json.endArray();
         json.key("bestzeitenstrecken").array();
-        for (BestzeitStrecke strecke : trainingstagebuch.getBestzeitStrecken()) {
+        for (RecordDistance strecke : trainingstagebuch.getBestzeitStrecken()) {
             writeBestzeitenStrecke(strecke, json);
         }
         json.endArray();
@@ -54,8 +54,8 @@ public class TrainingstagebuchJsonSerializer {
         return new JSONObject(json.toString()).toString(2);
     }
     
-    public static Trainingstagebuch readFromJson(String jsonString) throws JSONException, IOException {
-        Trainingstagebuch trainingstagebuch = new Trainingstagebuch();
+    public static TrainingLog readFromJson(String jsonString) throws JSONException, IOException {
+        TrainingLog trainingstagebuch = new TrainingLog();
         JSONObject json = new JSONObject(jsonString);
         JSONArray bestzeitenstrecken = json.getJSONArray("bestzeitenstrecken");
         for (int i = 0; i < bestzeitenstrecken.length(); i++) {
@@ -72,15 +72,15 @@ public class TrainingstagebuchJsonSerializer {
         return trainingstagebuch;
     }
     
-    private static void writeBestzeitenStrecke(BestzeitStrecke strecke, JSONWriter json) throws JSONException {
+    private static void writeBestzeitenStrecke(RecordDistance strecke, JSONWriter json) throws JSONException {
         json.object();
         json.key("strecke").value(strecke.getStrecke());
         json.key("bezeichnung").value(strecke.getBezeichnung());
         json.endObject();
     }
 
-    private static BestzeitStrecke readBestzeitenStrecke(JSONObject json) throws JSONException {
-        BestzeitStrecke strecke = new BestzeitStrecke();
+    private static RecordDistance readBestzeitenStrecke(JSONObject json) throws JSONException {
+        RecordDistance strecke = new RecordDistance();
         strecke.setStrecke(json.getInt("strecke"));
         strecke.setBezeichnung(json.getString("bezeichnung"));
         return strecke;
@@ -122,7 +122,7 @@ public class TrainingstagebuchJsonSerializer {
         json.key("bemerkungen").value(trainingseinheit.getBemerkungen());
         json.key("schuh").value(trainingseinheit.getSchuh());
         json.key("laeufe").array();
-        for (Lauf lauf : trainingseinheit.getLaeufe()) {
+        for (Run lauf : trainingseinheit.getLaeufe()) {
             writeLauf(lauf, json);
         }
         json.endArray();
@@ -147,15 +147,15 @@ public class TrainingstagebuchJsonSerializer {
         return trainingseinheit;
     }
     
-    private static void writeLauf(Lauf lauf, JSONWriter json) throws JSONException {
+    private static void writeLauf(Run lauf, JSONWriter json) throws JSONException {
         json.object();
         json.key("strecke").value(lauf.getStrecke());
         json.key("zeit").value(lauf.getZeit());
         json.endObject();
     }
     
-    private static Lauf readLauf(JSONObject json) throws JSONException {
-        Lauf lauf = new Lauf();
+    private static Run readLauf(JSONObject json) throws JSONException {
+        Run lauf = new Run();
         lauf.setStrecke(json.getInt("strecke"));
         lauf.setZeit(json.getInt("zeit"));
         return lauf;

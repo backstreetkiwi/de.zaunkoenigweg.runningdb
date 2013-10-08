@@ -5,9 +5,9 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import de.zaunkoenigweg.runningdb.domain.BestzeitStrecke;
+import de.zaunkoenigweg.runningdb.domain.RecordDistance;
 import de.zaunkoenigweg.runningdb.domain.Shoe;
-import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
+import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
 public class TrainingstagebuchJsonSerializerTest {
     
@@ -15,19 +15,19 @@ public class TrainingstagebuchJsonSerializerTest {
     public void testWriteToJson() throws Exception {
         
         // to JSON
-        Trainingstagebuch trainingstagebuch = new Trainingstagebuch();
-        BestzeitStrecke bestzeitStrecke;
+        TrainingLog trainingstagebuch = new TrainingLog();
+        RecordDistance bestzeitStrecke;
         Shoe schuh;
 
-        bestzeitStrecke = new BestzeitStrecke();
+        bestzeitStrecke = new RecordDistance();
         bestzeitStrecke.setStrecke(10000);
         bestzeitStrecke.setBezeichnung("");
         trainingstagebuch.getBestzeitStrecken().add(bestzeitStrecke);
-        bestzeitStrecke = new BestzeitStrecke();
+        bestzeitStrecke = new RecordDistance();
         bestzeitStrecke.setStrecke(21100);
         bestzeitStrecke.setBezeichnung("Halbmarathon");
         trainingstagebuch.getBestzeitStrecken().add(bestzeitStrecke);
-        bestzeitStrecke = new BestzeitStrecke();
+        bestzeitStrecke = new RecordDistance();
         bestzeitStrecke.setStrecke(42195);
         bestzeitStrecke.setBezeichnung("Marathon");
         trainingstagebuch.getBestzeitStrecken().add(bestzeitStrecke);
@@ -56,12 +56,12 @@ public class TrainingstagebuchJsonSerializerTest {
         schuh.setActive(true);
         trainingstagebuch.addSchuh(schuh);
         
-        String json = TrainingstagebuchJsonSerializer.writeToJson(trainingstagebuch);
+        String json = TrainingLogJsonSerializer.writeToJson(trainingstagebuch);
         System.out.println(json);
         assertNotNull(json);
         
         // from JSON
-        trainingstagebuch = TrainingstagebuchJsonSerializer.readFromJson(json);
+        trainingstagebuch = TrainingLogJsonSerializer.readFromJson(json);
         assertNotNull(trainingstagebuch);
         assertEquals(3, trainingstagebuch.getBestzeitStrecken().size());
         assertEquals(3, trainingstagebuch.getSchuhe().size());

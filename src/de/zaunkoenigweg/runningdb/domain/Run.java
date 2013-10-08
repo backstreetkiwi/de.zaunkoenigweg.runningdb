@@ -6,7 +6,7 @@ package de.zaunkoenigweg.runningdb.domain;
  * @author Nikolaus Winter
  *
  */
-public class Lauf {
+public class Run {
 
     /**
      * Strecke in Metern

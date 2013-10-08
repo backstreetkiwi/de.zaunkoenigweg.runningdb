@@ -12,7 +12,7 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.Align;
 
 import de.zaunkoenigweg.runningdb.domain.ShoeInfo;
-import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
+import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
 /**
  * UI to manage runnint shoes.
@@ -33,7 +33,7 @@ public class ShoeUi extends AbstractUi {
      * 
      * @param trainingLog training log to work with
      */
-    public ShoeUi(Trainingstagebuch trainingLog) {
+    public ShoeUi(TrainingLog trainingLog) {
         
         super(trainingLog);
         

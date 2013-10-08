@@ -13,7 +13,7 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
-import de.zaunkoenigweg.runningdb.domain.Lauf;
+import de.zaunkoenigweg.runningdb.domain.Run;
 
 /**
  * Window to add new run.
@@ -32,7 +32,7 @@ public class EditRunWindow extends Window {
     private Button buttonSave;
     private Button buttonCancel;
     
-    private BeanItem<Lauf> run;
+    private BeanItem<Run> run;
     
     private RunCreatedListener runCreatedListener;
 
@@ -46,7 +46,7 @@ public class EditRunWindow extends Window {
         this.runCreatedListener = runCreatedListener;
         
         // create new empty run bean
-        this.run = new BeanItem<Lauf>(new Lauf());
+        this.run = new BeanItem<Run>(new Run());
         
         setCaption("Eingabe eines Trainingslaufs");
         setClosable(false);
@@ -139,7 +139,7 @@ public class EditRunWindow extends Window {
         /**
          * Action to be executed after a run is created using this dialog.
          */
-        public void runCreated(Lauf run);
+        public void runCreated(Run run);
         
     }
     

@@ -7,7 +7,7 @@ package de.zaunkoenigweg.runningdb.domain;
  * @author Nikolaus Winter
  *
  */
-public class BestzeitStrecke {
+public class RecordDistance {
     
     private Integer strecke;
     private String bezeichnung = "";

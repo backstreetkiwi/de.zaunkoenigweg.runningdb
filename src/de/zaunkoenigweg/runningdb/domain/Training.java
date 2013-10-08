@@ -18,7 +18,7 @@ public class Training {
     private String ort = "";
     private String bemerkungen = "";
     private Integer schuh = 0;
-    private List<Lauf> laeufe = new ArrayList<Lauf>();
+    private List<Run> laeufe = new ArrayList<Run>();
     
     public Date getDatum() {
         return datum;
@@ -52,7 +52,7 @@ public class Training {
         this.schuh = schuh;
     }
 
-    public List<Lauf> getLaeufe() {
+    public List<Run> getLaeufe() {
         return laeufe;
     }
     
@@ -63,7 +63,7 @@ public class Training {
      */
     public Integer getStrecke() {
         int strecke = 0;
-        for (Lauf lauf: this.laeufe) {
+        for (Run lauf: this.laeufe) {
             strecke += lauf.getStrecke();
         }
         return strecke;
@@ -76,7 +76,7 @@ public class Training {
      */
     public Integer getZeit() {
         int zeit = 0;
-        for (Lauf lauf: this.laeufe) {
+        for (Run lauf: this.laeufe) {
             zeit += lauf.getZeit();
         }
         return zeit;

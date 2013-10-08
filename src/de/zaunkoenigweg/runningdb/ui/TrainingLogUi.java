@@ -19,10 +19,10 @@ import com.vaadin.ui.Layout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 
-import de.zaunkoenigweg.runningdb.domain.Lauf;
+import de.zaunkoenigweg.runningdb.domain.Run;
 import de.zaunkoenigweg.runningdb.domain.RunningDbUtil;
 import de.zaunkoenigweg.runningdb.domain.Training;
-import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
+import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
 /**
  * UI to browse training log
@@ -38,7 +38,7 @@ public class TrainingLogUi extends AbstractUi {
     private BeanItemContainer<Training> trainingContainer;
 
     private Table tableRuns;
-    private BeanItemContainer<Lauf> runContainer;
+    private BeanItemContainer<Run> runContainer;
     private Panel panelTrainingDetails;
 
     private static final StreckeConverter STRECKE_CONVERTER = new StreckeConverter();
@@ -49,7 +49,7 @@ public class TrainingLogUi extends AbstractUi {
      * 
      * @param trainingLog training log to work with
      */
-    public TrainingLogUi(Trainingstagebuch trainingLog) {
+    public TrainingLogUi(TrainingLog trainingLog) {
         
         super(trainingLog);
         
@@ -169,7 +169,7 @@ public class TrainingLogUi extends AbstractUi {
         FormLayout panelTrainingLayout = new FormLayout();
         panelTrainingDetails.setContent(panelTrainingLayout);
         
-        runContainer = new BeanItemContainer<Lauf>(Lauf.class);
+        runContainer = new BeanItemContainer<Run>(Run.class);
         
         // table showing all runs of selected training        
         tableRuns = new Table("", runContainer);
@@ -194,7 +194,7 @@ public class TrainingLogUi extends AbstractUi {
 
             @Override
             public Object generateCell(Table source, Object itemId, Object columnId) {
-                Lauf lauf = (Lauf)itemId;
+                Run lauf = (Run)itemId;
                 Integer schnitt = RunningDbUtil.berechneSchnitt(lauf.getStrecke(), lauf.getZeit());
                 return new Label(ZEIT_CONVERTER.convertToPresentation(schnitt, String.class, null));
             }

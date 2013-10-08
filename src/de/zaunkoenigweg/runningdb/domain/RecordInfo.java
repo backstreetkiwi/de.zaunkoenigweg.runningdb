@@ -9,18 +9,18 @@ import java.util.List;
  * @author Nikolaus Winter
  *
  */
-public class BestzeitInfo {
+public class RecordInfo {
 
-    private BestzeitStrecke strecke;
+    private RecordDistance strecke;
 
     private List<BestzeitLauf> laeufe = new ArrayList<BestzeitLauf>();
 
-    public BestzeitInfo(BestzeitStrecke strecke) {
+    public RecordInfo(RecordDistance strecke) {
         super();
         this.strecke = strecke;
     }
 
-    public BestzeitStrecke getStrecke() {
+    public RecordDistance getStrecke() {
         return strecke;
     }
 

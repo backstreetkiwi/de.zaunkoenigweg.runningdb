@@ -7,7 +7,7 @@ import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.VerticalLayout;
 
-import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
+import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
 /**
  * UI with main menu and content panel
@@ -19,7 +19,7 @@ public class MainUi extends CustomComponent {
     private static final long serialVersionUID = -72302935704911518L;
 
     // training log
-    Trainingstagebuch trainingLog;
+    TrainingLog trainingLog;
     
     // UIs
     private HomeUi homeUi;
@@ -36,7 +36,7 @@ public class MainUi extends CustomComponent {
      * 
      * @param trainingLog training log to work with
      */
-    public MainUi(Trainingstagebuch trainingLog) {
+    public MainUi(TrainingLog trainingLog) {
         
         this.trainingLog = trainingLog;
         

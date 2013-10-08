@@ -10,7 +10,7 @@ import com.vaadin.ui.Layout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.Window;
 
-import de.zaunkoenigweg.runningdb.domain.BestzeitStrecke;
+import de.zaunkoenigweg.runningdb.domain.RecordDistance;
 
 /**
  * Fenster zur Eingabe einer Bestzeitenstrecke.
@@ -28,13 +28,13 @@ public class BestzeitStreckeEingabeWindow extends Window {
     private TextField textFieldBezeichnung;
     private Button buttonSpeichern;
     private Button buttonAbbrechen;
-    BeanItem<BestzeitStrecke> bestzeitStrecke;
+    BeanItem<RecordDistance> bestzeitStrecke;
 
 
     public BestzeitStreckeEingabeWindow(final BestzeitenUi bestzeitenUi) {
         
         // Lauf-Objekt erstellen
-        this.bestzeitStrecke = new BeanItem<BestzeitStrecke>(new BestzeitStrecke());
+        this.bestzeitStrecke = new BeanItem<RecordDistance>(new RecordDistance());
         
         // allg. Eigenschaften des Fensters 
         setCaption("Eingabe einer Strecke für die Bestzeiten");

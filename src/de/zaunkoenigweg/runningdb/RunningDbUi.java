@@ -16,8 +16,8 @@ import com.vaadin.server.VaadinServlet;
 import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.UI;
 
-import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
-import de.zaunkoenigweg.runningdb.domain.json.TrainingstagebuchJsonSerializer;
+import de.zaunkoenigweg.runningdb.domain.TrainingLog;
+import de.zaunkoenigweg.runningdb.domain.json.TrainingLogJsonSerializer;
 import de.zaunkoenigweg.runningdb.ui.MainUi;
 
 @SuppressWarnings("serial")
@@ -51,10 +51,10 @@ public class RunningDbUi extends UI {
             return;
         }
         
-        Trainingstagebuch trainingstagebuch = null;
+        TrainingLog trainingstagebuch = null;
 
         try {
-            trainingstagebuch = TrainingstagebuchJsonSerializer.readFromJson(json.toString()); 
+            trainingstagebuch = TrainingLogJsonSerializer.readFromJson(json.toString()); 
             VaadinSession.getCurrent().setAttribute("trainingstagebuch", trainingstagebuch);
         } catch (JSONException e) {
             // TODO Auto-generated catch block

@@ -12,11 +12,11 @@ import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.UI;
 
-import de.zaunkoenigweg.runningdb.domain.BestzeitInfo;
-import de.zaunkoenigweg.runningdb.domain.BestzeitInfo.BestzeitLauf;
-import de.zaunkoenigweg.runningdb.domain.BestzeitStrecke;
+import de.zaunkoenigweg.runningdb.domain.RecordInfo;
+import de.zaunkoenigweg.runningdb.domain.RecordInfo.BestzeitLauf;
+import de.zaunkoenigweg.runningdb.domain.RecordDistance;
 import de.zaunkoenigweg.runningdb.domain.RunningDbUtil;
-import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
+import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
 /**
  * View zur Bearbeitung der Bestzeitenstrecken.
@@ -37,7 +37,7 @@ public class BestzeitenUi extends AbstractUi {
     /**
      * Erzeugt diese View
      */
-    public BestzeitenUi(Trainingstagebuch trainingstagebuch) {
+    public BestzeitenUi(TrainingLog trainingstagebuch) {
         super(trainingstagebuch);
     }
 
@@ -58,8 +58,8 @@ public class BestzeitenUi extends AbstractUi {
 
         // Je Bestzeitstrecke im Tagebuch wird eine Tabelle mit den besten
         // drei Zeiten sowie ein Button zum Löschen des Eintrags hinzugefügt.
-        List<BestzeitInfo> bestzeiten = trainingstagebuch.getBestzeiten();
-        for (BestzeitInfo bestzeitInfo : bestzeiten) {
+        List<RecordInfo> bestzeiten = trainingstagebuch.getBestzeiten();
+        for (RecordInfo bestzeitInfo : bestzeiten) {
             layout.addComponent(createBestzeitTable(bestzeitInfo));
             layout.addComponent(createButtonRemoveBestzeit(bestzeitInfo));
         }
@@ -87,7 +87,7 @@ public class BestzeitenUi extends AbstractUi {
      * @param bestzeitInfo Informationen über die Bestzeit, die angezeigt werden soll.
      * @return Tabelle mit den Informationen zur angegebenen Bestzeit
      */
-    private Table createBestzeitTable(BestzeitInfo bestzeitInfo) {
+    private Table createBestzeitTable(RecordInfo bestzeitInfo) {
 
         String caption = "";
         String strecke = new StreckeConverter().convertToPresentation(bestzeitInfo.getStrecke().getStrecke(), String.class, null);
@@ -130,7 +130,7 @@ public class BestzeitenUi extends AbstractUi {
      * @param bestzeitInfo Informationen über die Bestzeit, die gelöscht werden soll.
      * @return
      */
-    private Button createButtonRemoveBestzeit(final BestzeitInfo bestzeitInfo) {
+    private Button createButtonRemoveBestzeit(final RecordInfo bestzeitInfo) {
 
         Button buttonremoveBestzeit = new Button("Löschen");
         buttonremoveBestzeit.addClickListener(new Button.ClickListener() {
@@ -164,7 +164,7 @@ public class BestzeitenUi extends AbstractUi {
      * Callback-Methode für das {@link BestzeitStreckeEingabeWindow}
      * @param bestzeitStrecke BestzeitStrecke, die hinzugefügt werden soll.
      */
-    public void addBestzeitenStrecke(BestzeitStrecke bestzeitStrecke) {
+    public void addBestzeitenStrecke(RecordDistance bestzeitStrecke) {
         this.trainingstagebuch.addBestzeitStrecke(bestzeitStrecke);
         refreshUi();
     }

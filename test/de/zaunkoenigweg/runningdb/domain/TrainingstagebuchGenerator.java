@@ -9,9 +9,9 @@ public class TrainingstagebuchGenerator {
     private static final int[] STRECKEN = new int[] {1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000};
     private static final int[] ZEITEN = new int[] {300, 600, 900, 1200, 1500, 1800, 2100, 2400, 2700, 3000};
 
-    public static Trainingstagebuch generate() {
+    public static TrainingLog generate() {
         
-        Trainingstagebuch trainingstagebuch = new Trainingstagebuch();
+        TrainingLog trainingstagebuch = new TrainingLog();
         
         long datum = 1180389600000L;
         
@@ -25,7 +25,7 @@ public class TrainingstagebuchGenerator {
             for (int j=0; j<((i%3)+1); j++) {
                 int strecke = STRECKEN[(i+j) % STRECKEN.length] + 100 * ((i+3*j)%10);
                 int zeit = ZEITEN[(i+j) % ZEITEN.length] + 20 * ((i+3*j)%10);
-                Lauf lauf = new Lauf();
+                Run lauf = new Run();
                 lauf.setStrecke(strecke);
                 lauf.setZeit(zeit);
                 training.getLaeufe().add(lauf);

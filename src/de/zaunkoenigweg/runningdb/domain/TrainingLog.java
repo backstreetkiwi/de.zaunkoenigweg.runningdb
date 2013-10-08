@@ -14,7 +14,7 @@ import java.util.TreeSet;
  * @author Nikolaus Winter
  *
  */
-public class Trainingstagebuch {
+public class TrainingLog {
     
     /**
      * Liste aller Trainingseinheiten.
@@ -29,9 +29,9 @@ public class Trainingstagebuch {
     /**
      * Sortierte Menge der Strecken, die in der Bestzeitenliste geführt werden.
      */
-    private SortedSet<BestzeitStrecke> bestzeitStrecken = new TreeSet<BestzeitStrecke>(new Comparator<BestzeitStrecke>() {
+    private SortedSet<RecordDistance> bestzeitStrecken = new TreeSet<RecordDistance>(new Comparator<RecordDistance>() {
         @Override
-        public int compare(BestzeitStrecke strecke1, BestzeitStrecke strecke2) {
+        public int compare(RecordDistance strecke1, RecordDistance strecke2) {
             return strecke1.getStrecke().compareTo(strecke2.getStrecke());
         }
     });
@@ -121,15 +121,15 @@ public class Trainingstagebuch {
         
     }
     
-    public List<BestzeitStrecke> getBestzeitStrecken() {
-        return new ArrayList<BestzeitStrecke>(this.bestzeitStrecken);
+    public List<RecordDistance> getBestzeitStrecken() {
+        return new ArrayList<RecordDistance>(this.bestzeitStrecken);
     }
     
-    public void addBestzeitStrecke(BestzeitStrecke bestzeitStrecke) {
+    public void addBestzeitStrecke(RecordDistance bestzeitStrecke) {
         this.bestzeitStrecken.add(bestzeitStrecke);
     }
     
-    public void removeBestzeitStrecke(BestzeitStrecke bestzeitStrecke) {
+    public void removeBestzeitStrecke(RecordDistance bestzeitStrecke) {
         this.bestzeitStrecken.remove(bestzeitStrecke);
     }
     
@@ -197,16 +197,16 @@ public class Trainingstagebuch {
         return result;
     }
     
-    public List<BestzeitInfo> getBestzeiten() {
+    public List<RecordInfo> getBestzeiten() {
         
-        List<BestzeitInfo> result = new ArrayList<BestzeitInfo>();
+        List<RecordInfo> result = new ArrayList<RecordInfo>();
         
-        for (BestzeitStrecke bestzeitStrecke : this.bestzeitStrecken) {
-            BestzeitInfo bestzeitInfo = getBestzeitInfo(bestzeitStrecke);
-            Collections.sort(bestzeitInfo.getLaeufe(), new Comparator<BestzeitInfo.BestzeitLauf>() {
+        for (RecordDistance bestzeitStrecke : this.bestzeitStrecken) {
+            RecordInfo bestzeitInfo = getBestzeitInfo(bestzeitStrecke);
+            Collections.sort(bestzeitInfo.getLaeufe(), new Comparator<RecordInfo.BestzeitLauf>() {
 
                 @Override
-                public int compare(BestzeitInfo.BestzeitLauf lauf1, BestzeitInfo.BestzeitLauf lauf2) {
+                public int compare(RecordInfo.BestzeitLauf lauf1, RecordInfo.BestzeitLauf lauf2) {
                     return lauf1.getZeit().compareTo(lauf2.getZeit());
                 }
             });
@@ -217,14 +217,14 @@ public class Trainingstagebuch {
         
     }
     
-    private BestzeitInfo getBestzeitInfo(BestzeitStrecke strecke) {
+    private RecordInfo getBestzeitInfo(RecordDistance strecke) {
         
-        final BestzeitInfo info = new BestzeitInfo(strecke);
+        final RecordInfo info = new RecordInfo(strecke);
         
         for (Training training : this.getTrainingseinheiten()) {
-            for (Lauf lauf : training.getLaeufe()) {
+            for (Run lauf : training.getLaeufe()) {
                 if(lauf.getStrecke().compareTo(strecke.getStrecke())==0) {
-                    info.getLaeufe().add(new BestzeitInfo.BestzeitLauf(lauf.getZeit(), training));
+                    info.getLaeufe().add(new RecordInfo.BestzeitLauf(lauf.getZeit(), training));
                 }
             }
         }

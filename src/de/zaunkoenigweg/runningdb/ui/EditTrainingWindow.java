@@ -20,11 +20,11 @@ import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
-import de.zaunkoenigweg.runningdb.domain.Lauf;
+import de.zaunkoenigweg.runningdb.domain.Run;
 import de.zaunkoenigweg.runningdb.domain.RunningDbUtil;
 import de.zaunkoenigweg.runningdb.domain.Shoe;
 import de.zaunkoenigweg.runningdb.domain.Training;
-import de.zaunkoenigweg.runningdb.domain.Trainingstagebuch;
+import de.zaunkoenigweg.runningdb.domain.TrainingLog;
 
 /**
  * Window to add new training to log.
@@ -51,15 +51,15 @@ public class EditTrainingWindow extends Window {
 
     private BeanItem<Training> training;
     
-    private Trainingstagebuch trainingLog;
+    private TrainingLog trainingLog;
     private TrainingCreatedListener trainingCreatedListener;    
 
     /**
-     * Private Constructor, used only by {@link #show(Trainingstagebuch, TrainingCreatedListener)}
+     * Private Constructor, used only by {@link #show(TrainingLog, TrainingCreatedListener)}
      * @param trainingLog training log to work with
      * @param trainingCreatedListener listener to specify actions following this dialog
      */
-    private EditTrainingWindow(Trainingstagebuch trainingLog, TrainingCreatedListener trainingCreatedListener) {
+    private EditTrainingWindow(TrainingLog trainingLog, TrainingCreatedListener trainingCreatedListener) {
         
         this.trainingLog = trainingLog;
         this.trainingCreatedListener = trainingCreatedListener;
@@ -165,7 +165,7 @@ public class EditTrainingWindow extends Window {
                     private static final long serialVersionUID = -575130266743356570L;
 
                     @Override
-                    public void runCreated(Lauf run) {
+                    public void runCreated(Run run) {
                         
                         // add run to currently edited training session
                         EditTrainingWindow.this.training.getBean().getLaeufe().add(run);
@@ -236,7 +236,7 @@ public class EditTrainingWindow extends Window {
         String time;
         String pace;
 
-        for (Lauf run : this.training.getBean().getLaeufe()) {
+        for (Run run : this.training.getBean().getLaeufe()) {
             distance = distanceConverter.convertToPresentation(run.getStrecke(), String.class, null);
             time = timeConverter.convertToPresentation(run.getZeit(), String.class, null);
             pace = timeConverter.convertToPresentation(RunningDbUtil.berechneSchnitt(run.getStrecke(), run.getZeit()), String.class, null);
@@ -270,7 +270,7 @@ public class EditTrainingWindow extends Window {
      * @param trainingLog training log to work with
      * @param trainingCreatedListener listener to specify actions following this dialog
      */
-    public static void show(Trainingstagebuch trainingLog, TrainingCreatedListener trainingCreatedListener) {
+    public static void show(TrainingLog trainingLog, TrainingCreatedListener trainingCreatedListener) {
         EditTrainingWindow window = new EditTrainingWindow(trainingLog, trainingCreatedListener);
         UI.getCurrent().addWindow(window);
     }
