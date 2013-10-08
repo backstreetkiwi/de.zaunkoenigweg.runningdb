@@ -13,17 +13,18 @@ import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.converter.Converter;
+import com.vaadin.event.MouseEvents;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.shared.ui.datefield.Resolution;
+import com.vaadin.ui.Button;
+import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.InlineDateField;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Layout;
-import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 
-import de.zaunkoenigweg.runningdb.domain.Run;
 import de.zaunkoenigweg.runningdb.domain.RunningDbUtil;
 import de.zaunkoenigweg.runningdb.domain.Shoe;
 import de.zaunkoenigweg.runningdb.domain.Training;
@@ -41,13 +42,10 @@ public class TrainingLogUi extends AbstractUi {
     private InlineDateField dateFieldMonth;
     private Table tableTrainingLog;
     private BeanItemContainer<Training> trainingContainer;
+    Button buttonAddTraining;
 
-    private Table tableRuns;
-    private BeanItemContainer<Run> runContainer;
-    private Panel panelTrainingDetails;
-
-    private static final DistanceConverter STRECKE_CONVERTER = new DistanceConverter();
-    private static final TimeConverter ZEIT_CONVERTER = new TimeConverter();
+    private static final DistanceConverter DISTANCE_CONVERTER = new DistanceConverter();
+    private static final TimeConverter TIME_CONVERTER = new TimeConverter();
 
     /**
      * Create TrainingLogUI.
@@ -77,7 +75,6 @@ public class TrainingLogUi extends AbstractUi {
 
             @Override
             public void valueChange(ValueChangeEvent event) {
-                refreshTrainingDetailView(null);
                 refreshTrainingTable();
             }
         });
@@ -95,19 +92,21 @@ public class TrainingLogUi extends AbstractUi {
         tableTrainingLog.setColumnHeader("time", "Zeit");
         tableTrainingLog.setColumnHeader("pace", "Schnitt");
         tableTrainingLog.setColumnHeader("shoe", "Schuhe");
+        tableTrainingLog.setColumnHeader("interval", "");
         tableTrainingLog.setColumnHeader("comments", "");
         tableTrainingLog.setFooterVisible(true);
         tableTrainingLog.setPageLength(20);
-        tableTrainingLog.setWidth("900px");
+        tableTrainingLog.setWidth("896px");
         tableTrainingLog.setColumnWidth("date", 75);
         tableTrainingLog.setColumnWidth("location", 250);
         tableTrainingLog.setColumnWidth("distance", 75);
         tableTrainingLog.setColumnWidth("time", 75);
         tableTrainingLog.setColumnWidth("pace", 75);
         tableTrainingLog.setColumnWidth("shoe", 200);
+        tableTrainingLog.setColumnWidth("interval", 20);
         tableTrainingLog.setColumnWidth("comments", 20);
-        tableTrainingLog.setConverter("distance", STRECKE_CONVERTER);
-        tableTrainingLog.setConverter("time", ZEIT_CONVERTER);
+        tableTrainingLog.setConverter("distance", DISTANCE_CONVERTER);
+        tableTrainingLog.setConverter("time", TIME_CONVERTER);
         tableTrainingLog.setConverter("date", new Converter<String, Date>() {
 
             private static final long serialVersionUID = 7733805593148338971L;
@@ -178,7 +177,32 @@ public class TrainingLogUi extends AbstractUi {
             public Object generateCell(Table source, Object itemId, Object columnId) {
                 Training training = (Training)itemId;
                 Integer schnitt = RunningDbUtil.getPace(training.getDistance(), training.getTime());
-                return new Label(ZEIT_CONVERTER.convertToPresentation(schnitt, String.class, null));
+                return new Label(TIME_CONVERTER.convertToPresentation(schnitt, String.class, null));
+            }
+        });
+        
+        tableTrainingLog.addGeneratedColumn("interval", new Table.ColumnGenerator() {
+            
+            private static final long serialVersionUID = -6512627057346466980L;
+            
+            @Override
+            public Object generateCell(Table source, final Object itemId, Object columnId) {
+                Training training = (Training)itemId;
+                if(training.getRuns().size()>1) {
+                    Image image = new Image("", new ThemeResource("icons/zoom.png"));
+                    image.addClickListener(new MouseEvents.ClickListener() {
+                        
+                        private static final long serialVersionUID = -1982237136152319424L;
+
+                        @Override
+                        public void click(com.vaadin.event.MouseEvents.ClickEvent event) {
+                            Training training = (Training)itemId;
+                            IntervalInfoTooltip.show(training.getRuns(), event.getClientX(), event.getClientY());
+                        }
+                    });
+                    return image;
+                }
+                return null;
             }
         });
         
@@ -200,66 +224,30 @@ public class TrainingLogUi extends AbstractUi {
         
         tableTrainingLog.setImmediate(true);
         
-        tableTrainingLog.setVisibleColumns(new Object[] {"date", "location", "distance", "time", "pace", "shoe", "comments"});
+        tableTrainingLog.setVisibleColumns(new Object[] {"date", "location", "distance", "time", "pace", "shoe", "interval", "comments"});
+
+        this.buttonAddTraining = new Button("Training erfassen");
+        layout.addComponent(buttonAddTraining);
         
-        
-        // show training details for selected training
-        tableTrainingLog.setSelectable(true);
-        tableTrainingLog.addValueChangeListener(new Property.ValueChangeListener() {
+        buttonAddTraining.addClickListener(new Button.ClickListener() {
             
-            private static final long serialVersionUID = -190929343225568472L;
+            private static final long serialVersionUID = -3769109895058759120L;
 
             @Override
-            public void valueChange(ValueChangeEvent event) {
-                Object itemId = tableTrainingLog.getValue();
-                if(itemId!=null) {
-                    refreshTrainingDetailView((Training)itemId);
-                } else {
-                    refreshTrainingDetailView(null);
-                }
+            public void buttonClick(ClickEvent event) {
+                EditTrainingWindow.show(TrainingLogUi.this.trainingLog, new EditTrainingWindow.TrainingCreatedListener() {
+                    
+                    private static final long serialVersionUID = 4209477942370493147L;
+
+                    @Override
+                    public void trainingCreated(Training training) {
+                        TrainingLogUi.this.trainingLog.addTraining(training);
+                        TrainingLogUi.this.refreshTrainingTable();
+                    }
+                });
             }
         });
         
-        
-        // panel showing details of training, initially invisible
-        panelTrainingDetails = new Panel();
-        layout.addComponent(panelTrainingDetails);
-        panelTrainingDetails.setWidth("500px");
-        panelTrainingDetails.setVisible(false);
-        FormLayout panelTrainingLayout = new FormLayout();
-        panelTrainingDetails.setContent(panelTrainingLayout);
-        
-        runContainer = new BeanItemContainer<Run>(Run.class);
-        
-        // table showing all runs of selected training        
-        tableRuns = new Table("", runContainer);
-        panelTrainingLayout.addComponent(tableRuns);
-        tableRuns.setColumnHeader("distance", "Strecke");
-        tableRuns.setColumnHeader("time", "Zeit");
-        tableRuns.setColumnHeader("pace", "Schnitt [min/km]");
-        tableRuns.setFooterVisible(false);
-        tableRuns.setWidth("400px");
-        tableRuns.setColumnWidth("distance", 100);
-        tableRuns.setColumnWidth("time", 100);
-        tableRuns.setColumnWidth("pace", 100);
-        tableRuns.setConverter("distance", STRECKE_CONVERTER);
-        tableRuns.setConverter("time", ZEIT_CONVERTER);
-        tableRuns.setSortEnabled(false);
-        tableRuns.setWidth("400px");
-
-        // pace is calculated into generated column
-        tableRuns.addGeneratedColumn("pace", new Table.ColumnGenerator() {
-            
-            private static final long serialVersionUID = -2108447767546846249L;
-
-            @Override
-            public Object generateCell(Table source, Object itemId, Object columnId) {
-                Run lauf = (Run)itemId;
-                Integer schnitt = RunningDbUtil.getPace(lauf.getDistance(), lauf.getTime());
-                return new Label(ZEIT_CONVERTER.convertToPresentation(schnitt, String.class, null));
-            }
-        });
-        tableRuns.setVisibleColumns(new Object[] {"distance", "time", "pace"});
     }
 
     @Override
@@ -293,9 +281,9 @@ public class TrainingLogUi extends AbstractUi {
         if(trainings.size()>0) {
             Integer summeStrecke = RunningDbUtil.sumDistance(trainings);
             Integer summeZeit = RunningDbUtil.sumTime(trainings);
-            tableTrainingLog.setColumnFooter("distance", STRECKE_CONVERTER.convertToPresentation(summeStrecke, String.class, null));
-            tableTrainingLog.setColumnFooter("time", ZEIT_CONVERTER.convertToPresentation(summeZeit, String.class, null));
-            tableTrainingLog.setColumnFooter("pace", ZEIT_CONVERTER.convertToPresentation(RunningDbUtil.getPace(summeStrecke, summeZeit), String.class, null));
+            tableTrainingLog.setColumnFooter("distance", DISTANCE_CONVERTER.convertToPresentation(summeStrecke, String.class, null));
+            tableTrainingLog.setColumnFooter("time", TIME_CONVERTER.convertToPresentation(summeZeit, String.class, null));
+            tableTrainingLog.setColumnFooter("pace", TIME_CONVERTER.convertToPresentation(RunningDbUtil.getPace(summeStrecke, summeZeit), String.class, null));
         } else {
             tableTrainingLog.setColumnFooter("distance", "");
             tableTrainingLog.setColumnFooter("time", "");
@@ -303,24 +291,6 @@ public class TrainingLogUi extends AbstractUi {
         }
         
     
-    }
-    
-    /**
-     * Fills training detail panel
-     * @param training training to be shown in detail panel
-     */
-    private void refreshTrainingDetailView(Training training) {
-        
-        this.tableRuns.removeAllItems();
-        
-        boolean showPanel = false;
-        if(training!=null && training.getRuns().size() > 1) {
-            this.runContainer.addAll(training.getRuns());
-            showPanel = true;
-            this.tableRuns.setPageLength(training.getRuns().size());
-        }
-        
-        this.panelTrainingDetails.setVisible(showPanel);
     }
     
 }
