@@ -2,25 +2,22 @@
 @import "../reindeer/reindeer.scss";
 
 /* Imports from RunningDB Theme. */
+@import "constants.scss";
 @import "views/mainmenue.scss";
 
 /* RunningDB Theme */
 @mixin de_zaunkoenigweg_runningdb {
 
-  /* global constants */ 
-  $popupBackgroundColor: #FFE494;
-  $appBackgroundColor: #00394D;
-  $textColor: white;
-  
   /* Include all the styles from the reindeer theme */
   @include reindeer;
   
   /* Includes from RunningDB Theme. */
+  @include runningdb-constants;
   @include runningdb-mainmenue;
 
   /* UI */
   .v-ui {
-    background-color: $appBackgroundColor;
+    background-color: $backgroundColor;
    }
    
   /* Caption */

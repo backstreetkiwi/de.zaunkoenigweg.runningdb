@@ -1,0 +1,11 @@
+@mixin runningdb-constants {
+
+  $lightGreenWithMediumSaturation: #E8F3D1;
+  $darkGreenWithHighSaturation: #003C10;
+  $darkBlueWithHighSaturation: #00394D;
+
+  $popupBackgroundColor: $lightGreenWithMediumSaturation;
+  $backgroundColor: $darkBlueWithHighSaturation;
+  $textColor: #F0F0F0;
+
+}

@@ -2,7 +2,7 @@
 
   /* Layout of main menue */
   .v-horizontallayout-mainLayout {
-    background-color: $appBackgroundColor;
+    background-color: $backgroundColor;
     width: 100%;
     height: 100%; 
   }
@@ -14,7 +14,7 @@
     height: 100%; 
 
     .v-panel-content {
-	  background-color: $appBackgroundColor;
+	  background-color: $backgroundColor;
       padding: 50px 0 50px 0;	
       height: 100%;	
       border-width: 0px;
@@ -24,7 +24,7 @@
   /* panel w/ content of application */ 
   .v-panel-panelAppContent {
     .v-panel-content {
-      background: none repeat scroll 0 0 $appBackgroundColor;
+      background: none repeat scroll 0 0 $backgroundColor;
       padding: 20px;
       border-width: 0px;
     }
@@ -96,7 +96,7 @@
 
 
 @mixin menueButton($icon,$iconHover) {
-  background: none repeat scroll 0 0 $appBackgroundColor;
+  background: none repeat scroll 0 0 $backgroundColor;
   padding:10px;
   height: 120px;
   width: 145px;
@@ -109,7 +109,7 @@
     background-repeat: no-repeat;
 
     .v-button-caption {
-      color:$appBackgroundColor;
+      color:$backgroundColor;
       text-shadow: none;
       position: relative;
       top: 73px;
