@@ -8,6 +8,22 @@
     @include regularButton;
   }
 
+  .v-button-downloadTrainingLogButton:focus {
+    @include downloadTrainingLogButton;
+  }
+
+  .v-button-downloadTrainingLogButton {
+    @include downloadTrainingLogButton;
+  }
+
+  .v-upload .v-button:focus {
+    @include uploadTrainingLogButton;
+  }
+
+  .v-upload .v-button {
+    @include uploadTrainingLogButton;
+  }
+
 }
 
 @mixin regularButton {
@@ -30,4 +46,16 @@
 
   }
 
+}
+
+@mixin downloadTrainingLogButton {
+  @include regularButton;
+  width: 400px;
+  margin: 100px;
+}
+
+@mixin uploadTrainingLogButton {
+  @include regularButton;
+  width: 400px;
+  margin: 100px;
 }

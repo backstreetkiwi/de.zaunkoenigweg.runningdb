@@ -39,6 +39,7 @@ public class DataUi extends AbstractUi {
         setCompositionRoot(layout);
 
         this.downloadButton = new Button("Trainingstagebuch als JSON herunterladen");
+        this.downloadButton.setStyleName("downloadTrainingLogButton");
         new FileDownloader(createJsonStreamResource()).extend(downloadButton);
         layout.addComponent(this.downloadButton);
         
