@@ -54,4 +54,36 @@
     margin: 0 0 20px 0;
   }
   
+  .v-accordion {
+    border: 1px solid $componentBorderColor;
+    border-radius: 5px;
+    width: 421px;
+    
+    .v-accordion-item-caption {
+      background: none;
+      border-bottom: 0px;
+      
+      .v-caption {
+        color:$componentForegroundColor;
+        text-shadow: none;
+        font-weight: bold;
+        font-size: 12px;
+        padding: 3px 0 3px 15px;
+      }
+          
+    }
+      
+    .v-accordion-item-content {
+
+      .v-panel-content {
+        background: none repeat scroll 0 0 $backgroundColor;
+        padding: 20px 20px 0 20px;
+        border-width: 0px;
+        border-radius: 5px;
+      }
+
+    }
+      
+  }
+  
 }
