@@ -48,6 +48,10 @@
         <dependency org="org.apache.commons" name="commons-lang3" rev="3.1"/>
 
         <dependency org="commons-codec" name="commons-codec" rev="1.8"/>
+
+        <dependency org="com.vaadin.addon" name="vaadin-charts" rev="1.1.2" />
+
+        <ibiblio name="vaadin-addons" usepoms="true" m2compatible="true" root="http://maven.vaadin.com/vaadin-addons" />
         
 	</dependencies>
 </ivy-module>

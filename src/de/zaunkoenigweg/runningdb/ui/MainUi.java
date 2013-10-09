@@ -26,6 +26,7 @@ public class MainUi extends CustomComponent {
     private RecordsUi bestzeitenUi;
     private ShoeUi shoeUi;
     private ReportUi reportUi;
+    private ChartsUi chartsUi;
     private DataUi dataUi;
     private EmptyUi emptyUi;
 
@@ -100,7 +101,7 @@ public class MainUi extends CustomComponent {
             
             @Override
             public void buttonClick(ClickEvent event) {
-                MainUi.this.showUi(MainUi.this.emptyUi);
+                MainUi.this.showUi(MainUi.this.chartsUi);
             }
         }, "menueButtonStatistik"));
         
@@ -134,6 +135,7 @@ public class MainUi extends CustomComponent {
         this.bestzeitenUi = new RecordsUi();
         this.shoeUi = new ShoeUi();
         this.reportUi = new ReportUi();
+        this.chartsUi = new ChartsUi();
         this.dataUi = new DataUi();
         this.emptyUi = new EmptyUi();
     }
