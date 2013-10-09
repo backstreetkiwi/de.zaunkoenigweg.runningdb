@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang3.StringUtils;
@@ -14,6 +17,7 @@ import org.json.JSONStringer;
 import org.json.JSONWriter;
 
 import de.zaunkoenigweg.runningdb.domain.RecordDistance;
+import de.zaunkoenigweg.runningdb.domain.RecordInfo;
 import de.zaunkoenigweg.runningdb.domain.Run;
 import de.zaunkoenigweg.runningdb.domain.Shoe;
 import de.zaunkoenigweg.runningdb.domain.Training;
@@ -46,7 +50,14 @@ public class TrainingLogJsonSerializer {
         }
         json.endArray();
         json.key("trainings").array();
-        for (Training training : trainingstagebuch.getTrainings()) {
+        List<Training> trainings = trainingstagebuch.getTrainings();
+        Collections.sort(trainings, new Comparator<Training>() {
+            @Override
+            public int compare(Training training1, Training training2) {
+                return Long.valueOf(training1.getDate().getTime()).compareTo(Long.valueOf(training2.getDate().getTime()));
+            }
+        });
+        for (Training training : trainings) {
             writeTrainingseinheit(training, json);
         }
         json.endArray();

@@ -268,6 +268,7 @@ public class TrainingLogUi extends AbstractUi {
 
         trainingContainer.removeAllItems();
         trainingContainer.addAll(trainings);
+        trainingContainer.sort(new Object[]{"date"}, new boolean[] {true});
         
         // calculate and set footer values
         
