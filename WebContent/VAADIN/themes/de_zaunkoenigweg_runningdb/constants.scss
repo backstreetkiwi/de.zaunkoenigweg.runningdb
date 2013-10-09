@@ -3,9 +3,13 @@
   $lightGreenWithMediumSaturation: #E8F3D1;
   $darkGreenWithHighSaturation: #003C10;
   $darkBlueWithHighSaturation: #00394D;
+  $lightestGray: #F0F0F0;
 
   $popupBackgroundColor: $lightGreenWithMediumSaturation;
   $backgroundColor: $darkBlueWithHighSaturation;
-  $textColor: #F0F0F0;
+  $textColor: $lightestGray;
+  
+  $componentBackgroundColor: $lightestGray;
+  $componentForegroundColor: $darkBlueWithHighSaturation;
 
 }

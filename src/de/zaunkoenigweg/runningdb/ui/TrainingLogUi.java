@@ -221,7 +221,7 @@ public class TrainingLogUi extends AbstractUi {
         
         tableTrainingLog.setVisibleColumns(new Object[] {"date", "location", "distance", "time", "pace", "shoe", "interval", "comments"});
 
-        this.buttonAddTraining = new Button("Training erfassen");
+        this.buttonAddTraining = ComponentFactory.createRegularButton("Training erfassen");
         layout.addComponent(buttonAddTraining);
         
         buttonAddTraining.addClickListener(new Button.ClickListener() {

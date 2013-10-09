@@ -1,0 +1,33 @@
+@mixin runningdb-button {
+
+  .v-button-regularButton:focus {
+    @include regularButton;
+  }
+
+  .v-button-regularButton {
+    @include regularButton;
+  }
+
+}
+
+@mixin regularButton {
+  background: none repeat scroll 0 0 $componentBackgroundColor;
+  height: 30px;
+  width: 200px;
+  border-radius: 5px;
+  padding: 2px 0 0 0;
+  margin: 20px 0 20px 0;
+
+  .v-button-wrap {
+    background: none repeat scroll 0 0;
+
+    .v-button-caption {
+      color:$componentForegroundColor;
+      text-shadow: none;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+  }
+
+}
