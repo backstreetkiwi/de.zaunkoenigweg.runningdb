@@ -28,6 +28,7 @@ public class RunningDbUi extends UI {
     protected void init(VaadinRequest request) {
         
         getPage().setTitle("RunningDB");
+        setSizeFull();
         
         setContent(new MainUi());
     }
