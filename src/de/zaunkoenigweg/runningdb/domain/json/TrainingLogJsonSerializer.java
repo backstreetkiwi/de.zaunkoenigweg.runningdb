@@ -17,7 +17,6 @@ import org.json.JSONStringer;
 import org.json.JSONWriter;
 
 import de.zaunkoenigweg.runningdb.domain.RecordDistance;
-import de.zaunkoenigweg.runningdb.domain.RecordInfo;
 import de.zaunkoenigweg.runningdb.domain.Run;
 import de.zaunkoenigweg.runningdb.domain.Shoe;
 import de.zaunkoenigweg.runningdb.domain.Training;

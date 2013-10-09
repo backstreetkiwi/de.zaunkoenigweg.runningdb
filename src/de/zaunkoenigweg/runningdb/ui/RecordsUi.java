@@ -12,7 +12,6 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.Align;
-import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 import de.zaunkoenigweg.runningdb.domain.RecordDistance;
@@ -41,30 +40,38 @@ public class RecordsUi extends AbstractUi {
     
     public RecordsUi() {
 
-      VerticalLayout layout = new VerticalLayout();
-      layout.setMargin(true);
-      setCompositionRoot(layout);
-      
-      this.accordion = new Accordion();
-      layout.addComponent(this.accordion);
+        VerticalLayout layout = new VerticalLayout();
+        layout.setMargin(true);
+        setCompositionRoot(layout);
 
-      // button "add new record distance"
-      buttonAddRecordDistance = new Button("Strecke hinzufügen");
-      layout.addComponent(buttonAddRecordDistance);
+        this.accordion = new Accordion();
+        layout.addComponent(this.accordion);
 
-      buttonAddRecordDistance.addClickListener(new Button.ClickListener() {
-          
-          private static final long serialVersionUID = 8949212155808289711L;
+        // button "add new record distance"
+        buttonAddRecordDistance = new Button("Strecke hinzufügen");
+        layout.addComponent(buttonAddRecordDistance);
 
-          @Override
-          public void buttonClick(Button.ClickEvent event) {
-              
-              // create and show window to add new record distance
-              // TODO: add listener to window
-              RecordDistanceInputWindow bestzeitStreckeEingabe = new RecordDistanceInputWindow(RecordsUi.this);
-              UI.getCurrent().addWindow(bestzeitStreckeEingabe);
-          }
-      });
+        buttonAddRecordDistance.addClickListener(new Button.ClickListener() {
+
+            private static final long serialVersionUID = 8949212155808289711L;
+
+            @Override
+            public void buttonClick(Button.ClickEvent event) {
+
+                // create and show window to add new record distance
+                RecordDistanceInputWindow.show(new RecordDistanceInputWindow.RecordDistanceCreatedListener() {
+
+                    private static final long serialVersionUID = -823267736348626305L;
+
+                    @Override
+                    public void recordDistanceCreated(RecordDistance recordDistance) {
+                        getTrainingLog().addRecordDistance(recordDistance);
+                        refreshUi();
+                    }
+
+                });
+            }
+        });
 
     }
 
@@ -181,12 +188,4 @@ public class RecordsUi extends AbstractUi {
         return button;
     }
     
-    /**
-     * TODO: use listener (implement it first of all :-)
-     * callback for {@link RecordDistanceInputWindow}
-     */
-    public void addRecordDistance(RecordDistance recordDistance) {
-        getTrainingLog().addRecordDistance(recordDistance);
-        refreshUi();
-    }
 }

@@ -1,5 +1,7 @@
 package de.zaunkoenigweg.runningdb.ui;
 
+import java.io.Serializable;
+
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.validator.IntegerRangeValidator;
 import com.vaadin.ui.Button;
@@ -8,6 +10,7 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
 import de.zaunkoenigweg.runningdb.domain.RecordDistance;
@@ -30,7 +33,11 @@ public class RecordDistanceInputWindow extends Window {
     BeanItem<RecordDistance> recordDistance;
 
 
-    public RecordDistanceInputWindow(final RecordsUi recordsUi) {
+    /**
+     * Creates a new window to edit record distance.
+     * @param recordDistanceCreatedListener listener to specify actions following this dialog
+     */
+    private RecordDistanceInputWindow(final RecordDistanceCreatedListener recordDistanceCreatedListener) {
         
         this.recordDistance = new BeanItem<RecordDistance>(new RecordDistance());
         
@@ -78,7 +85,7 @@ public class RecordDistanceInputWindow extends Window {
                     textFieldDistance.commit();
                     textFieldLabel.commit();
                     if(recordDistance.getBean().getDistance()!=null) {
-                        recordsUi.addRecordDistance(recordDistance.getBean());
+                        recordDistanceCreatedListener.recordDistanceCreated(recordDistance.getBean());
                         close();
                     }
                 }
@@ -100,4 +107,26 @@ public class RecordDistanceInputWindow extends Window {
     
     }
     
+    /**
+     * Opens a new window to edit record distance.
+     * @param recordDistanceCreatedListener listener to specify actions following this dialog
+     */
+    public static void show(RecordDistanceCreatedListener recordDistanceCreatedListener) {
+        RecordDistanceInputWindow window = new RecordDistanceInputWindow(recordDistanceCreatedListener);
+        UI.getCurrent().addWindow(window);
+    }
+
+    /**
+     * Listener to specify action to be executed after a record distance is created using this dialog. 
+     * @author Nikolaus Winter
+     */
+    public interface RecordDistanceCreatedListener extends Serializable {
+        
+        /**
+         * Action to be executed after a record distance is created using this dialog.
+         */
+        public void recordDistanceCreated(RecordDistance recordDistance);
+        
+    }
+
 }
