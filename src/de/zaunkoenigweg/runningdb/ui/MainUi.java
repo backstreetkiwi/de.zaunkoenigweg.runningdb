@@ -25,8 +25,9 @@ public class MainUi extends CustomComponent {
     private TrainingLogUi tagebuchUi;
     private RecordsUi bestzeitenUi;
     private ShoeUi shoeUi;
-    private EmptyUi emptyUi;
+    private ReportUi reportUi;
     private DataUi dataUi;
+    private EmptyUi emptyUi;
 
     // content panel
     private Panel panelContent;
@@ -77,7 +78,7 @@ public class MainUi extends CustomComponent {
             
             @Override
             public void buttonClick(ClickEvent event) {
-                MainUi.this.showUi(MainUi.this.emptyUi);
+                MainUi.this.showUi(MainUi.this.reportUi);
             }
         }, "menueButtonReports"));
         
@@ -132,8 +133,9 @@ public class MainUi extends CustomComponent {
         this.tagebuchUi = new TrainingLogUi();
         this.bestzeitenUi = new RecordsUi();
         this.shoeUi = new ShoeUi();
-        this.emptyUi = new EmptyUi();
+        this.reportUi = new ReportUi();
         this.dataUi = new DataUi();
+        this.emptyUi = new EmptyUi();
     }
     
     /**
