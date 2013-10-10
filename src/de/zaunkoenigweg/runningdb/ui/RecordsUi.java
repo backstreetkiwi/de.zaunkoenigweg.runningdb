@@ -153,8 +153,8 @@ public class RecordsUi extends AbstractUi {
         Panel panel = ComponentFactory.createPanel();
         VerticalLayout panelLayout = new VerticalLayout();
         panel.setContent(panelLayout);
-        panelLayout.addComponent(createBestzeitTable(recordInfo));
-        panelLayout.addComponent(createButtonRemoveBestzeit(recordInfo));
+        panelLayout.addComponent(createRecordRunTable(recordInfo));
+        panelLayout.addComponent(createButtonRemoveRecordDistance(recordInfo));
         this.panelRecordInfo.setContent(panel);
         
         
@@ -165,12 +165,13 @@ public class RecordsUi extends AbstractUi {
      * @param recordInfo information regarding record distance
      * @return table for given record distance
      */
-    private Table createBestzeitTable(final RecordInfo recordInfo) {
+    private Table createRecordRunTable(final RecordInfo recordInfo) {
 
         BeanItemContainer<RecordRun> recordRunContainer = new BeanItemContainer<RecordRun>(RecordRun.class);
         recordRunContainer.addNestedContainerProperty("training.date");
 
         Table table = new Table(null, recordRunContainer);
+        table.setStyleName("recordsUiRecordRunTable");
         table.setColumnHeader("rank", "");
         table.setColumnHeader("training.date", "Datum");
         table.setColumnHeader("time", "Zeit");
@@ -209,6 +210,9 @@ public class RecordsUi extends AbstractUi {
         table.setColumnWidth("time", 100);
         table.setColumnWidth("pace", 100);
         table.setColumnAlignment("rank", Align.CENTER);
+        table.setColumnAlignment("training.date", Align.CENTER);
+        table.setColumnAlignment("time", Align.CENTER);
+        table.setColumnAlignment("pace", Align.CENTER);
         table.setPageLength(NUMBER_OF_RUNS_PER_RECORD_DISTANCE);
 
         // rank is calculated into generated column
@@ -255,7 +259,7 @@ public class RecordsUi extends AbstractUi {
      * @param recordInfo information regarding record distance
      * @return button to delete record distance
      */
-    private Button createButtonRemoveBestzeit(final RecordInfo recordInfo) {
+    private Button createButtonRemoveRecordDistance(final RecordInfo recordInfo) {
 
         Button button = ComponentFactory.createRegularButton("Löschen");
         button.addClickListener(new Button.ClickListener() {
