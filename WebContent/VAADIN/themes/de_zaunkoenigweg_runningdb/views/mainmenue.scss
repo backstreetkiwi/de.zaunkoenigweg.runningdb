@@ -28,13 +28,13 @@
 
   /* panel w/ content of application */ 
   .v-panel-panelAppContent {
-    .v-panel-content {
+    .v-panel-content-panelAppContent {
       background: none repeat scroll 0 0 $backgroundColor;
       padding: 50px 0px 0px 30px;
       border-width: 0px;
     }
 
-    .v-panel-deco {
+    .v-panel-deco-panelAppContent {
       display: none;
     }
   }

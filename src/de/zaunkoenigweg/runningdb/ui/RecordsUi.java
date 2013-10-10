@@ -146,7 +146,7 @@ public class RecordsUi extends AbstractUi {
             }
         }
 
-        Panel panel = new Panel();
+        Panel panel = ComponentFactory.createPanel();
         VerticalLayout panelLayout = new VerticalLayout();
         panel.setContent(panelLayout);
         panelLayout.addComponent(createBestzeitTable(recordInfo));

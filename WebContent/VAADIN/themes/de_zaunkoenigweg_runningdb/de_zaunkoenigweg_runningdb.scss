@@ -5,6 +5,7 @@
 @import "constants.scss";
 @import "views/mainmenue.scss";
 @import "components/button.scss";
+@import "components/panel.scss";
 
 /* RunningDB Theme */
 @mixin de_zaunkoenigweg_runningdb {
@@ -16,6 +17,7 @@
   @include runningdb-constants;
   @include runningdb-mainmenue;
   @include runningdb-button;
+  @include runningdb-panel;
 
   /* UI */
   .v-ui {
