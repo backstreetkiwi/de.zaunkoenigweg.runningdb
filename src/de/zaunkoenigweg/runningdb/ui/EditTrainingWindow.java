@@ -71,6 +71,7 @@ public class EditTrainingWindow extends Window {
         setResizable(false);
         setModal(true);
         center();
+        setStyleName("popupWindow");
 
         Layout layout = new FormLayout();
         setContent(layout);
@@ -150,7 +151,7 @@ public class EditTrainingWindow extends Window {
         tableRuns.setFooterVisible(true);
 
         // button "add run"
-        buttonAddRun = new Button("Lauf hinzufügen");
+        buttonAddRun = ComponentFactory.createButton("Lauf hinzufügen");
         layout.addComponent(buttonAddRun);
         
         buttonAddRun.addClickListener(new Button.ClickListener() {
@@ -181,7 +182,7 @@ public class EditTrainingWindow extends Window {
         });
         
         // button "save"
-        buttonSave = new Button("Speichern");
+        buttonSave = ComponentFactory.createButton("Speichern");
         layout.addComponent(buttonSave);
         buttonSave.addClickListener(new ClickListener() {
 
@@ -194,7 +195,7 @@ public class EditTrainingWindow extends Window {
         });
 
         // button "cancel"
-        buttonCancel = new Button("Abbrechen");
+        buttonCancel = ComponentFactory.createButton("Abbrechen");
         layout.addComponent(buttonCancel);
         buttonCancel.addClickListener(new ClickListener() {
 

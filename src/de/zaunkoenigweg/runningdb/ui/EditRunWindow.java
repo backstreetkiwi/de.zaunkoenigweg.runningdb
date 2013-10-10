@@ -55,6 +55,7 @@ public class EditRunWindow extends Window {
         setResizable(false);
         setModal(true);
         center();
+        setStyleName("popupWindow");
 
         Layout layout = new FormLayout();
         setContent(layout);
@@ -87,7 +88,7 @@ public class EditRunWindow extends Window {
 
         
         // button "save" calls listener callback and closes window
-        buttonSave = new Button("Speichern");
+        buttonSave = ComponentFactory.createButton("Speichern");
         layout.addComponent(buttonSave);
         buttonSave.addClickListener(new ClickListener() {
 
@@ -107,7 +108,7 @@ public class EditRunWindow extends Window {
 
         
         // button "cancel" closes window
-        buttonCancel = new Button("Abbrechen");
+        buttonCancel = ComponentFactory.createButton("Abbrechen");
         layout.addComponent(buttonCancel);
         buttonCancel.addClickListener(new ClickListener() {
 

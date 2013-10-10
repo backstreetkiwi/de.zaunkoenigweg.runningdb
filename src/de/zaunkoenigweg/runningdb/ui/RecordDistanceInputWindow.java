@@ -48,6 +48,7 @@ public class RecordDistanceInputWindow extends Window {
         setResizable(false);
         setModal(true);
         center();
+        setStyleName("popupWindow");
 
         Layout layout = new FormLayout();
         setContent(layout);
@@ -74,7 +75,7 @@ public class RecordDistanceInputWindow extends Window {
         layout.addComponent(this.textFieldLabel);
 
         // button "save"
-        buttonSave = new Button("Speichern");
+        buttonSave = ComponentFactory.createButton("Speichern");
         layout.addComponent(buttonSave);
         buttonSave.addClickListener(new ClickListener() {
 
@@ -93,7 +94,7 @@ public class RecordDistanceInputWindow extends Window {
         });
 
         // button "cancel"
-        buttonCancel = new Button("Abbrechen");
+        buttonCancel = ComponentFactory.createButton("Abbrechen");
         layout.addComponent(buttonCancel);
         buttonCancel.addClickListener(new ClickListener() {
 

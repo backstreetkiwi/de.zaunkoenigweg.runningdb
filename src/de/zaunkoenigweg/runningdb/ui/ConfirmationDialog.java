@@ -43,6 +43,7 @@ public class ConfirmationDialog extends Window {
         setResizable(false);
         setModal(true);
         center();
+        setStyleName("popupWindow");
 
         // FormLayout
         Layout layout = new FormLayout();
@@ -53,7 +54,7 @@ public class ConfirmationDialog extends Window {
         layout.addComponent(labelQuestion);
         
         // Button "Yes"
-        buttonYes = new Button("Ja");
+        buttonYes = ComponentFactory.createButton("Ja");
         layout.addComponent(buttonYes);
         buttonYes.addClickListener(new Button.ClickListener() {
             
@@ -67,7 +68,7 @@ public class ConfirmationDialog extends Window {
         });
         
         // Button "No"
-        buttonNo = new Button("Nein");
+        buttonNo = ComponentFactory.createButton("Nein");
         layout.addComponent(buttonNo);
         buttonNo.addClickListener(new Button.ClickListener() {
 

@@ -1,0 +1,32 @@
+@mixin runningdb-window {
+
+  div.v-window-popupWindow div.v-window-wrap {
+
+    border-radius: 10px;
+    
+    div.v-window-outerheader {
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+      background: none repeat scroll 0% 0% $popupHeaderBackgroundColor;
+    }
+
+    div.v-window-contents {
+      background: none repeat scroll 0% 0% $popupBackgroundColor;
+      border-radius: 10px;
+    } 
+   
+    div.v-window-footer {
+      border-bottom-right-radius: 10px;
+      border-bottom-left-radius: 10px;
+
+      div.v-window-resizebox {
+        border-bottom-right-radius: 10px;
+      }
+
+    }
+
+  }
+
+  
+
+}

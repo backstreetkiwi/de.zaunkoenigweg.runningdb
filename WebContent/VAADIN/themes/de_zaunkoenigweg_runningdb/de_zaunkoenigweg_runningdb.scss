@@ -8,6 +8,7 @@
 @import "components/button.scss";
 @import "components/panel.scss";
 @import "components/table.scss";
+@import "components/window.scss";
 
 /* RunningDB Theme */
 @mixin de_zaunkoenigweg_runningdb {
@@ -22,6 +23,7 @@
   @include runningdb-button;
   @include runningdb-panel;
   @include runningdb-table;
+  @include runningdb-window;
 
   /* UI */
   .v-ui {
@@ -29,31 +31,12 @@
    }
    
   /* Caption */
-  .v-caption {
+  div.v-caption {
     color: $textColor;
   }
   
-  .v-window-contents {
-    background: none repeat scroll 0% 0% $popupBackgroundColor;
-    border-radius: 14px;
-  } 
-   
-  .v-window-wrap {
-    border-radius: 14px;
-  }
-
-  .v-window-outerheader {
-    border-top-right-radius: 14px;
-    border-top-left-radius: 14px;
-  }
-
-  .v-window-footer {
-    border-bottom-right-radius: 14px;
-    border-bottom-left-radius: 14px;
-  }
-
-  .v-window-resizebox {
-    border-bottom-right-radius: 14px;
+  div.v-window-popupWindow div.v-caption {
+    color: $popupTextColor;
   }
   
   .v-inline-datefield {

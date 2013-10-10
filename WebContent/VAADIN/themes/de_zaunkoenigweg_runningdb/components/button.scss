@@ -8,6 +8,14 @@
     @include defaultButton;
   }
 
+  div.v-window-popupWindow .v-button-defaultButton:focus {
+    @include popupWindowButton;
+  }
+
+  div.v-window-popupWindow .v-button-defaultButton {
+    @include popupWindowButton;
+  }
+
   .v-button-downloadTrainingLogButton:focus {
     @include downloadTrainingLogButton;
   }
@@ -47,6 +55,26 @@
 
 }
 
+@mixin popupWindowButton {
+  background: none repeat scroll 0 0 $componentForegroundColor;
+  height: 28px;
+  width: 150px;
+  border-radius: 5px;
+  padding: 2px 0 0 0;
+
+  .v-button-wrap {
+    background: none repeat scroll 0 0;
+
+    .v-button-caption {
+      color:$componentBackgroundColor;
+      text-shadow: none;
+      font-weight: bold;
+      font-size: 12px;
+    }
+
+  }
+
+}
 @mixin downloadTrainingLogButton {
   @include defaultButton;
   width: 400px;
