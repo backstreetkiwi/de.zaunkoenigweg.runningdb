@@ -102,7 +102,7 @@ public class RecordsUi extends AbstractUi {
                 caption = String.format("%s Meter (%d mal gelaufen)", distance, recordInfo.getRunCount());
             }
 
-            panel = new Panel();
+            panel = ComponentFactory.createPanel();
             panelLayout = new VerticalLayout();
             panel.setContent(panelLayout);
             

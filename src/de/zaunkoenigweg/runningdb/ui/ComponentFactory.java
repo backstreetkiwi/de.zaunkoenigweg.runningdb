@@ -1,6 +1,7 @@
 package de.zaunkoenigweg.runningdb.ui;
 
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Panel;
 
 /**
  * Factory to create new UI components
@@ -21,4 +22,14 @@ public class ComponentFactory {
         return button;
     }
 
+    /**
+     * Creates default {@link Panel}
+     * @return default {@link Panel}
+     */
+    public static Panel createPanel() {
+        Panel panel = new Panel();
+        panel.setStyleName("defaultPanel");
+        return panel;
+    }
+    
 }
