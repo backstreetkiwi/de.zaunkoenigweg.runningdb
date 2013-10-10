@@ -3,6 +3,10 @@ package de.zaunkoenigweg.runningdb.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+
+import de.zaunkoenigweg.runningdb.ui.DistanceConverter;
+
 /**
  * This object contains a {@link RecordDistance} and a list of {@link RecordRun}s with matching distance.
  * 
@@ -29,6 +33,17 @@ public class RecordInfo {
     
     public int getRunCount() {
         return this.recordRuns.size();
+    }
+    
+    public String getTeaser() {
+        String teaser;
+        String distance = new DistanceConverter().convertToPresentation(recordDistance.getDistance(), String.class, null);
+        if (StringUtils.isNotBlank(recordDistance.getLabel())) {
+            teaser = String.format("%s: %s Meter (%d mal gelaufen)", recordDistance.getLabel(), distance, getRunCount());
+        } else {
+            teaser = String.format("%s Meter (%d mal gelaufen)", distance, getRunCount());
+        }
+        return teaser;
     }
 
     /**

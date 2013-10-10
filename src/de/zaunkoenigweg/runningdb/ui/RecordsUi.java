@@ -4,11 +4,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-
-import com.vaadin.ui.Accordion;
+import com.vaadin.data.Property;
+import com.vaadin.data.Property.ValueChangeEvent;
+import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.Align;
@@ -34,7 +36,8 @@ public class RecordsUi extends AbstractUi {
 
     private static final DateFormat DATE_FORMATTER = new SimpleDateFormat("dd.MM.yyyy");
     
-    private Accordion accordion;
+    private ComboBox selectRecordDistance;
+    private Panel panelRecordInfo;
 
     Button buttonAddRecordDistance;
     
@@ -44,8 +47,31 @@ public class RecordsUi extends AbstractUi {
         layout.setMargin(true);
         setCompositionRoot(layout);
 
-        this.accordion = new Accordion();
-        layout.addComponent(this.accordion);
+        // choice "record distance"
+        this.selectRecordDistance = new ComboBox();
+        layout.addComponent(this.selectRecordDistance);
+        this.selectRecordDistance.setWidth("300px");
+        this.selectRecordDistance.setItemCaptionMode(ItemCaptionMode.PROPERTY);
+        this.selectRecordDistance.setItemCaptionPropertyId("teaser");
+        this.selectRecordDistance.setInputPrompt("Bitte auswählen...");
+        this.selectRecordDistance.setNullSelectionAllowed(false);
+        this.selectRecordDistance.setTextInputAllowed(false);
+        this.selectRecordDistance.setImmediate(true);
+        
+        this.selectRecordDistance.addValueChangeListener(new Property.ValueChangeListener() {
+            
+            private static final long serialVersionUID = 4706299051889826573L;
+
+            @Override
+            public void valueChange(ValueChangeEvent event) {
+                if(selectRecordDistance.getValue() instanceof RecordInfo) {
+                    showRecordInfo((RecordInfo) selectRecordDistance.getValue());
+                }
+            }
+        });
+
+        this.panelRecordInfo = new Panel();
+        layout.addComponent(this.panelRecordInfo);
 
         // button "add new record distance"
         buttonAddRecordDistance = ComponentFactory.createRegularButton("Strecke hinzufügen");
@@ -66,7 +92,7 @@ public class RecordsUi extends AbstractUi {
                     @Override
                     public void recordDistanceCreated(RecordDistance recordDistance) {
                         getTrainingLog().addRecordDistance(recordDistance);
-                        refreshUi();
+                        fillSelectRecordDistance(recordDistance);
                     }
 
                 });
@@ -77,41 +103,56 @@ public class RecordsUi extends AbstractUi {
 
     @Override
     public void show() {
-        refreshUi();
+        fillSelectRecordDistance(null);
+    }
+    
+    /**
+     * Fills dropdown to select record distance.
+     * If {@link RecordDistance} is given, it is preselected.
+     * Otherwise, the first entry is preselected.
+     * @param recordDistance preselected {@link RecordDistance}
+     */
+    private void fillSelectRecordDistance(RecordDistance recordDistance) {
+        List<RecordInfo> records = getTrainingLog().getRecords();
+        BeanItemContainer<RecordInfo> recordInfoContainer = new BeanItemContainer<RecordInfo>(RecordInfo.class);
+        recordInfoContainer.addAll(records);
+        this.selectRecordDistance.setContainerDataSource(recordInfoContainer);
+        if(recordDistance!=null) {
+            for (RecordInfo recordInfo : records) {
+                if(recordDistance.equals(recordInfo.getRecordDistance())) {
+                    this.selectRecordDistance.setValue(recordInfo);
+                }
+            }
+        } else if (records.size()>0) {
+            this.selectRecordDistance.setValue(records.get(0));
+        }
     }
 
     /**
-     * Builds/Refreshes UI.
+     * Shows given record info panel.
+     * If {@link RecordInfo} ist given, its informatios are shown.
+     * Otherwise, the first {@link RecordInfo}s informations are shown.
+     * @param recordInfo {@link RecordInfo} to be shown
      */
-    private void refreshUi() {
+    private void showRecordInfo(RecordInfo recordInfo) {
         
-        this.accordion.removeAllComponents();
-
-        Panel panel = null;
-        VerticalLayout panelLayout = null;
-        String caption = "";
-        
-        List<RecordInfo> records = getTrainingLog().getRecords();
-
-        for (RecordInfo recordInfo : records) {
-            
-            String distance = new DistanceConverter().convertToPresentation(recordInfo.getRecordDistance().getDistance(), String.class, null);
-            if (StringUtils.isNotBlank(recordInfo.getRecordDistance().getLabel())) {
-                caption = String.format("%s: %s Meter (%d mal gelaufen)", recordInfo.getRecordDistance().getLabel(), distance, recordInfo.getRunCount());
+        if(recordInfo==null) {
+            List<RecordInfo> records = getTrainingLog().getRecords();
+            if(!records.isEmpty()) {
+                recordInfo = records.get(0);
             } else {
-                caption = String.format("%s Meter (%d mal gelaufen)", distance, recordInfo.getRunCount());
+                this.panelRecordInfo.setContent(null);
+                return;
             }
-
-            panel = new Panel();
-            panelLayout = new VerticalLayout();
-            panel.setContent(panelLayout);
-            
-            panelLayout.addComponent(createBestzeitTable(recordInfo));
-            panelLayout.addComponent(createButtonRemoveBestzeit(recordInfo));
-            
-            this.accordion.addTab(panel, caption);
-            
         }
+
+        Panel panel = new Panel();
+        VerticalLayout panelLayout = new VerticalLayout();
+        panel.setContent(panelLayout);
+        panelLayout.addComponent(createBestzeitTable(recordInfo));
+        panelLayout.addComponent(createButtonRemoveBestzeit(recordInfo));
+        this.panelRecordInfo.setContent(panel);
+        
         
     }
 
@@ -174,7 +215,8 @@ public class RecordsUi extends AbstractUi {
                     public void yes() {
                         // delete record time from training log
                         getTrainingLog().removeRecordDistance(recordInfo.getRecordDistance());
-                        refreshUi();
+                        fillSelectRecordDistance(null);
+                        showRecordInfo(null);
                     }
                     
                     @Override
