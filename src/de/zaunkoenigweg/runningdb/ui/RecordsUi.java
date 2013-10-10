@@ -15,6 +15,7 @@ import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
@@ -49,12 +50,17 @@ public class RecordsUi extends AbstractUi {
         VerticalLayout layout = new VerticalLayout();
         layout.setMargin(true);
         setCompositionRoot(layout);
+        
+        Panel panelSelection = ComponentFactory.createPanel();
+        layout.addComponent(panelSelection);
+        HorizontalLayout layoutPanelSelection = new HorizontalLayout();
+        panelSelection.setContent(layoutPanelSelection);
 
         // choice "record distance"
         this.selectRecordDistance = new ComboBox();
         this.selectRecordDistance.setStyleName("recordsUiSelectRecordDistance");
-        layout.addComponent(this.selectRecordDistance);
-        this.selectRecordDistance.setWidth("500px");
+        layoutPanelSelection.addComponent(this.selectRecordDistance);
+        this.selectRecordDistance.setWidth("350px");
         this.selectRecordDistance.setItemCaptionMode(ItemCaptionMode.PROPERTY);
         this.selectRecordDistance.setItemCaptionPropertyId("teaser");
         this.selectRecordDistance.setInputPrompt("Bitte auswählen...");
@@ -73,6 +79,8 @@ public class RecordsUi extends AbstractUi {
                 }
             }
         });
+        
+        layoutPanelSelection.addComponent(createButtonRemoveRecordDistance());
 
         this.panelRecordInfo = ComponentFactory.createPanel();
         layout.addComponent(this.panelRecordInfo);
@@ -154,7 +162,6 @@ public class RecordsUi extends AbstractUi {
         VerticalLayout panelLayout = new VerticalLayout();
         panel.setContent(panelLayout);
         panelLayout.addComponent(createRecordRunTable(recordInfo));
-        panelLayout.addComponent(createButtonRemoveRecordDistance(recordInfo));
         this.panelRecordInfo.setContent(panel);
         
         
@@ -259,7 +266,7 @@ public class RecordsUi extends AbstractUi {
      * @param recordInfo information regarding record distance
      * @return button to delete record distance
      */
-    private Button createButtonRemoveRecordDistance(final RecordInfo recordInfo) {
+    private Button createButtonRemoveRecordDistance() {
 
         Button button = ComponentFactory.createRegularButton("Löschen");
         button.addClickListener(new Button.ClickListener() {
@@ -274,6 +281,10 @@ public class RecordsUi extends AbstractUi {
                     @Override
                     public void yes() {
                         // delete record time from training log
+                        if(!(RecordsUi.this.selectRecordDistance.getValue() instanceof RecordInfo)) {
+                            return;
+                        }
+                        RecordInfo recordInfo = (RecordInfo) RecordsUi.this.selectRecordDistance.getValue();
                         getTrainingLog().removeRecordDistance(recordInfo.getRecordDistance());
                         fillSelectRecordDistance(null);
                         showRecordInfo(null);
