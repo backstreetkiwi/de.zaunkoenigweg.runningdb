@@ -39,7 +39,7 @@ public class ShoeUi extends AbstractUi {
         shoeContainer = new BeanItemContainer<ShoeInfo>(ShoeInfo.class);
         
         // table showing all trainings of chosen month
-        tableShoes = new Table("", shoeContainer);
+        tableShoes = ComponentFactory.createLightTable("", shoeContainer);
         layout.addComponent(tableShoes);
         tableShoes.setColumnHeader("info", "");
         tableShoes.setColumnHeader("date", "Jahr");
@@ -48,7 +48,7 @@ public class ShoeUi extends AbstractUi {
         tableShoes.setColumnHeader("distance", "Strecke");
         tableShoes.setColumnHeader("active", "aktiv?");
         tableShoes.setPageLength(15);
-        tableShoes.setWidth("800px");
+        tableShoes.setWidth("560px");
         tableShoes.setColumnWidth("info", 40);
         tableShoes.setColumnWidth("date", 40);
         tableShoes.setColumnWidth("brand", 100);
@@ -67,7 +67,7 @@ public class ShoeUi extends AbstractUi {
             @Override
             public Object generateCell(Table source, Object itemId, Object columnId) {
                 final ShoeInfo shoeInfo = (ShoeInfo)itemId;
-                Image image = new Image("", new ThemeResource("icons/info.png"));
+                Image image = new Image("", new ThemeResource("icons/zoom2.png"));
                 image.addClickListener(new MouseEvents.ClickListener() {
                     
                     private static final long serialVersionUID = -2017287667521809493L;

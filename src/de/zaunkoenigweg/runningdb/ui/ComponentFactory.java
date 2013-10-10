@@ -1,7 +1,9 @@
 package de.zaunkoenigweg.runningdb.ui;
 
+import com.vaadin.data.Container;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Panel;
+import com.vaadin.ui.Table;
 
 /**
  * Factory to create new UI components
@@ -32,4 +34,16 @@ public class ComponentFactory {
         return panel;
     }
     
+    /**
+     * Creates light looking {@link Table}
+     * @param caption caption
+     * @param container Vaadin Data Container
+     * @return light looking {@link Table}
+     */
+    public static Table createLightTable(String caption, Container container) {
+        Table table = new Table(caption, container);
+        table.setStyleName("lightTable");
+        return table;
+    }
+
 }

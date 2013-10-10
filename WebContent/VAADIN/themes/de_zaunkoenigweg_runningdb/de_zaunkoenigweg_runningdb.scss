@@ -7,6 +7,7 @@
 @import "views/records-ui.scss";
 @import "components/button.scss";
 @import "components/panel.scss";
+@import "components/table.scss";
 
 /* RunningDB Theme */
 @mixin de_zaunkoenigweg_runningdb {
@@ -20,6 +21,7 @@
   @include runningdb-records-ui;
   @include runningdb-button;
   @include runningdb-panel;
+  @include runningdb-table;
 
   /* UI */
   .v-ui {

@@ -1,0 +1,54 @@
+@mixin runningdb-table {
+
+  div.v-table-lightTable {
+  
+    font-weight: bold;
+    font-size: 12px;
+    color: $textColor;
+    text-shadow: none;
+    text-transform: none;
+    border-radius: 5px;
+    border-collapse: collapse;
+    margin: 20px 0 20px 0;
+    
+    div.v-table-header-wrap {
+    
+      div.v-table-resizer {
+        display: none;
+      }
+      
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      background: none;
+      font-weight: bold;
+      font-size: 12px;
+      color: $textColor;
+      text-shadow: none;
+      text-transform: none;
+      padding: 10px 0px;
+    }
+    
+    div.v-table-body {
+    
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      background: none;
+
+      .v-table-cell-wrapper {
+        margin: 5px 0px;
+      }
+
+      .v-table-row {
+        background: none;
+      }
+
+      .v-table-row-odd {
+        background: none;
+      }
+
+    }
+  }
+
+
+}
+
