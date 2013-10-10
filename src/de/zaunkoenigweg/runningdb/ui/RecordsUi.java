@@ -2,15 +2,20 @@ package de.zaunkoenigweg.runningdb.ui;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
 import com.vaadin.data.util.BeanItemContainer;
+import com.vaadin.data.util.converter.Converter;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.ui.AbstractSelect.ItemCaptionMode;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.ComboBox;
+import com.vaadin.ui.Image;
 import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Table.Align;
@@ -34,8 +39,6 @@ public class RecordsUi extends AbstractUi {
     
     private static final int NUMBER_OF_RUNS_PER_RECORD_DISTANCE = 10;
 
-    private static final DateFormat DATE_FORMATTER = new SimpleDateFormat("dd.MM.yyyy");
-    
     private ComboBox selectRecordDistance;
     private Panel panelRecordInfo;
 
@@ -162,36 +165,88 @@ public class RecordsUi extends AbstractUi {
      * @param recordInfo information regarding record distance
      * @return table for given record distance
      */
-    private Table createBestzeitTable(RecordInfo recordInfo) {
+    private Table createBestzeitTable(final RecordInfo recordInfo) {
 
-        Table table = new Table();
+        BeanItemContainer<RecordRun> recordRunContainer = new BeanItemContainer<RecordRun>(RecordRun.class);
+        recordRunContainer.addNestedContainerProperty("training.date");
 
-        table.addContainerProperty("rank", Integer.class, null);
-        table.addContainerProperty("date", String.class, null);
-        table.addContainerProperty("time", Integer.class, null);
-        table.addContainerProperty("pace", Integer.class, null);
+        Table table = new Table(null, recordRunContainer);
         table.setColumnHeader("rank", "");
-        table.setColumnHeader("date", "Datum");
+        table.setColumnHeader("training.date", "Datum");
         table.setColumnHeader("time", "Zeit");
         table.setColumnHeader("pace", "Schnitt");
+        table.setConverter("training.date", new Converter<String, Date>() {
+
+            private static final long serialVersionUID = 7733805593148338971L;
+
+            private final DateFormat DATE_FORMATTER = new SimpleDateFormat("dd.MM.yyyy");    
+
+            @Override
+            public Date convertToModel(String value, Class<? extends Date> targetType, Locale locale) throws Converter.ConversionException {
+                return null;
+            }
+
+            @Override
+            public String convertToPresentation(Date value, Class<? extends String> targetType, Locale locale) throws Converter.ConversionException {
+                return DATE_FORMATTER.format(value);
+            }
+
+            @Override
+            public Class<Date> getModelType() {
+                return Date.class;
+            }
+
+            @Override
+            public Class<String> getPresentationType() {
+                return String.class;
+            }
+            
+        });
         table.setConverter("time", new TimeConverter());
-        table.setConverter("pace", new TimeConverter());
         table.setSortEnabled(false);
-        table.setColumnWidth("rank", 25);
-        table.setColumnWidth("date", 100);
+        table.setColumnWidth("rank", 50);
+        table.setColumnWidth("training.date", 100);
         table.setColumnWidth("time", 100);
         table.setColumnWidth("pace", 100);
         table.setColumnAlignment("rank", Align.CENTER);
-
-        List<RecordRun> runs = recordInfo.getRecordRuns();
-        int i = 0;
-        while (i < NUMBER_OF_RUNS_PER_RECORD_DISTANCE && i < runs.size()) {
-            RecordRun lauf = runs.get(i);
-            table.addItem(new Object[] {(i+1), DATE_FORMATTER.format(lauf.getTraining().getDate()), lauf.getTime(), RunningDbUtil.getPace(recordInfo.getRecordDistance().getDistance(), lauf.getTime()) }, null);
-            i++;
-        }
         table.setPageLength(NUMBER_OF_RUNS_PER_RECORD_DISTANCE);
 
+        // rank is calculated into generated column
+        table.addGeneratedColumn("rank", new Table.ColumnGenerator() {
+            
+            private static final long serialVersionUID = -2108447767546846249L;
+            
+            @Override
+            public Object generateCell(Table source, Object itemId, Object columnId) {
+                RecordRun recordRun = (RecordRun) itemId;
+                int rank = recordInfo.getRecordRuns().indexOf(recordRun);
+                if(rank==0) {
+                    return new Image("", new ThemeResource("icons/medal-gold.png"));
+                } else if(rank==1) {
+                    return new Image("", new ThemeResource("icons/medal-silver.png"));
+                } else if(rank==2) {
+                    return new Image("", new ThemeResource("icons/medal-bronze.png"));
+                }
+                return String.format("%d", rank+1);
+            }
+        });
+        
+        // pace is calculated into generated column
+        table.addGeneratedColumn("pace", new Table.ColumnGenerator() {
+            
+            private static final long serialVersionUID = -2108447767546846249L;
+
+            @Override
+            public Object generateCell(Table source, Object itemId, Object columnId) {
+                RecordRun recordRun = (RecordRun) itemId;
+                return new TimeConverter().convertToPresentation(RunningDbUtil.getPace(recordInfo.getRecordDistance().getDistance(), recordRun.getTime()), String.class, null);
+            }
+        });
+        
+        table.setVisibleColumns("rank", "training.date", "time", "pace");
+
+        recordRunContainer.addAll(recordInfo.getRecordRuns());
+        
         return table;
     }
 

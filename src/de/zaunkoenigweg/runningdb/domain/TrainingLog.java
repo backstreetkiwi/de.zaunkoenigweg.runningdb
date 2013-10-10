@@ -204,13 +204,6 @@ public class TrainingLog {
         
         for (RecordDistance recordDistance : this.recordDistances) {
             RecordInfo recordInfo = getRecordInfo(recordDistance);
-            Collections.sort(recordInfo.getRecordRuns(), new Comparator<RecordInfo.RecordRun>() {
-
-                @Override
-                public int compare(RecordInfo.RecordRun run1, RecordInfo.RecordRun run2) {
-                    return run1.getTime().compareTo(run2.getTime());
-                }
-            });
             result.add(recordInfo);
         }
         
@@ -225,17 +218,34 @@ public class TrainingLog {
      */
     private RecordInfo getRecordInfo(RecordDistance recordDistance) {
         
-        final RecordInfo info = new RecordInfo(recordDistance);
+        // Caution! This algorithm is not suitable for big data ;-)
         
+        final RecordInfo recordInfo = new RecordInfo(recordDistance);
+        
+        // get all runs with matching distance 
         for (Training training : this.getTrainings()) {
             for (Run run : training.getRuns()) {
                 if(run.getDistance().compareTo(recordDistance.getDistance())==0) {
-                    info.getRecordRuns().add(new RecordInfo.RecordRun(run.getTime(), training));
+                    recordInfo.getRecordRuns().add(new RecordInfo.RecordRun(run.getTime(), training));
                 }
             }
         }
         
-        return info;
+        // sort runs (fastest first)
+        Collections.sort(recordInfo.getRecordRuns(), new Comparator<RecordInfo.RecordRun>() {
+
+            @Override
+            public int compare(RecordInfo.RecordRun run1, RecordInfo.RecordRun run2) {
+                return run1.getTime().compareTo(run2.getTime());
+            }
+        });
+        
+        // limit runs to 10
+        while(recordInfo.getRecordRuns().size()>10) {
+            recordInfo.getRecordRuns().remove(10);
+        }
+
+        return recordInfo;
     }
     
 }
