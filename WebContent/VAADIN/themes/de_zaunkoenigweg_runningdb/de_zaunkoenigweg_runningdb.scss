@@ -4,6 +4,7 @@
 /* Imports from RunningDB Theme. */
 @import "constants.scss";
 @import "views/mainmenue.scss";
+@import "views/records-ui.scss";
 @import "components/button.scss";
 @import "components/panel.scss";
 
@@ -16,6 +17,7 @@
   /* Includes from RunningDB Theme. */
   @include runningdb-constants;
   @include runningdb-mainmenue;
+  @include runningdb-records-ui;
   @include runningdb-button;
   @include runningdb-panel;
 

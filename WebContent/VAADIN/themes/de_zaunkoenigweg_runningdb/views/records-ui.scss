@@ -1,0 +1,55 @@
+@mixin runningdb-records-ui {
+
+  .v-filterselect-recordsUiSelectRecordDistance {
+    background: none repeat scroll 0 0 $componentBackgroundColor;
+    margin: 0 0 20px 0;
+    height: 30px;
+    padding-left: 0px;
+    border-radius: 5px;
+    input.v-filterselect-input {
+      padding: 6px 0 4px 12px;
+      height: 30px;
+      background: none repeat scroll 0 0 $componentBackgroundColor;
+      font-weight: bold;
+      font-size: 12px;
+      font-color: $componentForegroundColor;
+      border-radius: 5px;
+    }
+
+    div.v-filterselect-button:hover {
+      
+      background-image: url("../../de_zaunkoenigweg_runningdb/icons/arrow-down.png");
+      background-position: 1px 6px;
+      background-repeat: no-repeat;
+      cursor: default;
+      height: 35px;
+      margin-right: -25px;
+      width: 25px;
+    }
+    
+    div.v-filterselect-button:focus {
+      
+      background-image: url("../../de_zaunkoenigweg_runningdb/icons/arrow-down.png");
+      background-position: 1px 6px;
+      background-repeat: no-repeat;
+      cursor: default;
+      height: 35px;
+      margin-right: -25px;
+      width: 25px;
+    }
+    
+    div.v-filterselect-button {
+      
+      background-image: url("../../de_zaunkoenigweg_runningdb/icons/arrow-down.png");
+      background-position: 1px 6px;
+      background-repeat: no-repeat;
+      cursor: default;
+      height: 35px;
+      margin-right: -25px;
+      width: 25px;
+    }
+
+  }
+
+}
+

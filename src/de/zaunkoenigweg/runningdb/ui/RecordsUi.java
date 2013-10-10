@@ -49,8 +49,9 @@ public class RecordsUi extends AbstractUi {
 
         // choice "record distance"
         this.selectRecordDistance = new ComboBox();
+        this.selectRecordDistance.setStyleName("recordsUiSelectRecordDistance");
         layout.addComponent(this.selectRecordDistance);
-        this.selectRecordDistance.setWidth("300px");
+        this.selectRecordDistance.setWidth("500px");
         this.selectRecordDistance.setItemCaptionMode(ItemCaptionMode.PROPERTY);
         this.selectRecordDistance.setItemCaptionPropertyId("teaser");
         this.selectRecordDistance.setInputPrompt("Bitte auswählen...");
@@ -70,7 +71,7 @@ public class RecordsUi extends AbstractUi {
             }
         });
 
-        this.panelRecordInfo = new Panel();
+        this.panelRecordInfo = ComponentFactory.createPanel();
         layout.addComponent(this.panelRecordInfo);
 
         // button "add new record distance"
