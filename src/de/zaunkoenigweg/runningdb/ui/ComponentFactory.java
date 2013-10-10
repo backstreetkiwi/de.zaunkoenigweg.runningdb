@@ -12,13 +12,13 @@ import com.vaadin.ui.Panel;
 public class ComponentFactory {
     
     /**
-     * Creates regular {@link Button} with given caption
+     * Creates default {@link Button} with given caption
      * @param caption caption
-     * @return regular {@link Button}
+     * @return default {@link Button}
      */
-    public static Button createRegularButton(String caption) {
+    public static Button createButton(String caption) {
         Button button = new Button(caption);
-        button.setStyleName("regularButton");
+        button.setStyleName("defaultButton");
         return button;
     }
 

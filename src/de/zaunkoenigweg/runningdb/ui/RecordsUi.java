@@ -86,7 +86,7 @@ public class RecordsUi extends AbstractUi {
         layout.addComponent(this.panelRecordInfo);
 
         // button "add new record distance"
-        buttonAddRecordDistance = ComponentFactory.createRegularButton("Strecke hinzufügen");
+        buttonAddRecordDistance = ComponentFactory.createButton("Strecke hinzufügen");
         layout.addComponent(buttonAddRecordDistance);
 
         buttonAddRecordDistance.addClickListener(new Button.ClickListener() {
@@ -268,7 +268,7 @@ public class RecordsUi extends AbstractUi {
      */
     private Button createButtonRemoveRecordDistance() {
 
-        Button button = ComponentFactory.createRegularButton("Löschen");
+        Button button = ComponentFactory.createButton("Löschen");
         button.addClickListener(new Button.ClickListener() {
             
             private static final long serialVersionUID = 7956107661600031856L;
