@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.SortedMap;
 import java.util.SortedSet;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 /**
@@ -246,6 +250,53 @@ public class TrainingLog {
         }
 
         return recordInfo;
+    }
+    
+    /**
+     * Generates report containing all training sessions, grouped and sorted by year.
+     */
+    public TrainingReport generateTraininigReport() {
+        
+        TrainingReport report = new TrainingReport();
+        
+        SortedMap<Integer, Map<String, Integer>> data = new TreeMap<Integer, Map<String, Integer>>();
+        
+        Calendar trainingDate = null;
+        Integer year;
+        Integer countAll = 0;
+        Integer totalDistance = 0;
+        Integer totalTime = 0;
+        for (Training training : this.getTrainings()) {
+            
+            trainingDate = Calendar.getInstance();
+            trainingDate.setTime(training.getDate());
+            year = trainingDate.get(Calendar.YEAR);
+            
+            if(!data.containsKey(year)) {
+                data.put(year, new HashMap<String, Integer>());
+                data.get(year).put("distance", Integer.valueOf(0));
+                data.get(year).put("time", Integer.valueOf(0));
+                data.get(year).put("number", Integer.valueOf(0));
+            }
+            
+            data.get(year).put("distance", data.get(year).get("distance") + training.getDistance());
+            totalDistance += training.getDistance();
+            data.get(year).put("time", data.get(year).get("time") + training.getTime());
+            totalTime += training.getTime();
+            data.get(year).put("number", data.get(year).get("number") + 1);
+            countAll ++;
+            
+        }
+        
+        Map<String, Integer> row = null;
+        for (Integer year2: data.keySet()) {
+            row = data.get(year2);
+            report.getReportRows().add(new TrainingReport.TrainingReportRow(year2, null, row.get("number"), row.get("distance"), row.get("time")));
+        }
+        report.setSumRow(new TrainingReport.TrainingReportRow(null, null, countAll, totalDistance, totalTime));
+        
+        return report;
+        
     }
     
 }

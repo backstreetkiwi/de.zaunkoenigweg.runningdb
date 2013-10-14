@@ -38,7 +38,7 @@ public class ShoeUi extends AbstractUi {
         // container for all shoes 
         shoeContainer = new BeanItemContainer<ShoeInfo>(ShoeInfo.class);
         
-        // table showing all trainings of chosen month
+        // table showing all shoes
         tableShoes = ComponentFactory.createLightTable("", shoeContainer);
         layout.addComponent(tableShoes);
         tableShoes.setColumnHeader("info", "");
