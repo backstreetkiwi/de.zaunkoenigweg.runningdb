@@ -1,28 +1,25 @@
 @mixin runningdb-constants {
 
-  $darkBlueWithHighSaturation: #00394D;
+  /* color value constants */
   $lightestGray: #F0F0F0;
-  $silver: #C0C0C0;
   $track: #712a24;
 
+  /* components/window */
+  $popupBackgroundColor: $lightestGray;
+  $popupHeaderBackgroundColor: black;
+  $popupTextColor: black;
+  
+  /* views/mainmenue */
+  $mainMenueBackgroundColor: black;
+  $mainMenueTextColor: $lightestGray;
+
+  /* components/button */
   $buttonBackgroundColor: $track;
   $buttonBorderColor: white;
   $buttonTextColor: white;
   $buttonShadowColor: black;
 
-  $popupBackgroundColor: $lightestGray;
-  $popupHeaderBackgroundColor: $darkBlueWithHighSaturation;
-  $popupTextColor: $darkBlueWithHighSaturation;
-  
-  $componentBackgroundColor: $silver;
-  $componentForegroundColor: $darkBlueWithHighSaturation;
-  $componentBorderColor: $silver;
-
-  $mainMenueBackgroundColor: black;
-  $mainMenueTextColor: $lightestGray;
-
-  $lightTableTextColor: purple;
-  
+  /* components/select */
   $selectBackgroundColor: $track;
   $selectBorderColor: white;
   $selectShadowColor: black;
@@ -30,4 +27,9 @@
   $selectPopupTextColor: $track;
   $selectPopupBackgroundColor: white;
   $selectShadowColor: black;
+
+
+  /* oldstuff, deprecated */
+  $lightTableTextColor: purple;
+  
 }
