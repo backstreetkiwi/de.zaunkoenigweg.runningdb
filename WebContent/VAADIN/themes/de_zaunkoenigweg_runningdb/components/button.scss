@@ -8,12 +8,8 @@
     @include defaultButton;
   }
 
-  div.v-window-popupWindow .v-button-defaultButton:focus {
-    @include popupWindowButton;
-  }
-
-  div.v-window-popupWindow .v-button-defaultButton {
-    @include popupWindowButton;
+  .v-button-defaultButton.v-disabled {
+    @include defaultButton;
   }
 
   .v-button-downloadTrainingLogButton:focus {
@@ -35,19 +31,27 @@
 }
 
 @mixin defaultButton {
-  background: none repeat scroll 0 0 $componentBackgroundColor;
+  @include genericButton($buttonBackgroundColor, $buttonBorderColor, $buttonTextColor, $buttonShadowColor);
+}
+
+@mixin genericButton($backgroundColor, $borderColor, $textColor, $shadowColor) {
+  background: none repeat scroll 0 0 $backgroundColor;
   height: 30px;
   width: 200px;
   border-radius: 5px;
-  padding: 3px 0 0 0;
+  border: 1px solid $borderColor;
+  padding: 1px 0 0 0;
+  box-shadow: 2px 2px 5px $shadowColor; 
 
   .v-button-wrap {
     background: none repeat scroll 0 0;
 
     .v-button-caption {
-      color:$componentForegroundColor;
-      text-shadow: none;
+      color: $textColor;
+      text-transform:uppercase;
       font-weight: bold;
+      letter-spacing: 1px;
+      text-shadow: none;
       font-size: 12px;
     }
 
@@ -55,26 +59,6 @@
 
 }
 
-@mixin popupWindowButton {
-  background: none repeat scroll 0 0 $componentForegroundColor;
-  height: 28px;
-  width: 150px;
-  border-radius: 5px;
-  padding: 2px 0 0 0;
-
-  .v-button-wrap {
-    background: none repeat scroll 0 0;
-
-    .v-button-caption {
-      color:$componentBackgroundColor;
-      text-shadow: none;
-      font-weight: bold;
-      font-size: 12px;
-    }
-
-  }
-
-}
 @mixin downloadTrainingLogButton {
   @include defaultButton;
   width: 400px;
