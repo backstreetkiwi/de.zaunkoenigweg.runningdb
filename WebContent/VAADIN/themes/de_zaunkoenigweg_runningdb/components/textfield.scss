@@ -11,13 +11,33 @@
   input.v-textfield {
     @include defaultTextField;
   }
+  
+  textarea.v-textarea-focus {
+    @include defaultTextArea;
+  }
 
+  textarea.v-textarea:focus {
+    @include defaultTextArea;
+  }
+
+  textarea.v-textarea {
+    @include defaultTextArea;
+  }
+  
 }
 
 @mixin defaultTextField {
-  background: none repeat scroll 0 0 $textFieldBackgroundColor;
+  @include genericTextInput;
   width: 200px;
-  height: 30px;
+  height: 300px;
+}
+
+@mixin defaultTextArea {
+  @include genericTextInput;
+}
+
+@mixin genericTextInput {
+  background: none repeat scroll 0 0 $textFieldBackgroundColor;
   border-radius: 5px;
   border: 1px solid $textFieldBorderColor;
   letter-spacing: 1px;
