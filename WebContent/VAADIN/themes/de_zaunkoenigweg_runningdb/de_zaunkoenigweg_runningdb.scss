@@ -25,8 +25,12 @@
   @include runningdb-table;
   @include runningdb-window;
 
+  body.v-generated-body {
+    background: none repeat scroll 0% 0% black
+  }
+
   div.v-app {
-    background-color: lime;
+    background: none repeat scroll 0% 0% black
   }
   
   div.v-ui {

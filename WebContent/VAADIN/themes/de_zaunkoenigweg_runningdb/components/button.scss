@@ -41,7 +41,8 @@
   border-radius: 5px;
   border: 1px solid $borderColor;
   padding: 1px 0 0 0;
-  box-shadow: 2px 2px 5px $shadowColor; 
+  box-shadow: 2px 2px 5px $shadowColor;
+  margin: 5px; 
 
   .v-button-wrap {
     background: none repeat scroll 0 0;
