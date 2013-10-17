@@ -8,7 +8,6 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.Layout;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
@@ -50,7 +49,8 @@ public class RecordDistanceInputWindow extends Window {
         center();
         setStyleName("popupWindow");
 
-        Layout layout = new FormLayout();
+        FormLayout layout = new FormLayout();
+        layout.setMargin(true);
         setContent(layout);
         
         // input "distance"

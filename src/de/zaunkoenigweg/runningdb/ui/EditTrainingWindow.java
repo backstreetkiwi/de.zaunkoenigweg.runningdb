@@ -13,7 +13,6 @@ import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.DateField;
 import com.vaadin.ui.FormLayout;
-import com.vaadin.ui.Layout;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
@@ -73,7 +72,8 @@ public class EditTrainingWindow extends Window {
         center();
         setStyleName("popupWindow");
 
-        Layout layout = new FormLayout();
+        FormLayout layout = new FormLayout();
+        layout.setMargin(true);
         setContent(layout);
         
         // input field "location"

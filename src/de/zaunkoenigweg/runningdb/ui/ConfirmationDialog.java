@@ -55,6 +55,7 @@ public class ConfirmationDialog extends Window {
         
         // Button "Yes"
         buttonYes = ComponentFactory.createButton("Ja");
+        buttonYes.setWidth("100px");
         layout.addComponent(buttonYes);
         buttonYes.addClickListener(new Button.ClickListener() {
             
@@ -69,6 +70,7 @@ public class ConfirmationDialog extends Window {
         
         // Button "No"
         buttonNo = ComponentFactory.createButton("Nein");
+        buttonNo.setWidth("100px");
         layout.addComponent(buttonNo);
         buttonNo.addClickListener(new Button.ClickListener() {
 
