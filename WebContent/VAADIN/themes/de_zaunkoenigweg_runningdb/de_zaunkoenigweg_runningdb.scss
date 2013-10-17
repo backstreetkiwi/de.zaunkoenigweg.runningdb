@@ -9,6 +9,7 @@
 @import "components/panel.scss";
 @import "components/table.scss";
 @import "components/window.scss";
+@import "components/datefield.scss";
 @import "components/textfield.scss";
 
 /* RunningDB Theme */
@@ -25,6 +26,7 @@
   @include runningdb-panel;
   @include runningdb-table;
   @include runningdb-window;
+  @include runningdb-datefield;
   @include runningdb-textfield;
 
   body.v-generated-body {

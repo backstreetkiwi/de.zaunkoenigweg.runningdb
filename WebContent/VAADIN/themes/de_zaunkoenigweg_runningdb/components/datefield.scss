@@ -1,0 +1,54 @@
+@mixin runningdb-datefield {
+
+  div.v-datefield-popupcalendar { 
+    @include defaultDateField;
+    input.v-datefield-textfield-focus {
+      @include dateFieldTextField;
+    }  
+    input.v-datefield-textfield:focus {
+      @include dateFieldTextField;
+    }  
+    input.v-datefield-textfield {
+      @include dateFieldTextField;
+    }  
+    button.v-datefield-button:focus {
+      @include dateFieldButton;
+    }
+    button.v-datefield-button {
+      @include dateFieldButton;
+    }
+  }
+
+}
+
+@mixin defaultDateField {
+  width: 200px;
+  background: none repeat scroll 0 0 $dateFieldBorderColor;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid $dateFieldBorderColor;
+}
+
+@mixin dateFieldTextField {
+  background: none repeat scroll 0 0 $dateFieldBackgroundColor;
+  width: 170px;
+  height: 30px;
+  margin: -1px;
+  border-radius: 5px 0px 0px 5px;
+  border: 1px solid $dateFieldBorderColor;
+  letter-spacing: 1px;
+  color: $dateFieldTextColor;
+}
+
+@mixin dateFieldButton {
+  background: none;
+  background-image: url("../../de_zaunkoenigweg_runningdb/icons/calendar-icon.png");
+  background-position: 4px 3px;
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+  margin-left: 3px;
+  margin-top: 1px;
+}
+
+

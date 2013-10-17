@@ -85,7 +85,6 @@ public class EditTrainingWindow extends Window {
         // input field "date"
         this.dateFieldDate = new DateField("Datum");
         layout.addComponent(dateFieldDate);
-        this.dateFieldDate.setWidth("300px");
         this.dateFieldDate.setDateFormat("dd.MM.yyyy");
         this.dateFieldDate.setImmediate(true);
         
