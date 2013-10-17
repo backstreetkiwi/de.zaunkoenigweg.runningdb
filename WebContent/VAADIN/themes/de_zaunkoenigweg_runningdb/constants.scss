@@ -2,7 +2,9 @@
 
   /* color value constants */
   $lightestGray: #F0F0F0;
+  $darkGray: #606060;
   $track: #712a24;
+  $lightTrack: #c89591;
 
   /* components/window */
   $popupBackgroundColor: $lightestGray;
@@ -22,11 +24,16 @@
   /* components/select */
   $selectBackgroundColor: $track;
   $selectBorderColor: white;
-  $selectShadowColor: black;
   $selectTextColor: white;
   $selectPopupTextColor: $track;
   $selectPopupBackgroundColor: white;
   $selectShadowColor: black;
+
+  $popupWindowSelectBackgroundColor: white;
+  $popupWindowSelectBorderColor: $darkGray;
+  $popupWindowSelectTextColor: $darkGray;
+  $popupWindowSelectPopupTextColor: white;
+  $popupWindowSelectPopupBackgroundColor: $lightTrack;
 
 
   /* oldstuff, deprecated */

@@ -1,68 +1,87 @@
 @mixin runningdb-select {
 
   div.v-filterselect {
-    @include defaultSelect;
-    input.v-filterselect-input:focus {
-      @include defaultSelectInput;
-    }
-    input.v-filterselect-input:hover {
-      @include defaultSelectInput;
-    }
-    input.v-filterselect-input {
-      @include defaultSelectInput;
-    }
-    div.v-filterselect-button:hover {
-      @include defaultSelectButton;
-    }
-    div.v-filterselect-button:focus {
-      @include defaultSelectButton;
-    }
-    div.v-filterselect-button {
-      @include defaultSelectButton;
-    }
+    @include genericFilterSelect($selectBackgroundColor, $selectBorderColor, $selectTextColor, url("../de_zaunkoenigweg_runningdb/icons/dropdown-icon-large.png"));
+    box-shadow: 2px 2px 5px $selectShadowColor;
+    margin: 5px 20px 5px 5px;
   }
   
   div.v-filterselect-suggestpopup {
-    background: none repeat scroll 0 0 $selectBackgroundColor;
-    border: 1px solid $selectBorderColor;
-    border-radius: 5px;
-    overflow: hidden;
-    letter-spacing: 1px;
-    color: $selectTextColor;
-    .gwt-MenuItem-selected {
-      color: $selectPopupTextColor;
-      background: none repeat scroll 0 0 $selectPopupBackgroundColor;
-      text-shadow: none;
-    }
+    @include genericFilterSelectSuggestPopup($selectBackgroundColor, $selectBorderColor, $selectTextColor, $selectPopupTextColor, $selectPopupBackgroundColor);
+  }
+  
+  div.v-filterselect-inPopupWindow {
+    @include genericFilterSelect($popupWindowSelectBackgroundColor, $popupWindowSelectBorderColor, $popupWindowSelectTextColor, url("../de_zaunkoenigweg_runningdb/icons/dropdown-icon-large.png"));
+    box-shadow: none;
+    margin: 0;
+  }
+  
+  div.v-filterselect-suggestpopup-inPopupWindow {
+    @include genericFilterSelectSuggestPopup($popupWindowSelectBackgroundColor, $popupWindowSelectBorderColor, $popupWindowSelectTextColor, $popupWindowSelectPopupTextColor, $popupWindowSelectPopupBackgroundColor);
   }
   
 }
 
-@mixin defaultSelect {
-  width: 300px;
-  background: none repeat scroll 0 0 $selectBorderColor;
-  height: 30px;
-  border-radius: 5px;
-  border: 1px solid $selectBorderColor;
-  padding-left: 0px;
-  margin: 5px 20px 5px 5px;
-  box-shadow: 2px 2px 5px $selectShadowColor; 
+@mixin genericFilterSelect($backgroundColor, $borderColor, $textColor, $icon) {
+
+    width: 300px;
+    background: none repeat scroll 0 0 $borderColor;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid $borderColor;
+    padding-left: 0px;
+     
+    input.v-filterselect-input:focus {
+      @include genericSelectInput($backgroundColor, $borderColor, $textColor);
+    }
+    input.v-filterselect-input:hover {
+      @include genericSelectInput($backgroundColor, $borderColor, $textColor);
+    }
+    input.v-filterselect-input {
+      @include genericSelectInput($backgroundColor, $borderColor, $textColor);
+    }
+    div.v-filterselect-button:hover {
+      @include genericSelectButton($icon);
+    }
+    div.v-filterselect-button:focus {
+      @include genericSelectButton($icon);
+    }
+    div.v-filterselect-button {
+      @include genericSelectButton($icon);
+    }
+
+}  
+  
+@mixin genericFilterSelectSuggestPopup($backgroundColor, $borderColor, $textColor, $popupTextColor, $popupBackgroundColor) {
+
+    background: none repeat scroll 0 0 $backgroundColor;
+    border: 1px solid $borderColor;
+    border-radius: 5px;
+    overflow: hidden;
+    letter-spacing: 1px;
+    color: $textColor;
+    .gwt-MenuItem-selected {
+      color: $popupTextColor;
+      background: none repeat scroll 0 0 $popupBackgroundColor;
+      text-shadow: none;
+    }
+  
 }
 
-@mixin defaultSelectInput {
-  background: none repeat scroll 0 0 $selectBackgroundColor;
+@mixin genericSelectInput($backgroundColor, $borderColor, $textColor) {
+  background: none repeat scroll 0 0 $backgroundColor;
   width: 270px;
   height: 30px;
   margin: -1px;
   border-radius: 5px 0px 0px 5px;
-  border: 1px solid $selectBorderColor;
+  border: 1px solid $borderColor;
   letter-spacing: 1px;
-  color: $selectTextColor;
+  color: $textColor;
 }
 
-@mixin defaultSelectButton {
+@mixin genericSelectButton($icon) {
   background: none;
-  background-image: url("../../de_zaunkoenigweg_runningdb/icons/dropdown-icon-large.png");
+  background-image: $icon;
   background-position: 4px 5px;
   background-repeat: no-repeat;
   width: 24px;

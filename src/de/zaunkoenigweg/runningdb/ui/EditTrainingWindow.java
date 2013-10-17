@@ -92,6 +92,7 @@ public class EditTrainingWindow extends Window {
         // choice "shoes"
         this.selectShoes = new ComboBox("Schuhe");
         layout.addComponent(selectShoes);
+        this.selectShoes.setStyleName("inPopupWindow");
         this.selectShoes.setWidth("300px");
         this.selectShoes.setItemCaptionMode(ItemCaptionMode.PROPERTY);
         this.selectShoes.setItemCaptionPropertyId("shortname");
