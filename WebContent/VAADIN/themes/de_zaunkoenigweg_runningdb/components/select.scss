@@ -1,0 +1,74 @@
+@mixin runningdb-select {
+
+  div.v-filterselect {
+    @include defaultSelect;
+    input.v-filterselect-input:focus {
+      @include defaultSelectInput;
+    }
+    input.v-filterselect-input:hover {
+      @include defaultSelectInput;
+    }
+    input.v-filterselect-input {
+      @include defaultSelectInput;
+    }
+    div.v-filterselect-button:hover {
+      @include defaultSelectButton;
+    }
+    div.v-filterselect-button:focus {
+      @include defaultSelectButton;
+    }
+    div.v-filterselect-button {
+      @include defaultSelectButton;
+    }
+  }
+  
+  div.v-filterselect-suggestpopup {
+    background: none repeat scroll 0 0 $selectBackgroundColor;
+    border: 1px solid $selectBorderColor;
+    border-radius: 5px;
+    overflow: hidden;
+    letter-spacing: 1px;
+    color: $selectTextColor;
+    .gwt-MenuItem-selected {
+      color: $selectPopupTextColor;
+      background: none repeat scroll 0 0 $selectPopupBackgroundColor;
+      text-shadow: none;
+    }
+  }
+  
+}
+
+@mixin defaultSelect {
+  width: 300px;
+  background: none repeat scroll 0 0 $selectBorderColor;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid $selectBorderColor;
+  padding-left: 0px;
+  margin: 0 20px 0 0;
+  box-shadow: 2px 2px 5px $selectShadowColor; 
+}
+
+@mixin defaultSelectInput {
+  background: none repeat scroll 0 0 $selectBackgroundColor;
+  width: 270px;
+  height: 30px;
+  margin: -1px;
+  border-radius: 5px 0px 0px 5px;
+  border: 1px solid $selectBorderColor;
+  letter-spacing: 1px;
+  color: $selectTextColor;
+}
+
+@mixin defaultSelectButton {
+  background: none;
+  background-image: url("../../de_zaunkoenigweg_runningdb/icons/dropdown-icon-large.png");
+  background-position: 4px 5px;
+  background-repeat: no-repeat;
+  width: 24px;
+  height: 24px;
+  margin-left: 3px;
+  margin-top: 1px;
+}
+
+

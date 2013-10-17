@@ -58,7 +58,6 @@ public class RecordsUi extends AbstractUi {
 
         // choice "record distance"
         this.selectRecordDistance = new ComboBox();
-        this.selectRecordDistance.setStyleName("recordsUiSelectRecordDistance");
         layoutPanelSelection.addComponent(this.selectRecordDistance);
         this.selectRecordDistance.setWidth("350px");
         this.selectRecordDistance.setItemCaptionMode(ItemCaptionMode.PROPERTY);
