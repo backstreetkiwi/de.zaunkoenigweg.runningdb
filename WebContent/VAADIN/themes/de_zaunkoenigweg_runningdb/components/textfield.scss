@@ -1,0 +1,26 @@
+@mixin runningdb-textfield {
+
+  input.v-textfield-focus {
+    @include defaultTextField;
+  }
+
+  input.v-textfield:focus {
+    @include defaultTextField;
+  }
+
+  input.v-textfield {
+    @include defaultTextField;
+  }
+
+}
+
+@mixin defaultTextField {
+  background: none repeat scroll 0 0 $textFieldBackgroundColor;
+  width: 200px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid $textFieldBorderColor;
+  letter-spacing: 1px;
+  color: $textFieldTextColor;
+}
+

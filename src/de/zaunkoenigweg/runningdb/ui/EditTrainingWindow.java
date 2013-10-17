@@ -77,7 +77,7 @@ public class EditTrainingWindow extends Window {
         setContent(layout);
         
         // input field "location"
-        this.textFieldLocation = new TextField("Ort");
+        this.textFieldLocation = ComponentFactory.createTextField("Ort");
         layout.addComponent(textFieldLocation);
         this.textFieldLocation.setWidth("300px");
         this.textFieldLocation.setImmediate(true);

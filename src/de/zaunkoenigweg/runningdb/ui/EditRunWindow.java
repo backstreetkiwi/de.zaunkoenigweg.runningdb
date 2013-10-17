@@ -62,7 +62,7 @@ public class EditRunWindow extends Window {
         
         
         // input field "distance"
-        this.textFieldDistance = new TextField("Strecke");
+        this.textFieldDistance = ComponentFactory.createTextField("Strecke");
         layout.addComponent(this.textFieldDistance);
         this.textFieldDistance.setWidth("200px");
         this.textFieldDistance.setPropertyDataSource(this.run.getItemProperty("distance"));
@@ -76,7 +76,7 @@ public class EditRunWindow extends Window {
 
         
         // input field "time"
-        this.textFieldTime = new TextField("Zeit");
+        this.textFieldTime = ComponentFactory.createTextField("Zeit");
         layout.addComponent(this.textFieldTime);
         this.textFieldTime.setWidth("200px");
         this.textFieldTime.setPropertyDataSource(this.run.getItemProperty("time"));

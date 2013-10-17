@@ -54,7 +54,7 @@ public class RecordDistanceInputWindow extends Window {
         setContent(layout);
         
         // input "distance"
-        this.textFieldDistance = new TextField("Strecke");
+        this.textFieldDistance = ComponentFactory.createTextField("Strecke");
         this.textFieldDistance.setWidth("200px");
         this.textFieldDistance.setPropertyDataSource(this.recordDistance.getItemProperty("distance"));
         this.textFieldDistance.setImmediate(true);
@@ -67,7 +67,7 @@ public class RecordDistanceInputWindow extends Window {
         layout.addComponent(this.textFieldDistance);
 
         // input "label"
-        this.textFieldLabel = new TextField("Bezeichnung");
+        this.textFieldLabel = ComponentFactory.createTextField("Bezeichnung");
         this.textFieldLabel.setWidth("400px");
         this.textFieldLabel.setPropertyDataSource(this.recordDistance.getItemProperty("label"));
         this.textFieldLabel.setImmediate(true);
