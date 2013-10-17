@@ -1,4 +1,9 @@
 @mixin runningdb-table {
+  
+  div.v-table {
+    margin: 5px;
+    border-radius: 5px;
+  }
 
   div.v-table-lightTable {
   
