@@ -1,11 +1,5 @@
 @mixin runningdb-constants {
 
-  $gold: #FFD700;
-  $silver: #C0C0C0;
-  $bronze: #CD7F32;
-  
-  $lightGreenWithMediumSaturation: #E8F3D1;
-  $darkGreenWithHighSaturation: #003C10;
   $darkBlueWithHighSaturation: #00394D;
   $lightestGray: #F0F0F0;
   $silver: #C0C0C0;
@@ -13,11 +7,13 @@
   $popupBackgroundColor: $lightestGray;
   $popupHeaderBackgroundColor: $darkBlueWithHighSaturation;
   $popupTextColor: $darkBlueWithHighSaturation;
-  $backgroundColor: $darkBlueWithHighSaturation;
-  $textColor: $silver;
   
   $componentBackgroundColor: $silver;
   $componentForegroundColor: $darkBlueWithHighSaturation;
   $componentBorderColor: $silver;
 
+  $mainMenueBackgroundColor: black;
+  $mainMenueTextColor: $lightestGray;
+
+  $lightTableTextColor: purple;
 }

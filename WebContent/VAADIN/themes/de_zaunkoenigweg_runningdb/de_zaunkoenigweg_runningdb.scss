@@ -25,16 +25,18 @@
   @include runningdb-table;
   @include runningdb-window;
 
-  /* UI */
-  .v-ui {
-    background-color: $backgroundColor;
-   }
-   
-  /* Caption */
-  div.v-caption {
-    color: $textColor;
+  div.v-app {
+    background-color: lime;
   }
   
+  div.v-ui {
+    margin: 20px;
+    background-image: url("../de_zaunkoenigweg_runningdb/images/background.png");
+    width: 1150px;
+    height: 825px;
+    border: none;
+   }
+   
   div.v-window-popupWindow div.v-caption {
     color: $popupTextColor;
   }
