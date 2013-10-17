@@ -39,7 +39,7 @@ public class ShoeUi extends AbstractUi {
         shoeContainer = new BeanItemContainer<ShoeInfo>(ShoeInfo.class);
         
         // table showing all shoes
-        tableShoes = ComponentFactory.createLightTable("", shoeContainer);
+        tableShoes = new Table("", shoeContainer);
         layout.addComponent(tableShoes);
         tableShoes.setColumnHeader("info", "");
         tableShoes.setColumnHeader("date", "Jahr");

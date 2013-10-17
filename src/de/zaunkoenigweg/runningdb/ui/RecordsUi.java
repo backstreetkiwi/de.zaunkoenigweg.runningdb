@@ -176,7 +176,7 @@ public class RecordsUi extends AbstractUi {
         BeanItemContainer<RecordRun> recordRunContainer = new BeanItemContainer<RecordRun>(RecordRun.class);
         recordRunContainer.addNestedContainerProperty("training.date");
 
-        Table table = ComponentFactory.createLightTable(null, recordRunContainer);
+        Table table = new Table(null, recordRunContainer);
         table.setColumnHeader("rank", "");
         table.setColumnHeader("training.date", "Datum");
         table.setColumnHeader("time", "Zeit");
