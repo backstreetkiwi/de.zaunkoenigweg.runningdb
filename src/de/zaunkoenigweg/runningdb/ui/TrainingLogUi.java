@@ -91,12 +91,12 @@ public class TrainingLogUi extends AbstractUi {
         tableTrainingLog.setColumnHeader("comments", "");
         tableTrainingLog.setFooterVisible(true);
         tableTrainingLog.setPageLength(20);
-        tableTrainingLog.setWidth("896px");
-        tableTrainingLog.setColumnWidth("date", 75);
-        tableTrainingLog.setColumnWidth("location", 250);
-        tableTrainingLog.setColumnWidth("distance", 75);
-        tableTrainingLog.setColumnWidth("time", 75);
-        tableTrainingLog.setColumnWidth("pace", 75);
+        tableTrainingLog.setWidth("790px");
+        tableTrainingLog.setColumnWidth("date", 70);
+        tableTrainingLog.setColumnWidth("location", 224);
+        tableTrainingLog.setColumnWidth("distance", 50);
+        tableTrainingLog.setColumnWidth("time", 50);
+        tableTrainingLog.setColumnWidth("pace", 50);
         tableTrainingLog.setColumnWidth("shoe", 200);
         tableTrainingLog.setColumnWidth("interval", 20);
         tableTrainingLog.setColumnWidth("comments", 20);
