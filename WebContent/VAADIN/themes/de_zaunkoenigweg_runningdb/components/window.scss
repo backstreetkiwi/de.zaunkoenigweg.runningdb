@@ -27,6 +27,14 @@
 
   }
 
-  
+  div.v-Notification-splash {
+    opacity: 1 !important;
+    padding: 0;
+    background: none;
+    img {
+      border-radius: 15px;
+      box-shadow: 0px 0px 20px black;
+    }
+  }
 
 }

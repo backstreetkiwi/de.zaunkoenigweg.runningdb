@@ -18,6 +18,7 @@ public class HomeUi extends AbstractUi {
     public HomeUi() {
         Layout layout = new VerticalLayout();
         setCompositionRoot(layout);
+        SplashScreen.show();
     }
 
     @Override
