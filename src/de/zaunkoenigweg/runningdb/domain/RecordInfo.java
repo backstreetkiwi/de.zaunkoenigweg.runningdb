@@ -15,11 +15,10 @@ import de.zaunkoenigweg.runningdb.ui.DistanceConverter;
 public class RecordInfo {
 
     private RecordDistance recordDistance;
-
     private List<RecordRun> recordRuns = new ArrayList<RecordRun>();
+    private int totalRunCount;
 
     public RecordInfo(RecordDistance recordDistance) {
-        super();
         this.recordDistance = recordDistance;
     }
 
@@ -31,17 +30,21 @@ public class RecordInfo {
         return recordRuns;
     }
     
-    public int getRunCount() {
-        return this.recordRuns.size();
+    public int getTotalRunCount() {
+        return totalRunCount;
     }
     
+    public void setTotalRunCount(int totalRunCount) {
+        this.totalRunCount = totalRunCount;
+    }
+
     public String getTeaser() {
         String teaser;
         String distance = new DistanceConverter().convertToPresentation(recordDistance.getDistance(), String.class, null);
         if (StringUtils.isNotBlank(recordDistance.getLabel())) {
-            teaser = String.format("%s: %s Meter (%d mal gelaufen)", recordDistance.getLabel(), distance, getRunCount());
+            teaser = String.format("%s: %s Meter (%d mal gelaufen)", recordDistance.getLabel(), distance, this.totalRunCount);
         } else {
-            teaser = String.format("%s Meter (%d mal gelaufen)", distance, getRunCount());
+            teaser = String.format("%s Meter (%d mal gelaufen)", distance, this.totalRunCount);
         }
         return teaser;
     }

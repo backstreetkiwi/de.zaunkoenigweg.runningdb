@@ -244,6 +244,9 @@ public class TrainingLog {
             }
         });
         
+        // set total run count
+        recordInfo.setTotalRunCount(recordInfo.getRecordRuns().size());
+        
         // limit runs to 10
         while(recordInfo.getRecordRuns().size()>10) {
             recordInfo.getRecordRuns().remove(10);
