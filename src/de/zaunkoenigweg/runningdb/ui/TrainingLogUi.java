@@ -60,7 +60,6 @@ public class TrainingLogUi extends AbstractUi {
         dateFieldMonth.setDateFormat("MMMM yyyy");
         dateFieldMonth.setResolution(Resolution.MONTH);
         dateFieldMonth.setImmediate(true);
-        dateFieldMonth.setWidth("250px");
         dateFieldMonth.setValue(new Date());
 
         // change of month selection reloads training table and clears training details 

@@ -19,6 +19,56 @@
     }
   }
 
+  div.v-inline-datefield {
+    width: 366px;
+    background: none repeat scroll 0 0 $inlineDateFieldBorderColor;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    padding: 1px;
+    box-shadow: 2px 2px 5px $shadowColor;
+    margin: 5px; 
+    button.v-button-prevyear {
+      @include inlineDateFieldButton;
+      border-radius: 5px 0px 0px 5px;
+      margin: 0 1px 0 0;
+      background-image: url("../../de_zaunkoenigweg_runningdb/icons/inlinedate-prev-year.png");
+    }
+    button.v-button-prevmonth {
+      @include inlineDateFieldButton;
+      border-radius: 0;
+      margin: 0 1px 0 0;
+      background-image: url("../../de_zaunkoenigweg_runningdb/icons/inlinedate-prev-month.png");
+    }
+    span.v-inline-datefield-calendarpanel-month {
+      height: 28px;
+      width: 200px;
+      background: none repeat scroll 0 0 $inlineDateFieldBackgroundColor;
+      border-radius: 0;
+      border: none;
+      margin: 0 1px 0 0;
+      color: $inlineDateFieldTextColor;
+      text-transform:uppercase;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-shadow: none;
+      font-size: 12px;
+      padding: 0px;
+      line-height: 28px;
+    }
+    button.v-button-nextmonth {
+      @include inlineDateFieldButton;
+      background-image: url("../../de_zaunkoenigweg_runningdb/icons/inlinedate-next-month.png");
+      border-radius: 0;
+      margin: 0 1px 0 0;
+    }
+    button.v-button-nextyear {
+      @include inlineDateFieldButton;
+      background-image: url("../../de_zaunkoenigweg_runningdb/icons/inlinedate-next-year.png");
+      border-radius: 0px 5px 5px 0px;
+      margin: 0;
+    }
+  }
 }
 
 @mixin defaultDateField {
@@ -49,6 +99,14 @@
   height: 24px;
   margin-left: 3px;
   margin-top: 1px;
+}
+
+@mixin inlineDateFieldButton {
+  height: 28px;
+  width: 40px;
+  border: none;
+  padding: 0;
+  background: no-repeat scroll 12px 6px $inlineDateFieldBackgroundColor;
 }
 
 
