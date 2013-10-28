@@ -11,9 +11,11 @@ import org.json.JSONException;
 
 import com.vaadin.server.FileDownloader;
 import com.vaadin.server.StreamResource;
+import com.vaadin.server.ThemeResource;
 import com.vaadin.server.StreamResource.StreamSource;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.Image;
 import com.vaadin.ui.Layout;
 import com.vaadin.ui.Upload;
 import com.vaadin.ui.Upload.SucceededEvent;
@@ -38,8 +40,9 @@ public class DataUi extends AbstractUi {
         Layout layout = new FormLayout();
         setCompositionRoot(layout);
 
-        this.downloadButton = new Button("Trainingstagebuch als JSON herunterladen");
+        this.downloadButton = new Button("JSON Download");
         this.downloadButton.setStyleName("downloadTrainingLogButton");
+        this.downloadButton.setIcon(new ThemeResource("icons/download.png"));
         new FileDownloader(createJsonStreamResource()).extend(downloadButton);
         layout.addComponent(this.downloadButton);
         
@@ -55,7 +58,7 @@ public class DataUi extends AbstractUi {
             }
         });
         this.uploadButton.setImmediate(true);
-        this.uploadButton.setButtonCaption("Trainingstagebuch als JSON hochladen");
+        this.uploadButton.setButtonCaption("JSON Upload");
         this.uploadButton.addSucceededListener(new Upload.SucceededListener() {
             
             private static final long serialVersionUID = -2603785567269708936L;

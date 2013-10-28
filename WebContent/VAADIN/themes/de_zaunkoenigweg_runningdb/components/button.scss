@@ -31,24 +31,20 @@
 }
 
 @mixin defaultButton {
-  @include genericButton($buttonBackgroundColor, $buttonBorderColor, $buttonTextColor, $buttonShadowColor);
-}
-
-@mixin genericButton($backgroundColor, $borderColor, $textColor, $shadowColor) {
-  background: none repeat scroll 0 0 $backgroundColor;
+  background: none repeat scroll 0 0 $buttonBackgroundColor;
   height: 30px;
   width: 200px;
   border-radius: 5px;
-  border: 1px solid $borderColor;
+  border: 1px solid $buttonBorderColor;
   padding: 1px 0 0 0;
-  box-shadow: 2px 2px 5px $shadowColor;
+  box-shadow: 2px 2px 5px $buttonShadowColor;
   margin: 5px; 
 
   .v-button-wrap {
     background: none repeat scroll 0 0;
 
     .v-button-caption {
-      color: $textColor;
+      color: $buttonTextColor;
       text-transform:uppercase;
       font-weight: bold;
       letter-spacing: 1px;
@@ -61,13 +57,59 @@
 }
 
 @mixin downloadTrainingLogButton {
-  @include defaultButton;
-  width: 400px;
-  margin: 100px;
+  background: none repeat scroll 0 0 $buttonBackgroundColor;
+  width: 600px;
+  height: 190px;
+  margin: 75px 10px 10px 90px;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid $buttonBorderColor;
+  box-shadow: 2px 2px 5px $buttonShadowColor;
+
+  .v-button-wrap {
+    background: none repeat scroll 0 0;
+
+    img.v-icon {
+      margin-right: 50px;
+    }
+
+    .v-button-caption {
+      color: $buttonTextColor;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-shadow: none;
+      font-size: 36px;
+      line-height: 128px;
+    }
+
+  }
 }
 
 @mixin uploadTrainingLogButton {
-  @include defaultButton;
-  width: 400px;
-  margin: 100px;
+  background: $buttonBackgroundColor;
+  background-image: url("../icons/upload.png");
+  background-position: 60px 27px;
+  background-repeat: no-repeat;
+  width: 600px;
+  height: 190px;
+  margin: 75px 10px 10px 90px;
+  padding: 14px 0px 0px 125px;
+  border-radius: 5px;
+  border: 1px solid $buttonBorderColor;
+  box-shadow: 2px 2px 5px $buttonShadowColor;
+
+  .v-button-wrap {
+    background: none repeat scroll 0 0;
+
+    .v-button-caption {
+      color: $buttonTextColor;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-shadow: none;
+      font-size: 36px;
+      line-height: 128px;
+    }
+
+  }
 }
+
